@@ -9,7 +9,12 @@ A warm, single-page counselling website for Kelly Marie Counselling (Leeds). Pla
 - [ ] **Phone number** — replace `07700 000 000` placeholder in `index.html` (2 occurrences: contact section + footer)
 - [ ] **BACP membership number** — replace `No. 000000` placeholder in the footer badge
 - [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
-- [ ] **Custom domain** — add `kellymariecounselling.com` in Cloudflare Pages → Custom domains
+- [ ] **Custom domain** — `kellymariecounselling.com` is registered with Hostinger; DNS must move to Cloudflare (free) because Pages needs Cloudflare-hosted DNS for apex domains:
+  1. Cloudflare dashboard → **Add a site** → `kellymariecounselling.com` → Free plan
+  2. ⚠️ Before switching nameservers: check Cloudflare imported the **MX/TXT records** from Hostinger (kelly@kellymariecounselling.com is a mailbox — missing MX records break email *and* contact form deliveries). Copy any missing records manually from Hostinger's DNS zone.
+  3. Hostinger hPanel → Domains → `kellymariecounselling.com` → Change nameservers → paste the two Cloudflare nameservers
+  4. Wait for Cloudflare's activation email (usually <1 hour, up to 24)
+  5. Workers & Pages → project → **Custom domains** → add `kellymariecounselling.com` *and* `www.kellymariecounselling.com`
 
 ---
 
