@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kelly Marie Counselling | Leeds Psychotherapist</title>
+  <meta name="description" content="Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, couples, young persons, workplace, group and online therapy." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            forest: '#2d5016',
+            sage:   '#7a9e5a',
+            stone:  '#f5f0eb',
+            cream:  '#faf8f5',
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    /* Smooth scroll offset for sticky nav */
+    html { scroll-padding-top: 72px; }
+
+    /* Subtle card hover lift */
+    .service-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(45,80,22,0.12); }
+
+    /* Step connector line */
+    .step-connector { flex: 1; height: 2px; background: #7a9e5a; opacity: 0.4; margin-top: -1.5rem; }
+
+    /* Photo placeholder fallback */
+    .photo-placeholder { background: linear-gradient(135deg, #7a9e5a22 0%, #2d501622 100%); }
+
+    /* Mobile nav transition */
+    #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; }
+  </style>
+</head>
+
+<body class="font-sans bg-cream text-gray-800 antialiased">
+
+  <!-- ═══════════════════════════════════════════════
+       STICKY NAVIGATION
+  ════════════════════════════════════════════════ -->
+  <header class="sticky top-0 z-50 bg-cream border-b border-sage/30 shadow-sm">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-[72px]">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-2 group">
+          <span class="w-8 h-8 rounded-full bg-forest flex items-center justify-center flex-shrink-0">
+            <i data-lucide="leaf" class="text-cream w-4 h-4"></i>
+          </span>
+          <span class="font-serif text-forest text-lg font-semibold leading-tight">
+            Kelly Marie<br><span class="font-normal text-sm text-sage">Counselling</span>
+          </span>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about"    class="text-sm text-gray-600 hover:text-forest transition-colors">About</a>
+          <a href="#services" class="text-sm text-gray-600 hover:text-forest transition-colors">Services</a>
+          <a href="#approach" class="text-sm text-gray-600 hover:text-forest transition-colors">Approach</a>
+          <a href="#contact"  class="text-sm text-gray-600 hover:text-forest transition-colors">Contact</a>
+          <a href="#contact"  class="inline-flex items-center gap-1.5 bg-forest text-cream text-sm font-medium px-4 py-2 rounded-full hover:bg-sage transition-colors">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            Book a Call
+          </a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="nav-toggle" class="md:hidden p-2 rounded-lg text-forest hover:bg-stone transition-colors" aria-label="Toggle menu" aria-expanded="false">
+          <i data-lucide="menu" class="w-5 h-5" id="nav-icon"></i>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0">
+        <div class="py-4 space-y-1 border-t border-sage/20">
+          <a href="#about"    class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded-lg transition-colors mobile-link">About</a>
+          <a href="#services" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded-lg transition-colors mobile-link">Services</a>
+          <a href="#approach" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded-lg transition-colors mobile-link">Approach</a>
+          <a href="#contact"  class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded-lg transition-colors mobile-link">Contact</a>
+          <div class="pt-2">
+            <a href="#contact" class="inline-flex items-center gap-1.5 bg-forest text-cream text-sm font-medium px-5 py-2 rounded-full mobile-link">
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+              Book a Call
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HERO
+       UPDATE: Replace text + swap images/kelly-hero.jpg
+  ════════════════════════════════════════════════ -->
+  <section id="home" class="bg-stone min-h-[calc(100vh-72px)] flex items-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Text -->
+      <div class="order-2 md:order-1">
+        <span class="inline-block text-sage text-sm font-medium tracking-wider uppercase mb-4">
+          BACP Registered Psychotherapist · Leeds
+        </span>
+        <h1 class="font-serif text-forest text-5xl lg:text-6xl leading-tight mb-6">
+          A safe space<br><em>to be heard</em>
+        </h1>
+        <p class="text-gray-600 text-lg leading-relaxed mb-4">
+          Therapy is a courageous step. Whether you're navigating anxiety, relationship difficulties, grief, or simply feeling stuck — I offer warm, non-judgemental support tailored to you.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-8">
+          I work with individuals, couples, young people and organisations across Leeds and online, helping you find clarity, heal old wounds, and reconnect with who you really are.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-forest text-cream font-medium px-6 py-3 rounded-full hover:bg-sage transition-colors">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            Book a Free Consultation
+          </a>
+          <a href="#about" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded-full hover:bg-stone transition-colors">
+            Learn More
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo slot -->
+      <div class="order-1 md:order-2 flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <!-- Decorative circle -->
+          <div class="absolute -top-4 -right-4 w-full h-full rounded-full bg-sage/10 -z-10"></div>
+          <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-sage/10 photo-placeholder flex items-center justify-center relative">
+            <!-- REPLACE: add images/kelly-hero.jpg to show Kelly's portrait here -->
+            <img
+              src="images/kelly-hero.jpg"
+              alt="Kelly Marie — Leeds Psychotherapist"
+              class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            />
+            <div class="hidden flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center absolute inset-0">
+              <i data-lucide="user" class="w-16 h-16"></i>
+              <p class="text-sm font-medium">Add <code class="bg-sage/10 px-1 rounded">images/kelly-hero.jpg</code><br>to display your photo here</p>
+            </div>
+          </div>
+          <!-- Badge -->
+          <div class="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-2">
+            <span class="w-8 h-8 bg-sage/20 rounded-full flex items-center justify-center">
+              <i data-lucide="award" class="w-4 h-4 text-forest"></i>
+            </span>
+            <div class="leading-tight">
+              <div class="text-xs text-gray-500">Accredited</div>
+              <div class="text-sm font-semibold text-forest">BACP Member</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       ABOUT KELLY
+       UPDATE: Edit bio text + swap images/kelly-about.jpg
+  ════════════════════════════════════════════════ -->
+  <section id="about" class="bg-cream py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <!-- Photo slot -->
+        <div class="relative">
+          <div class="aspect-square rounded-2xl overflow-hidden photo-placeholder flex items-center justify-center">
+            <!-- REPLACE: add images/kelly-about.jpg -->
+            <img
+              src="images/kelly-about.jpg"
+              alt="Kelly Marie in her therapy room"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            />
+            <div class="hidden w-full h-full flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center">
+              <i data-lucide="image" class="w-12 h-12"></i>
+              <p class="text-sm font-medium">Add <code class="bg-sage/10 px-1 rounded">images/kelly-about.jpg</code></p>
+            </div>
+          </div>
+          <!-- Decorative element -->
+          <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-sage/15 -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-20 h-20 rounded-full bg-forest/10 -z-10"></div>
+        </div>
+
+        <!-- Text -->
+        <div>
+          <span class="text-sage text-sm font-medium tracking-wider uppercase">About Kelly</span>
+          <h2 class="font-serif text-forest text-4xl mt-2 mb-6">Trained to listen. <em>Here to help.</em></h2>
+
+          <p class="text-gray-600 leading-relaxed mb-4">
+            I'm Kelly Marie, a BACP-registered psychotherapist based in Leeds with over a decade of experience supporting people through life's most challenging moments.
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            My training spans person-centred, integrative and trauma-informed approaches, allowing me to work flexibly with each person I meet. I believe therapy should feel collaborative, warm and entirely free of judgement.
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-8">
+            I work from a private, comfortable therapy room in Leeds as well as online, and I offer appointments during evenings and weekends to fit around your life.
+          </p>
+
+          <!-- Credential badges -->
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center gap-2 bg-stone px-4 py-2.5 rounded-full">
+              <i data-lucide="award" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-medium text-forest">BACP Registered</span>
+            </div>
+            <div class="flex items-center gap-2 bg-stone px-4 py-2.5 rounded-full">
+              <i data-lucide="map-pin" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-medium text-forest">Based in Leeds</span>
+            </div>
+            <div class="flex items-center gap-2 bg-stone px-4 py-2.5 rounded-full">
+              <i data-lucide="clock" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-medium text-forest">10+ Years Experience</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SERVICES
+       UPDATE: Edit card titles, descriptions & session info
+  ════════════════════════════════════════════════ -->
+  <section id="services" class="bg-stone py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-sage text-sm font-medium tracking-wider uppercase">What I Offer</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">Services</h2>
+        <p class="text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
+          Every journey is different. I offer a range of therapy formats to meet you wherever you are.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Card: Individual -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="user" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Individual Therapy</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            One-to-one sessions tailored to your needs. Whether you're experiencing anxiety, depression, grief, trauma or life transitions — a safe, confidential space just for you.
+          </p>
+          <p class="text-xs text-sage font-medium">50 min sessions · In-person or online</p>
+        </div>
+
+        <!-- Card: Couples -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="heart" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Couples Therapy</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Rebuild connection and navigate conflict together. Couples therapy helps partners communicate more openly, heal ruptures and rediscover what brought them together.
+          </p>
+          <p class="text-xs text-sage font-medium">75 min sessions · In-person or online</p>
+        </div>
+
+        <!-- Card: Young Persons -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="sun" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Young Persons</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Specialist support for young people aged 11–18. Using age-appropriate creative and talk-based approaches to help young people feel understood and develop resilience.
+          </p>
+          <p class="text-xs text-sage font-medium">50 min sessions · In-person or online</p>
+        </div>
+
+        <!-- Card: Workplace -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="briefcase" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Workplace Wellbeing</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Counselling and wellbeing consultancy for organisations. Supporting employee mental health through EAP-style provision, stress management and leadership coaching.
+          </p>
+          <p class="text-xs text-sage font-medium">Flexible packages · On-site or remote</p>
+        </div>
+
+        <!-- Card: Group -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="users" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Group Therapy</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Structured group sessions that harness the healing power of shared experience. Groups for anxiety, grief and personal growth run regularly throughout the year.
+          </p>
+          <p class="text-xs text-sage font-medium">90 min sessions · Small groups (max 8)</p>
+        </div>
+
+        <!-- Card: Online -->
+        <div class="service-card bg-white rounded-2xl p-6 border-t-4 border-sage">
+          <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center mb-4">
+            <i data-lucide="monitor" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">Online Sessions</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            Secure, confidential therapy from the comfort of your own home — via video or phone. All service types are available online, offering maximum flexibility.
+          </p>
+          <p class="text-xs text-sage font-medium">All session lengths · UK-wide</p>
+        </div>
+
+      </div><!-- /grid -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       THERAPEUTIC APPROACH
+       UPDATE: Edit approach names and descriptions
+  ════════════════════════════════════════════════ -->
+  <section id="approach" class="bg-forest py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-sage text-sm font-medium tracking-wider uppercase">How I Work</span>
+        <h2 class="font-serif text-cream text-4xl mt-2">Therapeutic Approach</h2>
+        <p class="text-cream/70 mt-4 max-w-xl mx-auto leading-relaxed">
+          I draw from several evidence-based traditions, blending them thoughtfully to meet your unique needs.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Person-Centred -->
+        <div class="text-center px-4">
+          <div class="w-16 h-16 bg-cream/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i data-lucide="leaf" class="w-7 h-7 text-sage"></i>
+          </div>
+          <h3 class="font-serif text-cream text-xl mb-3">Person-Centred</h3>
+          <p class="text-cream/70 text-sm leading-relaxed">
+            You are the expert on your own life. Rooted in Carl Rogers' humanistic tradition, this approach places your values, strengths and lived experience at the heart of everything we do together.
+          </p>
+        </div>
+
+        <!-- Integrative -->
+        <div class="text-center px-4 border-x border-sage/20">
+          <div class="w-16 h-16 bg-cream/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i data-lucide="layers" class="w-7 h-7 text-sage"></i>
+          </div>
+          <h3 class="font-serif text-cream text-xl mb-3">Integrative</h3>
+          <p class="text-cream/70 text-sm leading-relaxed">
+            No single theory fits every person. I weave together elements of CBT, psychodynamic thinking and mindfulness-based practice, tailoring the approach to what works best for you.
+          </p>
+        </div>
+
+        <!-- Trauma-Informed -->
+        <div class="text-center px-4">
+          <div class="w-16 h-16 bg-cream/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i data-lucide="shield" class="w-7 h-7 text-sage"></i>
+          </div>
+          <h3 class="font-serif text-cream text-xl mb-3">Trauma-Informed</h3>
+          <p class="text-cream/70 text-sm leading-relaxed">
+            Recognising how past experiences shape present-day responses, I work at your pace, creating the safety needed to gently explore and begin to heal trauma without ever overwhelming you.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Quote -->
+      <div class="mt-16 text-center">
+        <blockquote class="font-serif italic text-cream/80 text-xl max-w-2xl mx-auto leading-relaxed">
+          "The curious paradox is that when I accept myself just as I am, then I can change."
+        </blockquote>
+        <cite class="text-sage text-sm mt-3 block not-italic">— Carl Rogers</cite>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HOW IT WORKS
+       UPDATE: Edit step labels and descriptions
+  ════════════════════════════════════════════════ -->
+  <section class="bg-stone py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-sage text-sm font-medium tracking-wider uppercase">Getting Started</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">How It Works</h2>
+        <p class="text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
+          Taking the first step can feel daunting. Here's what to expect when you reach out.
+        </p>
+      </div>
+
+      <!-- Steps — desktop: horizontal, mobile: vertical -->
+      <div class="hidden md:flex items-start gap-0">
+
+        <!-- Step 1 -->
+        <div class="flex-1 text-center px-4">
+          <div class="w-14 h-14 bg-sage text-cream rounded-full flex items-center justify-center mx-auto mb-4 font-serif text-xl font-semibold shadow-md">1</div>
+          <h3 class="font-serif text-forest text-lg mb-2">Get in Touch</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Send me a message using the contact form below or drop me an email. No pressure, no commitment.</p>
+        </div>
+
+        <!-- Connector -->
+        <div class="step-connector mt-7"></div>
+
+        <!-- Step 2 -->
+        <div class="flex-1 text-center px-4">
+          <div class="w-14 h-14 bg-sage text-cream rounded-full flex items-center justify-center mx-auto mb-4 font-serif text-xl font-semibold shadow-md">2</div>
+          <h3 class="font-serif text-forest text-lg mb-2">Free Consultation</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">We'll arrange a free 20-minute call to talk through what you're looking for and whether we might be a good fit.</p>
+        </div>
+
+        <!-- Connector -->
+        <div class="step-connector mt-7"></div>
+
+        <!-- Step 3 -->
+        <div class="flex-1 text-center px-4">
+          <div class="w-14 h-14 bg-sage text-cream rounded-full flex items-center justify-center mx-auto mb-4 font-serif text-xl font-semibold shadow-md">3</div>
+          <h3 class="font-serif text-forest text-lg mb-2">Begin Your Journey</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">If you're happy to proceed, we'll book your first session and begin working together at a pace that feels right for you.</p>
+        </div>
+
+      </div>
+
+      <!-- Steps — mobile: vertical -->
+      <div class="md:hidden space-y-8">
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-sage text-cream rounded-full flex items-center justify-center flex-shrink-0 font-serif text-lg font-semibold shadow-md">1</div>
+          <div>
+            <h3 class="font-serif text-forest text-lg mb-1">Get in Touch</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Send me a message using the contact form below or drop me an email. No pressure, no commitment.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-sage text-cream rounded-full flex items-center justify-center flex-shrink-0 font-serif text-lg font-semibold shadow-md">2</div>
+          <div>
+            <h3 class="font-serif text-forest text-lg mb-1">Free Consultation</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">We'll arrange a free 20-minute call to talk through what you're looking for and whether we might be a good fit.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-sage text-cream rounded-full flex items-center justify-center flex-shrink-0 font-serif text-lg font-semibold shadow-md">3</div>
+          <div>
+            <h3 class="font-serif text-forest text-lg mb-1">Begin Your Journey</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">If you're happy to proceed, we'll book your first session and begin working together at a pace that feels right for you.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       CONTACT
+       UPDATE: Replace YOUR_FORM_ID with Formspree endpoint
+               Edit phone, email, location details
+  ════════════════════════════════════════════════ -->
+  <section id="contact" class="bg-cream py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-sage text-sm font-medium tracking-wider uppercase">Get in Touch</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">Ready to take the first step?</h2>
+        <p class="text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
+          Fill in the form below and I'll get back to you within one working day. All enquiries are completely confidential.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+
+        <!-- Contact info -->
+        <div>
+          <div class="space-y-6 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="mail" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-forest mb-0.5">Email</div>
+                <!-- UPDATE: Replace with real email address -->
+                <a href="mailto:hello@kellymarie-counselling.co.uk" class="text-gray-600 hover:text-forest transition-colors">hello@kellymarie-counselling.co.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="phone" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-forest mb-0.5">Phone</div>
+                <!-- UPDATE: Replace with real phone number -->
+                <a href="tel:+447700000000" class="text-gray-600 hover:text-forest transition-colors">07700 000 000</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="map-pin" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-forest mb-0.5">Location</div>
+                <!-- UPDATE: Replace with real address -->
+                <p class="text-gray-600">Leeds, West Yorkshire<br><span class="text-sm text-gray-500">Exact address provided on booking</span></p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage/15 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="clock" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-forest mb-0.5">Availability</div>
+                <p class="text-gray-600">Mon–Fri: 9am–8pm<br>Sat: 9am–1pm</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warm note -->
+          <div class="bg-stone rounded-2xl p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="message-circle" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-medium text-forest">A note from Kelly</span>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed italic">
+              "I know reaching out can feel like the hardest part. There's no rush, and you don't need to have the right words. Just say hello — I'll take it from there."
+            </p>
+          </div>
+        </div>
+
+        <!-- Formspree form -->
+        <!-- UPDATE: Replace YOUR_FORM_ID with your Formspree form ID -->
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          class="bg-white rounded-2xl shadow-sm p-8 space-y-5"
+        >
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-forest mb-1.5">Full Name <span class="text-sage">*</span></label>
+              <input type="text" id="name" name="name" required
+                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+                placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-forest mb-1.5">Email Address <span class="text-sage">*</span></label>
+              <input type="email" id="email" name="email" required
+                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+                placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-medium text-forest mb-1.5">Phone <span class="text-gray-400 font-normal">(optional)</span></label>
+            <input type="tel" id="phone" name="phone"
+              class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+              placeholder="07700 000 000" />
+          </div>
+
+          <div>
+            <label for="service" class="block text-sm font-medium text-forest mb-1.5">Interested in…</label>
+            <select id="service" name="service"
+              class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors">
+              <option value="">Select a service (optional)</option>
+              <option>Individual Therapy</option>
+              <option>Couples Therapy</option>
+              <option>Young Persons Therapy</option>
+              <option>Workplace Wellbeing</option>
+              <option>Group Therapy</option>
+              <option>Online Sessions</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-forest mb-1.5">Message <span class="text-sage">*</span></label>
+            <textarea id="message" name="message" rows="5" required
+              class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors resize-none"
+              placeholder="Tell me a little about what's brought you here — or simply say hello. There's no right or wrong thing to write."></textarea>
+          </div>
+
+          <div>
+            <label for="heard" class="block text-sm font-medium text-forest mb-1.5">How did you hear about me?</label>
+            <select id="heard" name="heard_about"
+              class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors">
+              <option value="">Please select (optional)</option>
+              <option>Google / web search</option>
+              <option>Psychology Today</option>
+              <option>BACP directory</option>
+              <option>Word of mouth / referral</option>
+              <option>Social media</option>
+              <option>GP / healthcare professional</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- Consent checkbox -->
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" name="consent" required
+              class="mt-0.5 w-4 h-4 accent-forest rounded flex-shrink-0" />
+            <span class="text-xs text-gray-500 leading-relaxed">
+              I consent to Kelly Marie Counselling storing my details to respond to my enquiry. Your information will never be shared with third parties and will be held in line with GDPR.
+            </span>
+          </label>
+
+          <button type="submit" id="submit-btn"
+            class="w-full bg-forest text-cream font-medium py-3.5 rounded-xl hover:bg-sage transition-colors flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            Send Message
+          </button>
+
+          <!-- Status messages -->
+          <div id="form-success" class="hidden text-center py-3 px-4 bg-sage/15 rounded-xl">
+            <p class="text-forest text-sm font-medium">Thank you — message received!</p>
+            <p class="text-gray-600 text-xs mt-1">I'll be in touch within one working day.</p>
+          </div>
+          <div id="form-error" class="hidden text-center py-3 px-4 bg-red-50 rounded-xl">
+            <p class="text-red-700 text-sm font-medium">Something went wrong.</p>
+            <p class="text-gray-600 text-xs mt-1">Please try again or email me directly.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+       UPDATE: Edit links, social profiles, registration number
+  ════════════════════════════════════════════════ -->
+  <footer class="bg-forest text-cream py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid md:grid-cols-3 gap-10 pb-10 border-b border-cream/10">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-8 h-8 rounded-full bg-cream/10 flex items-center justify-center">
+              <i data-lucide="leaf" class="text-sage w-4 h-4"></i>
+            </span>
+            <span class="font-serif text-cream text-lg">Kelly Marie Counselling</span>
+          </div>
+          <p class="text-cream/60 text-sm leading-relaxed mb-4">
+            BACP-registered psychotherapy and counselling in Leeds and online.
+          </p>
+          <!-- BACP badge -->
+          <div class="inline-flex items-center gap-2 bg-cream/10 rounded-lg px-3 py-2">
+            <i data-lucide="award" class="w-4 h-4 text-sage"></i>
+            <div class="text-xs leading-tight">
+              <div class="text-cream font-medium">BACP Registered Member</div>
+              <!-- UPDATE: Replace with real BACP membership number -->
+              <div class="text-cream/50">No. 000000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <h4 class="font-serif text-cream text-base mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="#about"    class="text-cream/60 hover:text-sage text-sm transition-colors">About Kelly</a></li>
+            <li><a href="#services" class="text-cream/60 hover:text-sage text-sm transition-colors">Services</a></li>
+            <li><a href="#approach" class="text-cream/60 hover:text-sage text-sm transition-colors">Therapeutic Approach</a></li>
+            <li><a href="#contact"  class="text-cream/60 hover:text-sage text-sm transition-colors">Contact &amp; Book</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-serif text-cream text-base mb-4">Contact</h4>
+          <ul class="space-y-2.5">
+            <!-- UPDATE: Replace with real email -->
+            <li class="flex items-center gap-2 text-cream/60 text-sm">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-sage"></i>
+              <a href="mailto:hello@kellymarie-counselling.co.uk" class="hover:text-sage transition-colors">hello@kellymarie-counselling.co.uk</a>
+            </li>
+            <!-- UPDATE: Replace with real phone -->
+            <li class="flex items-center gap-2 text-cream/60 text-sm">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-sage"></i>
+              <a href="tel:+447700000000" class="hover:text-sage transition-colors">07700 000 000</a>
+            </li>
+            <li class="flex items-center gap-2 text-cream/60 text-sm">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage"></i>
+              <span>Leeds, West Yorkshire</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/40">
+        <p>&copy; <span id="year"></span> Kelly Marie Counselling. All rights reserved.</p>
+        <p>Designed with care in Leeds</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════════ -->
+  <script>
+    // Initialise Lucide icons
+    lucide.createIcons();
+
+    // Auto-update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Mobile nav toggle ──────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navIcon    = document.getElementById('nav-icon');
+    let menuOpen = false;
+
+    navToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      navToggle.setAttribute('aria-expanded', menuOpen);
+      if (menuOpen) {
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        mobileMenu.style.opacity  = '1';
+        navIcon.setAttribute('data-lucide', 'x');
+      } else {
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity   = '0';
+        navIcon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    });
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity   = '0';
+        navIcon.setAttribute('data-lucide', 'menu');
+        navToggle.setAttribute('aria-expanded', 'false');
+        lucide.createIcons();
+      });
+    });
+
+    // ── Formspree async submission ─────────────────
+    const form       = document.getElementById('contact-form');
+    const submitBtn  = document.getElementById('submit-btn');
+    const successMsg = document.getElementById('form-success');
+    const errorMsg   = document.getElementById('form-error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Don't submit if endpoint is still placeholder
+      if (form.action.includes('YOUR_FORM_ID')) {
+        errorMsg.classList.remove('hidden');
+        errorMsg.querySelector('p').textContent = 'Contact form not yet configured — see README.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Sending…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body:   new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          form.reset();
+          successMsg.classList.remove('hidden');
+          errorMsg.classList.add('hidden');
+          submitBtn.style.display = 'none';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        errorMsg.classList.remove('hidden');
+        successMsg.classList.add('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Send Message';
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+</body>
+</html>
