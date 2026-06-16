@@ -6,15 +6,50 @@ A warm, single-page counselling website for Kelly Marie Counselling (Leeds). Pla
 
 ## TODO
 
-- [ ] **Phone number** — replace `07700 000 000` placeholder in `index.html` (2 occurrences: contact section + footer)
+- [ ] **Phone number** — removed from the site for now; re-add to the contact section and footer when a number is available
 - [ ] **BACP membership number** — replace `No. 000000` placeholder in the footer badge
 - [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
-- [ ] **Custom domain** — `kellymariecounselling.com` is registered with Hostinger; DNS must move to Cloudflare (free) because Pages needs Cloudflare-hosted DNS for apex domains:
-  1. Cloudflare dashboard → **Add a site** → `kellymariecounselling.com` → Free plan
-  2. ⚠️ Before switching nameservers: check Cloudflare imported the **MX/TXT records** from Hostinger (kelly@kellymariecounselling.com is a mailbox — missing MX records break email *and* contact form deliveries). Copy any missing records manually from Hostinger's DNS zone.
-  3. Hostinger hPanel → Domains → `kellymariecounselling.com` → Change nameservers → paste the two Cloudflare nameservers
-  4. Wait for Cloudflare's activation email (usually <1 hour, up to 24)
-  5. Workers & Pages → project → **Custom domains** → add `kellymariecounselling.com` *and* `www.kellymariecounselling.com`
+- [ ] **Custom domain** — point `kellymariecounselling.com` at this Cloudflare Pages site (see migration steps below)
+
+---
+
+## Custom domain migration (Hostinger → Cloudflare)
+
+`kellymariecounselling.com` is **registered** with Hostinger and that does not change. We move only **DNS management** to Cloudflare, because Cloudflare Pages needs Cloudflare-hosted DNS to serve an apex (no-`www`) domain.
+
+### Steps
+
+1. Cloudflare dashboard → **+ Add → Connect a domain** → enter `kellymariecounselling.com` → **Free** plan. Cloudflare scans and imports the existing Hostinger records.
+2. **⚠️ Verify the email records below survived the import** before doing anything else. If any are missing, add them manually. Missing MX/SPF/DKIM records break email *and* the contact-form deliveries to kelly@kellymariecounselling.com.
+3. Replace the two **website** records (see table) so they point at Pages instead of the old Hostinger site.
+4. Hostinger hPanel → Domains → `kellymariecounselling.com` → Nameservers → switch to **Custom** and paste the two Cloudflare nameservers shown in the dashboard.
+5. Wait for Cloudflare's activation email (usually <1 hour, up to 24).
+6. Workers & Pages → this project → **Custom domains** → add `kellymariecounselling.com` *and* `www.kellymariecounselling.com`.
+
+> **Reversible:** if anything breaks, set the Hostinger nameservers back to their originals and you return to today's setup within ~1 hour.
+
+### EMAIL records — KEEP (must exist in Cloudflare, all set to "DNS only" / grey cloud)
+
+| Type  | Name                          | Value                                          | Priority |
+|-------|-------------------------------|------------------------------------------------|----------|
+| MX    | `@`                           | `mx1.hostinger.com`                            | 5        |
+| MX    | `@`                           | `mx2.hostinger.com`                            | 10       |
+| TXT   | `@`                           | `v=spf1 include:_spf.mail.hostinger.com ~all`  | —        |
+| TXT   | `_dmarc`                      | `v=DMARC1; p=none`                             | —        |
+| CNAME | `hostingermail-a._domainkey`  | `hostingermail-a.dkim.mail.hostinger.com`      | —        |
+| CNAME | `hostingermail-b._domainkey`  | `hostingermail-b.dkim.mail.hostinger.com`      | —        |
+| CNAME | `hostingermail-c._domainkey`  | `hostingermail-c.dkim.mail.hostinger.com`      | —        |
+| CNAME | `autodiscover`                | `autodiscover.mail.hostinger.com`              | —        |
+| CNAME | `autoconfig`                  | `autoconfig.mail.hostinger.com`                | —        |
+
+### WEBSITE records — REPLACE (these currently point at the old Hostinger site)
+
+Delete these two if they import; the Pages custom-domain step (6) recreates the correct proxied records automatically:
+
+| Type  | Name  | Old Hostinger value                              |
+|-------|-------|--------------------------------------------------|
+| ALIAS | `@`   | `kellymariecounselling.com.cdn.hstgr.net`        |
+| CNAME | `www` | `www.kellymariecounselling.com.cdn.hstgr.net`    |
 
 ---
 
