@@ -58,19 +58,18 @@
         <!-- Logo -->
         <a href="#home" class="flex items-center gap-2.5 group">
           <span class="w-8 h-8 rounded-full bg-forest flex items-center justify-center flex-shrink-0">
-            <i data-lucide="leaf" class="text-sage w-4 h-4"></i>
+            <i data-lucide="{{ content.header.logoIcon }}" class="text-sage w-4 h-4"></i>
           </span>
           <span class="font-serif text-forest text-lg font-semibold leading-tight">
-            Kelly Marie<br><span class="font-normal text-sm text-sage">Counselling</span>
+            {{ content.header.logoLine1 }}<br><span class="font-normal text-sm text-sage">{{ content.header.logoLine2 }}</span>
           </span>
         </a>
 
         <!-- Desktop links -->
         <div class="hidden md:flex items-center gap-8">
-          <a href="#about"    class="text-sm text-gray-600 hover:text-forest transition-colors">About</a>
-          <a href="#services" class="text-sm text-gray-600 hover:text-forest transition-colors">Services</a>
-          <a href="#approach" class="text-sm text-gray-600 hover:text-forest transition-colors">Our Approach</a>
-          <a href="#contact"  class="text-sm text-gray-600 hover:text-forest transition-colors">Contact</a>
+          {% for link in content.nav %}
+          <a href="#{{ link.anchor }}" class="text-sm text-gray-600 hover:text-forest transition-colors">{{ link.label }}</a>
+          {% endfor %}
           <a href="#contact" class="inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded hover:bg-sage transition-colors">
             <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
             {{ content.hero.primaryButton }}
@@ -86,10 +85,9 @@
       <!-- Mobile menu -->
       <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0">
         <div class="py-4 space-y-1 border-t border-gray-100">
-          <a href="#about"    class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">About</a>
-          <a href="#services" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">Services</a>
-          <a href="#approach" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">Our Approach</a>
-          <a href="#contact"  class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">Contact</a>
+          {% for link in content.nav %}
+          <a href="#{{ link.anchor }}" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">{{ link.label }}</a>
+          {% endfor %}
           <div class="pt-2">
             <a href="#contact" class="inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded mobile-link">
               <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
@@ -166,7 +164,13 @@
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════ ABOUT KELLY ═══════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════
+       SECTIONS — order controlled by content.sectionOrder
+  ════════════════════════════════════════════════ -->
+  {% for sectionName in content.sectionOrder %}
+
+  {% if sectionName == "about" %}
+  <!-- ═══ ABOUT KELLY ═══ -->
   <section id="about" class="bg-white py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -220,8 +224,8 @@
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════ SERVICES ═══════════════════════════════════════════════ -->
+  {% elif sectionName == "services" %}
+  <!-- ═══ SERVICES ═══ -->
   <section id="services" class="bg-stone py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -251,8 +255,8 @@
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════ THERAPEUTIC APPROACH ═══════════════════════════════════════════════ -->
+  {% elif sectionName == "approach" %}
+  <!-- ═══ THERAPEUTIC APPROACH ═══ -->
   <section id="approach" class="bg-forest py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -290,9 +294,9 @@
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════ THE PROCESS ═══════════════════════════════════════════════ -->
-  <section class="bg-stone py-24">
+  {% elif sectionName == "process" %}
+  <!-- ═══ THE PROCESS ═══ -->
+  <section id="process" class="bg-stone py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <div class="mb-16">
@@ -332,8 +336,8 @@
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════════ CONTACT ═══════════════════════════════════════════════ -->
+  {% elif sectionName == "contact" %}
+  <!-- ═══ CONTACT ═══ -->
   <section id="contact" class="bg-white py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -485,6 +489,9 @@
     </div>
   </section>
 
+  {% endif %}
+  {% endfor %}
+
 
   <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
   <footer class="bg-forest text-white py-12">
@@ -496,9 +503,9 @@
         <div>
           <div class="flex items-center gap-2 mb-4">
             <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-              <i data-lucide="leaf" class="text-sage w-4 h-4"></i>
+              <i data-lucide="{{ content.header.logoIcon }}" class="text-sage w-4 h-4"></i>
             </span>
-            <span class="font-serif text-white text-lg">Kelly Marie Counselling</span>
+            <span class="font-serif text-white text-lg">{{ content.header.logoLine1 }} {{ content.header.logoLine2 }}</span>
           </div>
           <p class="text-white/50 text-sm leading-relaxed mb-4">
             {{ content.footer.tagline }}
@@ -517,10 +524,9 @@
         <div>
           <h4 class="font-serif text-white text-base mb-4">Quick Links</h4>
           <ul class="space-y-2">
-            <li><a href="#about"    class="text-white/50 hover:text-sage text-sm transition-colors">About Kelly</a></li>
-            <li><a href="#services" class="text-white/50 hover:text-sage text-sm transition-colors">Services</a></li>
-            <li><a href="#approach" class="text-white/50 hover:text-sage text-sm transition-colors">Our Approach</a></li>
-            <li><a href="#contact"  class="text-white/50 hover:text-sage text-sm transition-colors">Contact &amp; Enquiries</a></li>
+            {% for link in content.nav %}
+            <li><a href="#{{ link.anchor }}" class="text-white/50 hover:text-sage text-sm transition-colors">{{ link.label }}</a></li>
+            {% endfor %}
           </ul>
         </div>
 
@@ -543,7 +549,7 @@
 
       <!-- Bottom bar -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
-        <p>&copy; <span id="year"></span> Kelly Marie Counselling. All rights reserved.</p>
+        <p>&copy; <span id="year"></span> {{ content.header.logoLine1 }} {{ content.header.logoLine2 }}. All rights reserved.</p>
         <p>All client information treated in strict confidence in accordance with BACP ethical guidelines.</p>
       </div>
 

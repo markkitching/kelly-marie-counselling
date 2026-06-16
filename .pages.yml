@@ -17,6 +17,35 @@ content:
           - { name: description, label: Search-engine description, type: text }
           - { name: formspreeEndpoint, label: Contact form address (Formspree), type: string }
 
+      - name: header
+        label: Header / logo
+        type: object
+        fields:
+          - name: logoIcon
+            label: Logo icon
+            type: select
+            options:
+              values: [leaf, heart, star, award, shield, sun, moon, feather, compass, home, anchor, activity, layers, zap, globe]
+          - { name: logoLine1, label: Logo — first line, type: string }
+          - { name: logoLine2, label: Logo — second line, type: string }
+
+      - name: nav
+        label: Navigation links (drag to reorder)
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Link text, type: string }
+          - name: anchor
+            label: Links to section
+            type: select
+            options:
+              values: [about, services, approach, process, contact]
+
+      - name: sectionOrder
+        label: Section order (drag to reorder)
+        type: string
+        list: true
+
       - name: hero
         label: Top section (hero)
         type: object
@@ -50,7 +79,7 @@ content:
                 label: Icon
                 type: select
                 options:
-                  values: [award, map-pin, clock, shield, heart, star, check]
+                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
               - { name: label, label: Text, type: string }
 
       - name: services
@@ -69,7 +98,7 @@ content:
                 label: Icon
                 type: select
                 options:
-                  values: [user, heart, sun, briefcase, users, monitor, shield, brain, layers]
+                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
               - { name: title, label: Title, type: string }
               - { name: description, label: Description, type: text }
               - { name: meta, label: Footer line (duration / format), type: string }
@@ -90,7 +119,7 @@ content:
                 label: Icon
                 type: select
                 options:
-                  values: [brain, layers, shield, heart, leaf, user]
+                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
               - { name: title, label: Title, type: string }
               - { name: description, label: Description, type: text }
           - { name: quote, label: Closing quote, type: text }

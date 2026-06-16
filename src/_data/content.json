@@ -4,6 +4,18 @@
     "description": "Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, couples, young persons, workplace, group and online therapy.",
     "formspreeEndpoint": "https://formspree.io/f/mwvjrpyo"
   },
+  "header": {
+    "logoIcon": "leaf",
+    "logoLine1": "Kelly Marie",
+    "logoLine2": "Counselling"
+  },
+  "nav": [
+    { "label": "About", "anchor": "about" },
+    { "label": "Services", "anchor": "services" },
+    { "label": "Our Approach", "anchor": "approach" },
+    { "label": "Contact", "anchor": "contact" }
+  ],
+  "sectionOrder": ["about", "services", "approach", "process", "contact"],
   "hero": {
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
     "headingLead": "Professional support",
