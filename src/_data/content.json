@@ -1,0 +1,132 @@
+{
+  "site": {
+    "title": "Kelly Marie Counselling | Leeds Psychotherapist",
+    "description": "Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, couples, young persons, workplace, group and online therapy.",
+    "formspreeEndpoint": "https://formspree.io/f/mwvjrpyo"
+  },
+  "hero": {
+    "eyebrow": "BACP Registered Psychotherapist · Leeds",
+    "headingLead": "Professional support",
+    "headingEmphasis": "when it matters most",
+    "paragraph1": "Evidence-based psychotherapy and counselling for individuals, couples, young people and organisations — delivered in confidence, in Leeds and online.",
+    "paragraph2": "Whether you are facing anxiety, depression, relationship difficulties, trauma or a significant life transition, I provide structured clinical support grounded in psychodynamic and integrative practice.",
+    "primaryButton": "Request a Consultation",
+    "secondaryButton": "View Services",
+    "image": "/images/kelly-hero.jpg"
+  },
+  "about": {
+    "eyebrow": "About Kelly",
+    "headingLead": "Qualified. Experienced.",
+    "headingEmphasis": "Here to help.",
+    "paragraph1": "I'm Kelly Marie, a BACP-registered psychotherapist based in Leeds with over a decade of clinical experience working with individuals, couples, young people and organisations.",
+    "paragraph2": "My practice is grounded in psychodynamic theory — drawing on how early relational experiences and unconscious patterns shape our present-day emotional lives. Working alongside integrative and trauma-informed approaches, I offer a thoughtful, evidence-based service tailored to your clinical needs.",
+    "paragraph3": "I work from a private therapy room in Leeds and online, with appointments available during evenings and weekends to accommodate professional and personal schedules.",
+    "image": "/images/kelly-about.jpg",
+    "badges": [
+      { "icon": "award", "label": "BACP Registered" },
+      { "icon": "map-pin", "label": "Based in Leeds" },
+      { "icon": "clock", "label": "10+ Years Experience" }
+    ]
+  },
+  "services": {
+    "eyebrow": "Clinical Services",
+    "heading": "How I Can Help",
+    "intro": "A structured range of therapy formats for individuals, couples, young people and organisations.",
+    "cards": [
+      {
+        "icon": "user",
+        "title": "Individual Therapy",
+        "description": "Structured one-to-one therapy addressing anxiety, depression, trauma, grief and life transitions. Sessions are grounded in psychodynamic and integrative practice, tailored to your clinical presentation.",
+        "meta": "50 min · In-person or remote"
+      },
+      {
+        "icon": "heart",
+        "title": "Couples Therapy",
+        "description": "Therapeutic support for couples navigating conflict, communication breakdown or relational difficulty. Building mutual understanding and developing more constructive patterns of interaction.",
+        "meta": "75 min · In-person or remote"
+      },
+      {
+        "icon": "sun",
+        "title": "Young Persons",
+        "description": "Specialist therapeutic support for young people aged 11–18, drawing on age-appropriate talk and creative approaches to build emotional resilience and self-understanding.",
+        "meta": "50 min · In-person or remote"
+      },
+      {
+        "icon": "briefcase",
+        "title": "Workplace Wellbeing",
+        "description": "Confidential therapeutic support and wellbeing consultancy for organisations. Employee assistance, stress management programmes and leadership resilience — delivered on-site or remotely.",
+        "meta": "Flexible packages · On-site or remote"
+      },
+      {
+        "icon": "users",
+        "title": "Group Therapy",
+        "description": "Structured group therapy programmes harnessing the therapeutic value of shared experience. Facilitated groups for anxiety, grief and personal development run throughout the year.",
+        "meta": "90 min · Small groups (max 8)"
+      },
+      {
+        "icon": "monitor",
+        "title": "Remote Sessions",
+        "description": "Secure, confidential therapy delivered via encrypted video or telephone platforms. All service formats are available remotely, offering full flexibility without compromising clinical quality.",
+        "meta": "All session lengths · UK-wide"
+      }
+    ]
+  },
+  "approach": {
+    "eyebrow": "Methodology",
+    "heading": "Therapeutic Approach",
+    "intro": "Grounded in evidence-based practice, I draw from several clinical traditions to provide the most effective support for your individual presentation.",
+    "items": [
+      {
+        "icon": "brain",
+        "title": "Psychodynamic",
+        "description": "Grounded in the understanding that present difficulties are shaped by unconscious processes and early relational experiences. Psychodynamic therapy creates space to explore patterns, defences and emotional histories that may be driving current distress."
+      },
+      {
+        "icon": "layers",
+        "title": "Integrative",
+        "description": "Drawing on CBT, humanistic and systemic frameworks alongside the psychodynamic foundation, I tailor the clinical approach to what the evidence and your individual presentation calls for — not a single rigid model."
+      },
+      {
+        "icon": "shield",
+        "title": "Trauma-Informed",
+        "description": "Specialist training in trauma ensures sessions are conducted with safety, sensitivity and clinical rigour. Work proceeds at your pace, with careful attention to the impact of traumatic experience on the nervous system and relational patterns."
+      }
+    ],
+    "quote": "\"Out of your vulnerabilities will come your strength.\"",
+    "quoteAuthor": "— Sigmund Freud"
+  },
+  "process": {
+    "eyebrow": "Getting Started",
+    "heading": "The Process",
+    "intro": "A clear, confidential pathway from initial contact to beginning therapy.",
+    "steps": [
+      {
+        "title": "Initial Enquiry",
+        "description": "Submit the contact form or call directly. All enquiries are treated with full discretion and responded to within one business day."
+      },
+      {
+        "title": "Complimentary Consultation",
+        "description": "A free 20-minute call to discuss your needs, ask questions, and establish whether I am the right clinician for your situation."
+      },
+      {
+        "title": "Begin Treatment",
+        "description": "Sessions commence at a schedule that suits you. Progress is reviewed regularly to keep the work goal-directed and clinically effective."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact & Enquiries",
+    "heading": "Make an Enquiry",
+    "intro": "Complete the form below and I will respond within one working day. All enquiries are strictly confidential.",
+    "email": "kelly@kellymariecounselling.com",
+    "locationLine1": "Leeds, West Yorkshire",
+    "locationLine2": "Exact address provided on booking",
+    "availability": "No availability right now, but please do still get in touch. Availability changes often.",
+    "confidentialityTitle": "Confidential & Discreet",
+    "confidentialityText": "All enquiries are handled with complete discretion. You are not obliged to share anything before you are ready — a name and a brief message is sufficient to begin."
+  },
+  "footer": {
+    "tagline": "BACP-registered psychotherapy and counselling in Leeds and online.",
+    "bacpNumber": "No. 000000"
+  }
+}
