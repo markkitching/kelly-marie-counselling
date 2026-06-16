@@ -9,7 +9,7 @@ A warm, single-page counselling website for Kelly Marie Counselling (Leeds). Pla
 - [ ] **Phone number** — removed from the site for now; re-add to the contact section and footer when a number is available
 - [ ] **BACP membership number** — replace `No. 000000` placeholder in the footer badge
 - [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
-- [ ] **Custom domain** — point `kellymariecounselling.com` at this Cloudflare Pages site (see migration steps below)
+- [x] **Custom domain** — `kellymariecounselling.com` live on Cloudflare Pages ✓
 
 ---
 
