@@ -1,0 +1,13 @@
+{
+  "name": "kelly-marie-counselling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website for Kelly Marie Counselling — built with Eleventy, edited via Pages CMS.",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
