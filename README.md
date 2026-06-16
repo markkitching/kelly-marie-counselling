@@ -28,7 +28,7 @@ A warm, single-page counselling website for Kelly Marie Counselling (Leeds). Pla
 
 > **Reversible:** if anything breaks, set the Hostinger nameservers back to their originals and you return to today's setup within ~1 hour.
 
-### EMAIL records — KEEP (must exist in Cloudflare, all set to "DNS only" / grey cloud)
+### EMAIL records — KEEP (all must be "DNS only" / grey cloud)
 
 | Type  | Name                          | Value                                          | Priority |
 |-------|-------------------------------|------------------------------------------------|----------|
@@ -42,13 +42,18 @@ A warm, single-page counselling website for Kelly Marie Counselling (Leeds). Pla
 | CNAME | `autodiscover`                | `autodiscover.mail.hostinger.com`              | —        |
 | CNAME | `autoconfig`                  | `autoconfig.mail.hostinger.com`                | —        |
 
-### WEBSITE records — REPLACE (these currently point at the old Hostinger site)
+> **⚠️ Known import gotcha:** Cloudflare imports the MX and TXT rows correctly as "DNS only," but sets the **5 mail CNAMEs** (3× `hostingermail-*._domainkey`, `autodiscover`, `autoconfig`) to **Proxied (orange cloud)**. This breaks DKIM signing and mail-client auto-setup. Edit each of the 5 and toggle the proxy **off** so it shows grey **"DNS only."** Only website records should be proxied/orange.
 
-Delete these two if they import; the Pages custom-domain step (6) recreates the correct proxied records automatically:
+### WEBSITE records — REPLACE (these point at the old Hostinger site)
 
-| Type  | Name  | Old Hostinger value                              |
+Cloudflare resolves the old Hostinger `ALIAS @` into real server A/AAAA records on import. Delete all of the following; the Pages custom-domain step (6) recreates the correct proxied records automatically:
+
+| Type  | Name  | Old Hostinger value (delete)                     |
 |-------|-------|--------------------------------------------------|
-| ALIAS | `@`   | `kellymariecounselling.com.cdn.hstgr.net`        |
+| A     | `@`   | `145.223.124.152`                                |
+| A     | `@`   | `147.79.79.23`                                   |
+| AAAA  | `@`   | `2a02:4780:4d:8…` (Hostinger IPv6)               |
+| AAAA  | `@`   | `2a02:4780:4b:1f…` (Hostinger IPv6)              |
 | CNAME | `www` | `www.kellymariecounselling.com.cdn.hstgr.net`    |
 
 ---
