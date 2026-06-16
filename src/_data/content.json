@@ -10,12 +10,30 @@
     "logoLine2": "Counselling"
   },
   "nav": [
-    { "label": "About", "anchor": "about" },
-    { "label": "Services", "anchor": "services" },
-    { "label": "Our Approach", "anchor": "approach" },
-    { "label": "Contact", "anchor": "contact" }
+    {
+      "label": "About",
+      "anchor": "about"
+    },
+    {
+      "label": "Our Approach",
+      "anchor": "approach"
+    },
+    {
+      "label": "Services",
+      "anchor": "services"
+    },
+    {
+      "label": "Contact",
+      "anchor": "contact"
+    }
   ],
-  "sectionOrder": ["about", "services", "approach", "process", "contact"],
+  "sectionOrder": [
+    "about",
+    "services",
+    "approach",
+    "process",
+    "contact"
+  ],
   "hero": {
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
     "headingLead": "Professional support",
