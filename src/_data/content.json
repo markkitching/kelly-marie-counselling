@@ -23,9 +23,19 @@
     "paragraph3": "I work from a private therapy room in Leeds and online, with appointments available during evenings and weekends to accommodate professional and personal schedules.",
     "image": "/images/kelly-about.jpg",
     "badges": [
-      { "icon": "award", "label": "BACP Registered" },
-      { "icon": "map-pin", "label": "Based in Leeds" },
-      { "icon": "clock", "label": "10+ Years Experience" }
+      {
+        "icon": "award",
+        "label": "BACP Registered"
+      },
+      {
+        "icon": "map-pin",
+        "label": "Based in Leeds"
+      },
+      {
+        "icon": "clock",
+        "label": "10+ Years Experience"
+      },
+      {}
     ]
   },
   "services": {
@@ -33,24 +43,6 @@
     "heading": "How I Can Help",
     "intro": "A structured range of therapy formats for individuals, couples, young people and organisations.",
     "cards": [
-      {
-        "icon": "user",
-        "title": "Individual Therapy",
-        "description": "Structured one-to-one therapy addressing anxiety, depression, trauma, grief and life transitions. Sessions are grounded in psychodynamic and integrative practice, tailored to your clinical presentation.",
-        "meta": "50 min · In-person or remote"
-      },
-      {
-        "icon": "heart",
-        "title": "Couples Therapy",
-        "description": "Therapeutic support for couples navigating conflict, communication breakdown or relational difficulty. Building mutual understanding and developing more constructive patterns of interaction.",
-        "meta": "75 min · In-person or remote"
-      },
-      {
-        "icon": "sun",
-        "title": "Young Persons",
-        "description": "Specialist therapeutic support for young people aged 11–18, drawing on age-appropriate talk and creative approaches to build emotional resilience and self-understanding.",
-        "meta": "50 min · In-person or remote"
-      },
       {
         "icon": "briefcase",
         "title": "Workplace Wellbeing",
