@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Kelly Marie Counselling | Leeds Psychotherapist",
-    "description": "Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, workplace, group therapy - online and in person.",
+    "description": "Kelly Marie Counselling - BACP-registered psychotherapist based in Leeds offering individual, workplace, group therapy - online and in person.",
     "formspreeEndpoint": "https://formspree.io/f/mwvjrpyo"
   },
   "header": {
@@ -37,8 +37,8 @@
   ],
   "hero": {
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
-    "headingLead": "Professional support",
-    "headingEmphasis": "when it matters most",
+    "headingLead": "Making mental health",
+    "headingEmphasis": "a priority ",
     "paragraph1": "Evidence-based psychotherapy and counselling for organisations, individuals and groups — delivered with confidence, in Leeds, online and within the workplace. \n",
     "paragraph2": "Whether you are facing anxiety, depression, relationship difficulties, trauma or a significant life transition, I provide structured clinical support grounded in psychodynamic and integrative practice. ",
     "primaryButton": "Request a Consultation",
@@ -125,31 +125,31 @@
     "steps": [
       {
         "title": "Initial Enquiry",
-        "description": "Submit the contact form or call directly. All enquiries are treated with full discretion and responded to within one business day."
+        "description": "Submit the contact form or send an email. All enquiries are treated with full discretion and responded to within a timely manner."
       },
       {
         "title": "Complimentary Consultation",
-        "description": "A free 20-minute call to discuss your needs, ask questions, and establish whether I am the right clinician for your situation."
+        "description": "An initial consultation is a free 20-minute call for you to discuss your needs, ask me any questions, and establish whether I am the right clinician for you and your situation."
       },
       {
         "title": "Begin Treatment",
-        "description": "Sessions commence at a schedule that suits you. Progress is reviewed regularly to keep the work goal-directed and clinically effective."
+        "description": "Sessions are scheduled at a suitable time for you. We will work together to identify your goals in therapy, set sustainable targets and review progress regularly."
       }
     ]
   },
   "contact": {
     "eyebrow": "Contact & Enquiries",
     "heading": "Make an Enquiry",
-    "intro": "Complete the form below and I will respond within one working day. All enquiries are strictly confidential.",
+    "intro": "Complete the form below. All enquiries are strictly confidential.",
     "email": "kelly@kellymariecounselling.com",
     "locationLine1": "Leeds, West Yorkshire",
     "locationLine2": "Exact address provided on booking",
-    "availability": "No availability right now, but please do still get in touch. Availability changes often.",
+    "availability": "No availability at present, but please do still get in touch as availability changes often.",
     "confidentialityTitle": "Confidential & Discreet",
-    "confidentialityText": "All enquiries are handled with complete discretion. You are not obliged to share anything before you are ready — a name and a brief message is sufficient to begin."
+    "confidentialityText": "All enquiries are handled with complete discretion. You are not obliged to share anything before you are ready - a name and a brief message is sufficient. Thank you!"
   },
   "footer": {
     "tagline": "BACP-registered psychotherapy and counselling in Leeds and online.",
-    "bacpNumber": "No. 000000"
+    "bacpNumber": "No. 00922563"
   }
 }
