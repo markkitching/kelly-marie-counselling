@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Kelly Marie Counselling | Leeds Psychotherapist",
-    "description": "Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, workplace, group and online therapy.",
+    "description": "Kelly Marie Counselling — BACP-registered psychotherapist based in Leeds offering individual, workplace, group therapy - online and in person.",
     "formspreeEndpoint": "https://formspree.io/f/mwvjrpyo"
   },
   "header": {
@@ -39,7 +39,7 @@
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
     "headingLead": "Professional support",
     "headingEmphasis": "when it matters most",
-    "paragraph1": "Evidence-based psychotherapy and counselling for organisations, individuals and groups — delivered in confidence, in Leeds, online and within the workplace. \n",
+    "paragraph1": "Evidence-based psychotherapy and counselling for organisations, individuals and groups — delivered with confidence, in Leeds, online and within the workplace. \n",
     "paragraph2": "Whether you are facing anxiety, depression, relationship difficulties, trauma or a significant life transition, I provide structured clinical support grounded in psychodynamic and integrative practice. ",
     "primaryButton": "Request a Consultation",
     "secondaryButton": "View Services",
@@ -50,8 +50,8 @@
     "headingLead": "Qualified. Experienced.",
     "headingEmphasis": "Here to help.",
     "paragraph1": "I'm Kelly Marie, a BACP-registered psychotherapist based in Leeds with over a decade of clinical experience working with individuals, couples, young people and organisations. I am a proud advocate for wellbeing and mental health awareness.",
-    "paragraph2": "My practice is grounded in psychodynamic theory — drawing on how early relational experiences and unconscious patterns shape our present-day emotional lives. Working alongside integrative and trauma-informed approaches, I offer a thoughtful, evidence-based and confidential service tailored to your clinical needs. ",
-    "paragraph3": "As a contracted therapist within an organisation, I work closely with HR and managment teams to priotise mental health and wellbeing in the workplace. This is to ensure that employees that may benefit from my services are refered promptly and given the right support. ",
+    "paragraph2": "My practice is grounded in psychodynamic theory - drawing on how early relational experiences and unconscious patterns shape our present-day emotional lives. Working alongside integrative and trauma-informed approaches, I offer a thoughtful, evidence-based and confidential service that's tailored to your clinical needs. ",
+    "paragraph3": "I specialise in workplace therpay and wellbeing, working with organisations. As a contracted therapist within an organisation, I work closely with HR and managment teams to priotise mental health and wellbeing in the workplace. This is to ensure that employees that may benefit from my services are refered promptly and given the right support. ",
     "image": "/images/kelly-about.jpg",
     "badges": [
       {
@@ -77,7 +77,7 @@
       {
         "icon": "briefcase",
         "title": "Workplace Wellbeing",
-        "description": "Confidential therapeutic support and wellbeing consultancy for organisations. Employee assistance, stress management programmes and leadership resilience — delivered on-site or remotely. Workplace therapy aims to reduce staff absence due to psychological health and support the phased return of employees. ",
+        "description": "Confidential therapeutic support and wellbeing consultancy for organisations. Employee assistance, stress management programmes and leadership resilience — delivered on-site or remotely. Workplace therapy aims to reduce staff absence due to psychological health, support the phased return of employees and implement a human-centered working culture. ",
         "meta": "Flexible packages · On-site or remote"
       },
       {
@@ -89,7 +89,7 @@
       {
         "icon": "monitor",
         "title": "Remote Sessions",
-        "description": "Secure, confidential therapy delivered via encrypted video or telephone platforms. All service formats are available remotely, offering full flexibility without compromising clinical quality.",
+        "description": "Secure, confidential therapy on private video or telephone platforms. All service formats are available remotely, offering full flexibility without compromising clinical quality or confidentiality.",
         "meta": "All session lengths · UK-wide"
       }
     ]
@@ -97,26 +97,25 @@
   "approach": {
     "eyebrow": "Methodology",
     "heading": "Therapeutic Approach",
-    "intro": "Grounded in evidence-based practice, I draw from several clinical traditions to provide the most effective support for your individual presentation.",
+    "intro": "Grounded in evidence-based practice, I draw from several clinical frameworks to provide the most effective support for every individual and their circumstances.",
     "items": [
       {
         "icon": "brain",
         "title": "Psychodynamic",
-        "description": "Grounded in the understanding that present difficulties are shaped by unconscious processes and early relational experiences. Psychodynamic therapy creates space to explore patterns, defences and emotional histories that may be driving current distress."
+        "description": "Works with the understanding that present difficulties are influenced by unconscious processes and previous life experiences. Psychodynamic therapy creates space to explore your patterns, defence mechanisms and emotional history, and how these may impact you in the present."
       },
       {
         "icon": "layers",
         "title": "Integrative",
-        "description": "Drawing on the humanistic and systemic frameworks alongside the psychodynamic foundation, I tailor the clinical approach to what the evidence and your individual presentation calls for — not a single rigid model."
+        "description": "Intergrative practice takes elements from many theraputic frameworks (such as the sytemic and humanistic approaches) to provide support tailored to you. Mental health support is not \"one-size-fits-all\" so the intergrative approach can adapt to everyone."
       },
       {
         "icon": "shield",
-        "title": "Trauma-Informed",
-        "description": "Specialist training in trauma ensures sessions are conducted with safety, sensitivity and clinical rigour. Work proceeds at your pace, with careful attention to the impact of traumatic experience on the nervous system and relational patterns."
+        "title": "Trauma-Informed"
       }
     ],
     "quote": "\"Out of your vulnerabilities will come your strength.\"",
-    "quoteAuthor": "— Sigmund Freud"
+    "quoteAuthor": "- Sigmund Freud"
   },
   "process": {
     "eyebrow": "Getting Started",
