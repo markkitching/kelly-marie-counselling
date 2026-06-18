@@ -39,7 +39,7 @@
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
     "headingLead": "Making mental health",
     "headingEmphasis": "a priority ",
-    "paragraph1": "Evidence-based psychotherapy and counselling for organisations, individuals and groups — delivered with confidence, in Leeds, online and within the workplace. \n",
+    "paragraph1": "Evidence-based psychotherapy and counselling for organisations, individuals and groups — delivered with confidence, face-to-face, online and within the workplace. \n",
     "paragraph2": "Whether you are facing anxiety, depression, relationship difficulties, trauma or a significant life transition, I provide structured clinical support grounded in psychodynamic and integrative practice. ",
     "primaryButton": "Request a Consultation",
     "secondaryButton": "View Services",
@@ -81,9 +81,9 @@
       },
       {
         "icon": "users",
-        "title": "Group Therapy",
+        "title": "Group Sessions",
         "description": "Structured group therapy programmes harnessing the therapeutic value of shared experience. Facilitated groups for anxiety, grief and personal development run throughout the year.",
-        "meta": "90 min · Small groups (max 8)"
+        "meta": "90 min · Small groups"
       },
       {
         "icon": "monitor",
