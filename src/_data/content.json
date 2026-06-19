@@ -10,11 +10,7 @@
     "logoLine2": "Counselling"
   },
   "theme": {
-    "palette": "navy",
-    "customDark": "",
-    "customAccent": "",
-    "customLight": "",
-    "customCream": ""
+    "palette": "forest"
   },
   "nav": [
     {
@@ -156,6 +152,5 @@
   "footer": {
     "tagline": "BACP-registered psychotherapy and counselling in Leeds and online.",
     "bacpNumber": "No. 00922563"
-  },
-  "customSections": []
+  }
 }
