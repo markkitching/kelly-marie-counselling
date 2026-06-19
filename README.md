@@ -34,11 +34,12 @@ photos are editable. If something doesn't look right, you can always change it b
 
 ## TODO
 
-- [ ] **BACP membership number** — set the real number in the editor (Footer → BACP membership number)
 - [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
 - [ ] **Phone number** — removed for now; ask the developer to re-add when a number is available
+- [x] **BACP membership number** — set in the editor (No. 00922563) ✓
 - [x] **Custom domain** — `kellymariecounselling.com` live on Cloudflare Pages ✓
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
+- [x] **Custom sections** — editor can add new sections (text / cards / quote) ✓
 
 ---
 
