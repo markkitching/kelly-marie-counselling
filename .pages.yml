@@ -29,6 +29,25 @@ content:
           - { name: logoLine1, label: Logo — first line, type: string }
           - { name: logoLine2, label: Logo — second line, type: string }
 
+      - name: theme
+        label: Colours / theme
+        type: object
+        fields:
+          - name: palette
+            label: Colour scheme
+            type: select
+            options:
+              values:
+                - { value: navy, label: "Navy & blue" }
+                - { value: forest, label: "Forest green" }
+                - { value: terracotta, label: "Terracotta & clay" }
+                - { value: plum, label: "Plum & heather" }
+                - { value: charcoal, label: "Charcoal & gold" }
+          - { name: customDark, label: "Advanced — main dark colour (hex, leave blank to use the scheme above, e.g. #1c3553)", type: string }
+          - { name: customAccent, label: "Advanced — accent colour (hex, optional)", type: string }
+          - { name: customLight, label: "Advanced — light background colour (hex, optional)", type: string }
+          - { name: customCream, label: "Advanced — soft tint colour (hex, optional)", type: string }
+
       - name: nav
         label: Navigation links (drag to reorder)
         type: object

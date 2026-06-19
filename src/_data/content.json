@@ -9,6 +9,13 @@
     "logoLine1": "Kelly Marie",
     "logoLine2": "Counselling"
   },
+  "theme": {
+    "palette": "navy",
+    "customDark": "",
+    "customAccent": "",
+    "customLight": "",
+    "customCream": ""
+  },
   "nav": [
     {
       "label": "About",

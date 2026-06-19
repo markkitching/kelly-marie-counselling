@@ -1,3 +1,16 @@
+{#- ═══ COLOUR THEME — palette presets + optional custom hex overrides ═══ -#}
+{% set palettes = {
+  "navy":       { "dark": "#1c3553", "accent": "#4a7fa5", "light": "#f5f7fa", "cream": "#e8eef5" },
+  "forest":     { "dark": "#2f4a2f", "accent": "#6b8e5a", "light": "#f3f6f1", "cream": "#e7efe2" },
+  "terracotta": { "dark": "#8c4a2f", "accent": "#c17a52", "light": "#faf5f1", "cream": "#f1e5dc" },
+  "plum":       { "dark": "#4a2d4f", "accent": "#8a6b9e", "light": "#f7f4f8", "cream": "#ece4ef" },
+  "charcoal":   { "dark": "#2b2b30", "accent": "#b08d4f", "light": "#f6f6f4", "cream": "#e9e7e0" }
+} %}
+{% set pal = palettes[content.theme.palette] or palettes["navy"] %}
+{% set cDark   = content.theme.customDark   or pal.dark %}
+{% set cAccent = content.theme.customAccent or pal.accent %}
+{% set cLight  = content.theme.customLight  or pal.light %}
+{% set cCream  = content.theme.customCream  or pal.cream %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -22,10 +35,10 @@
             sans:  ['Inter', 'system-ui', 'sans-serif'],
           },
           colors: {
-            forest: '#1c3553',
-            sage:   '#4a7fa5',
-            stone:  '#f5f7fa',
-            cream:  '#e8eef5',
+            forest: '{{ cDark }}',
+            sage:   '{{ cAccent }}',
+            stone:  '{{ cLight }}',
+            cream:  '{{ cCream }}',
           },
         },
       },
@@ -39,10 +52,10 @@
     html { scroll-padding-top: 72px; }
     .service-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(28,53,83,0.12); }
-    .step-connector { flex: 1; height: 2px; background: #4a7fa5; opacity: 0.4; margin-top: -1.5rem; }
-    .photo-placeholder { background: linear-gradient(135deg, #4a7fa522 0%, #1c355322 100%); }
+    .step-connector { flex: 1; height: 2px; background: {{ cAccent }}; opacity: 0.4; margin-top: -1.5rem; }
+    .photo-placeholder { background: linear-gradient(135deg, {{ cAccent }}22 0%, {{ cDark }}22 100%); }
     #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; }
-    .divider { width: 48px; height: 3px; background: #4a7fa5; }
+    .divider { width: 48px; height: 3px; background: {{ cAccent }}; }
   </style>
 </head>
 
@@ -263,7 +276,7 @@
       <div class="mb-16">
         <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ content.approach.eyebrow }}</span>
         <h2 class="font-serif text-white text-4xl mt-2">{{ content.approach.heading }}</h2>
-        <div class="divider mt-4 mb-4" style="background: #4a7fa5;"></div>
+        <div class="divider mt-4 mb-4" style="background: {{ cAccent }};"></div>
         <p class="text-white/60 max-w-xl leading-relaxed">
           {{ content.approach.intro }}
         </p>
@@ -512,7 +525,7 @@
       <div class="mb-16">
         {% if cs.eyebrow %}<span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ cs.eyebrow }}</span>{% endif %}
         {% if cs.heading %}<h2 class="font-serif {{ 'text-white' if dark else 'text-forest' }} text-4xl mt-2">{{ cs.heading }}</h2>{% endif %}
-        <div class="divider mt-4 mb-4"{% if dark %} style="background:#4a7fa5;"{% endif %}></div>
+        <div class="divider mt-4 mb-4"{% if dark %} style="background:{{ cAccent }};"{% endif %}></div>
         {% if cs.intro %}<p class="{{ 'text-white/60' if dark else 'text-gray-600' }} max-w-xl leading-relaxed">{{ cs.intro }}</p>{% endif %}
       </div>
 

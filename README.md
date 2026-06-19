@@ -22,6 +22,11 @@ editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) �
 That's it. You never touch code, and you can't break the design — only the words and
 photos are editable. If something doesn't look right, you can always change it back and Save again.
 
+### Changing the site colours
+1. In the editor, open **Colours / theme**.
+2. Pick a ready-made **Colour scheme** (Navy, Forest green, Terracotta, Plum, or Charcoal & gold) and **Save** — the whole site re-colours itself, and text stays readable.
+3. *(Advanced, optional)* To use an exact brand colour, type a hex code (e.g. `#1c3553`) into one of the **Advanced** boxes. Leaving a box blank just uses the chosen scheme. Note: picking a very light "main dark colour" can make white text hard to read.
+
 ### Adding a brand-new section
 1. In the editor, open **Custom sections** and click to add one.
 2. Give it a **short name** (lowercase, no spaces — e.g. `fees`, `faq`, `testimonials`).
@@ -40,6 +45,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Custom domain** — `kellymariecounselling.com` live on Cloudflare Pages ✓
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
 - [x] **Custom sections** — editor can add new sections (text / cards / quote) ✓
+- [x] **Colour themes** — editor can switch palettes or set custom colours ✓
 
 ---
 
@@ -98,8 +104,10 @@ npm run build      # one-off build into _site/
 
 ### Editing in code (instead of the CMS)
 - **Text / photos:** edit `src/_data/content.json`.
-- **Layout / design / colours:** edit `src/index.njk` (Tailwind classes; palette is in the
-  `tailwind.config` block — `forest` `#1c3553`, `sage` `#4a7fa5`, `stone` `#f5f7fa`, `cream` `#e8eef5`).
+- **Colours:** editable from the CMS (Colours / theme). The named palettes and the
+  `forest`/`sage`/`stone`/`cream` token mapping live at the top of `src/index.njk` in the
+  `{% set palettes %}` block; custom hex overrides come from `content.json` → `theme`.
+- **Layout / design:** edit `src/index.njk` (Tailwind classes).
 - Commit + push to `main`; Cloudflare rebuilds and deploys in ~1–2 minutes.
 
 ### Contact form (Formspree)
