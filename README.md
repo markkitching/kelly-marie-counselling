@@ -22,6 +22,14 @@ editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) �
 That's it. You never touch code, and you can't break the design — only the words and
 photos are editable. If something doesn't look right, you can always change it back and Save again.
 
+### Adding a brand-new section
+1. In the editor, open **Custom sections** and click to add one.
+2. Give it a **short name** (lowercase, no spaces — e.g. `fees`, `faq`, `testimonials`).
+3. Pick a **layout**: *text* (heading + body text), *cards* (heading + a grid of icon cards), or *quote* (a centred quote banner). Pick a **background colour** (white, light grey, or navy).
+4. Fill in the fields for that layout, then **Save**.
+5. To make it appear, open **Section order** and type the section's short name where you want it on the page (e.g. between `services` and `approach`).
+6. (Optional) Add it to the top menu via **Navigation links** — type the same short name in the link's "Links to section" box.
+
 ---
 
 ## TODO
