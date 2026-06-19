@@ -152,5 +152,15 @@
   "footer": {
     "tagline": "BACP-registered psychotherapy and counselling in Leeds and online.",
     "bacpNumber": "No. 00922563"
-  }
+  },
+  "customSections": [
+    {
+      "id": "Workplace Counselling",
+      "layout": "text",
+      "background": "forest",
+      "eyebrow": "Workplace Counselling",
+      "intro": "Loren Ipsum",
+      "body": "Blah"
+    }
+  ]
 }
