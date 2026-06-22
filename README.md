@@ -27,18 +27,6 @@ photos are editable. If something doesn't look right, you can always change it b
 2. Pick a ready-made **Colour scheme** (Navy, Forest green, Terracotta, Plum, or Charcoal & gold) and **Save** — the whole site re-colours itself, and text stays readable.
 3. *(Advanced, optional)* To use an exact brand colour, type a hex code (e.g. `#1c3553`) into one of the **Advanced** boxes. Leaving a box blank just uses the chosen scheme. Note: picking a very light "main dark colour" can make white text hard to read.
 
-### Reordering or adding sections
-The **Sections** list holds every section on the page — built-in and custom — in order.
-
-- **Reorder:** drag any section up or down, then **Save**.
-- **Add a custom section:** click **Add an item**, set **Section type** to `text`, `cards`,
-  or `quote`, give it a **short name** in *Page anchor* (lowercase, no spaces — e.g. `fees`),
-  pick a **background colour**, fill in the relevant fields, and **Save**. Drag it into place.
-- **Built-in sections** (`about`, `services`, `approach`, `process`, `contact`) only need the
-  **Section type** box set — leave the custom fields blank; their wording is edited in their own
-  forms further down (About Kelly, Services, etc.).
-- *(Optional)* Add a custom section to the top menu via **Navigation links** — type its short
-  name in the link's "Links to section" box.
 
 ---
 

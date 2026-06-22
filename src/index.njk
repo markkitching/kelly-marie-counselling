@@ -177,13 +177,7 @@
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════
-       SECTIONS — order controlled by content.sections
-  ════════════════════════════════════════════════ -->
-  {% for section in content.sections %}
-
-  {% if section.type == "about" %}
-  <!-- ═══ ABOUT KELLY ═══ -->
+  <!-- ═══════════════════════════════════════════════ ABOUT KELLY ═══════════════════════════════════════════════ -->
   <section id="about" class="bg-white py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -237,8 +231,7 @@
     </div>
   </section>
 
-  {% elif section.type == "services" %}
-  <!-- ═══ SERVICES ═══ -->
+  <!-- ═══════════════════════════════════════════════ SERVICES ═══════════════════════════════════════════════ -->
   <section id="services" class="bg-stone py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -268,8 +261,7 @@
     </div>
   </section>
 
-  {% elif section.type == "approach" %}
-  <!-- ═══ THERAPEUTIC APPROACH ═══ -->
+  <!-- ═══════════════════════════════════════════════ THERAPEUTIC APPROACH ═══════════════════════════════════════════════ -->
   <section id="approach" class="bg-forest py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -307,8 +299,7 @@
     </div>
   </section>
 
-  {% elif section.type == "process" %}
-  <!-- ═══ THE PROCESS ═══ -->
+  <!-- ═══════════════════════════════════════════════ THE PROCESS ═══════════════════════════════════════════════ -->
   <section id="process" class="bg-stone py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -349,8 +340,7 @@
     </div>
   </section>
 
-  {% elif section.type == "contact" %}
-  <!-- ═══ CONTACT ═══ -->
+  <!-- ═══════════════════════════════════════════════ CONTACT ═══════════════════════════════════════════════ -->
   <section id="contact" class="bg-white py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -502,55 +492,6 @@
     </div>
   </section>
 
-  {% elif section.type == "text" or section.type == "cards" or section.type == "quote" %}
-  <!-- ═══ CUSTOM SECTION ═══ -->
-  {% set dark = (section.background == "forest") %}
-  <section id="{{ section.id }}" class="py-24 {% if section.background == 'forest' %}bg-forest{% elif section.background == 'stone' %}bg-stone{% else %}bg-white{% endif %}">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      {% if section.type == "quote" %}
-      <div class="text-center max-w-3xl mx-auto">
-        {% if section.heading %}<h2 class="font-serif {{ 'text-white' if dark else 'text-forest' }} text-4xl mb-8">{{ section.heading }}</h2>{% endif %}
-        <blockquote class="font-serif italic {{ 'text-white/70' if dark else 'text-gray-600' }} text-2xl leading-relaxed">
-          {{ section.quote }}
-        </blockquote>
-        {% if section.quoteAuthor %}<cite class="text-sage text-sm mt-4 block not-italic">{{ section.quoteAuthor }}</cite>{% endif %}
-      </div>
-
-      {% else %}
-      <div class="mb-16">
-        {% if section.eyebrow %}<span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ section.eyebrow }}</span>{% endif %}
-        {% if section.heading %}<h2 class="font-serif {{ 'text-white' if dark else 'text-forest' }} text-4xl mt-2">{{ section.heading }}</h2>{% endif %}
-        <div class="divider mt-4 mb-4"{% if dark %} style="background:{{ cAccent }};"{% endif %}></div>
-        {% if section.intro %}<p class="{{ 'text-white/60' if dark else 'text-gray-600' }} max-w-xl leading-relaxed">{{ section.intro }}</p>{% endif %}
-      </div>
-
-      {% if section.type == "cards" %}
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {% for card in section.cards %}
-        <div class="service-card {{ 'bg-white/5 border-white/10' if dark else 'bg-white border-gray-100' }} rounded-lg p-6 border-t-4 border-sage border">
-          <div class="w-10 h-10 {{ 'bg-white/10' if dark else 'bg-stone' }} rounded flex items-center justify-center mb-4">
-            <i data-lucide="{{ card.icon }}" class="w-5 h-5 {{ 'text-sage' if dark else 'text-forest' }}"></i>
-          </div>
-          <h3 class="font-serif {{ 'text-white' if dark else 'text-forest' }} text-xl mb-2">{{ card.title }}</h3>
-          <p class="{{ 'text-white/60' if dark else 'text-gray-600' }} text-sm leading-relaxed mb-4">{{ card.description }}</p>
-          {% if card.meta %}<p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>{% endif %}
-        </div>
-        {% endfor %}
-      </div>
-
-      {% else %}
-      <div class="max-w-3xl {{ 'text-white/70' if dark else 'text-gray-600' }} text-lg leading-relaxed">
-        {{ section.body | nl2br | safe }}
-      </div>
-      {% endif %}
-      {% endif %}
-
-    </div>
-  </section>
-
-  {% endif %}
-  {% endfor %}
 
 
   <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
