@@ -62,18 +62,10 @@ content:
         list: true
         fields:
           - name: type
-            label: Section type
+            label: "Section type (built-in: about / services / approach / process / contact — custom: text / cards / quote)"
             type: select
             options:
-              values:
-                - { value: about, label: "About Kelly (built-in)" }
-                - { value: services, label: "Services (built-in)" }
-                - { value: approach, label: "Therapeutic Approach (built-in)" }
-                - { value: process, label: "The Process (built-in)" }
-                - { value: contact, label: "Contact (built-in)" }
-                - { value: text, label: "Custom — text block" }
-                - { value: cards, label: "Custom — icon cards" }
-                - { value: quote, label: "Custom — quote banner" }
+              values: [about, services, approach, process, contact, text, cards, quote]
           - { name: id, label: "Page anchor / short name (custom sections only, e.g. fees, faq)", type: string }
           - name: background
             label: "Background colour (custom sections only)"
