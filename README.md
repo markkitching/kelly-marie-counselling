@@ -37,7 +37,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **BACP membership number** — set in the editor (No. 00922563) ✓
 - [x] **Custom domain** — `kellymariecounselling.com` live on Cloudflare Pages ✓
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
-- [x] **Custom sections** — editor can add new sections (text / cards / quote) ✓
+- [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
 
 ---
