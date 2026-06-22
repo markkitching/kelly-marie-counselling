@@ -27,18 +27,13 @@ photos are editable. If something doesn't look right, you can always change it b
 2. Pick a ready-made **Colour scheme** (Navy, Forest green, Terracotta, Plum, or Charcoal & gold) and **Save** — the whole site re-colours itself, and text stays readable.
 3. *(Advanced, optional)* To use an exact brand colour, type a hex code (e.g. `#1c3553`) into one of the **Advanced** boxes. Leaving a box blank just uses the chosen scheme. Note: picking a very light "main dark colour" can make white text hard to read.
 
-### Reordering or adding sections
-The **Sections** list holds every section on the page — built-in ones (About, Services,
-Therapeutic Approach, The Process, Contact) and any custom ones — in one place.
-
-- **Reorder:** drag any section up or down, then **Save**.
-- **Add a custom section:** click **Add an item**, then choose a block type:
-  *Custom — text block*, *Custom — icon cards*, or *Custom — quote banner*.
-  Give it a **short name** (lowercase, no spaces — e.g. `fees`, `faq`), pick a
-  **background colour**, fill in the content, and **Save**. Drag it wherever you like.
-- **Remove:** click the bin icon on a section.
-- *(Optional)* Add a custom section to the top menu via **Navigation links** — type its
-  short name in the link's "Links to section" box.
+### Adding a brand-new section
+1. In the editor, open **Custom sections** and click to add one.
+2. Give it a **short name** (lowercase, no spaces — e.g. `fees`, `faq`, `testimonials`).
+3. Pick a **layout**: *text* (heading + body text), *cards* (heading + a grid of icon cards), or *quote* (a centred quote banner). Pick a **background colour** (white, light grey, or navy).
+4. Fill in the fields for that layout, then **Save**.
+5. To make it appear, open **Section order** and type the section's short name where you want it on the page (e.g. between `services` and `approach`).
+6. (Optional) Add it to the top menu via **Navigation links** — type the same short name in the link's "Links to section" box.
 
 ---
 
