@@ -271,31 +271,39 @@
         <div class="divider mt-4 mb-4"></div>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <!-- Text -->
-        <div class="text-gray-600 text-lg leading-relaxed">
-          {{ content.workplace.body | nl2br | safe }}
-        </div>
-
-        <!-- Photo slot (hero-style) -->
+      {% if content.workplace.image %}
+      {%- set imageBlock -%}
         <div class="flex justify-center">
           <div class="relative w-full max-w-md">
             <div class="absolute -top-4 -right-4 w-full h-full rounded-lg bg-sage/10 -z-10"></div>
-            <div class="aspect-[4/3] rounded-lg overflow-hidden photo-placeholder flex items-center justify-center relative">
+            <div class="aspect-[4/3] rounded-lg overflow-hidden photo-placeholder relative">
               <img
                 src="{{ content.workplace.image }}"
                 alt="{{ content.workplace.heading }}"
                 class="w-full h-full object-cover"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
               />
-              <div class="hidden flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center absolute inset-0">
-                <i data-lucide="image" class="w-12 h-12"></i>
-                <p class="text-sm font-medium">Add an image in the editor</p>
-              </div>
             </div>
           </div>
         </div>
+      {%- endset -%}
+      {%- set textBlock -%}
+        <div class="text-gray-600 text-lg leading-relaxed">
+          {{ content.workplace.body | nl2br | safe }}
+        </div>
+      {%- endset -%}
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        {% if content.workplace.imageSide == "left" %}
+          {{ imageBlock | safe }}{{ textBlock | safe }}
+        {% else %}
+          {{ textBlock | safe }}{{ imageBlock | safe }}
+        {% endif %}
       </div>
+      {% else %}
+      <!-- No image: text spans the full width -->
+      <div class="max-w-3xl text-gray-600 text-lg leading-relaxed">
+        {{ content.workplace.body | nl2br | safe }}
+      </div>
+      {% endif %}
 
       <!-- Optional cards -->
       {% if content.workplace.cards | length %}
