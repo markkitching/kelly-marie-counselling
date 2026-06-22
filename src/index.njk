@@ -287,7 +287,7 @@
         </div>
       {%- endset -%}
       {%- set textBlock -%}
-        <div class="text-gray-600 text-lg leading-relaxed">
+        <div class="text-gray-600 leading-relaxed">
           {{ content.workplace.body | nl2br | safe }}
         </div>
       {%- endset -%}
@@ -300,7 +300,7 @@
       </div>
       {% else %}
       <!-- No image: text spans the full width -->
-      <div class="max-w-3xl text-gray-600 text-lg leading-relaxed">
+      <div class="max-w-3xl text-gray-600 leading-relaxed">
         {{ content.workplace.body | nl2br | safe }}
       </div>
       {% endif %}
