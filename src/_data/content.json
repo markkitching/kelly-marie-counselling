@@ -30,12 +30,13 @@
       "anchor": "contact"
     }
   ],
-  "sectionOrder": [
-    "about",
-    "services",
-    "approach",
-    "process",
-    "contact"
+  "sections": [
+    { "type": "about" },
+    { "type": "services" },
+    { "type": "approach" },
+    { "type": "process" },
+    { "type": "contact" },
+    { "type": "text", "id": "workplace-counselling", "background": "forest", "eyebrow": "Workplace Counselling", "heading": "", "intro": "Loren Ipsum", "body": "Blah" }
   ],
   "hero": {
     "eyebrow": "BACP Registered Psychotherapist · Leeds",

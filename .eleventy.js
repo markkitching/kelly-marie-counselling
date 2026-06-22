@@ -1,6 +1,9 @@
 module.exports = function (eleventyConfig) {
-  // Copy uploaded/static images straight through to the built site.
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
+
+  eleventyConfig.addFilter("nl2br", (str) =>
+    str ? str.replace(/\n/g, "<br />") : ""
+  );
 
   return {
     dir: {

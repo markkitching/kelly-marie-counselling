@@ -56,10 +56,49 @@ content:
           - { name: label, label: Link text, type: string }
           - { name: anchor, label: "Links to section (type a section name, e.g. about, services, or a custom section's short name)", type: string }
 
-      - name: sectionOrder
-        label: "Section order (drag to reorder). Built-in names: about, services, approach, process, contact. Add a custom section by typing its short name here."
-        type: string
+      - name: sections
+        label: Sections (drag to reorder — built-in and custom together)
+        type: object
         list: true
+        fields:
+          - name: type
+            label: Section type
+            type: select
+            options:
+              values:
+                - { value: about, label: "About Kelly (built-in)" }
+                - { value: services, label: "Services (built-in)" }
+                - { value: approach, label: "Therapeutic Approach (built-in)" }
+                - { value: process, label: "The Process (built-in)" }
+                - { value: contact, label: "Contact (built-in)" }
+                - { value: text, label: "Custom — text block" }
+                - { value: cards, label: "Custom — icon cards" }
+                - { value: quote, label: "Custom — quote banner" }
+          - { name: id, label: "Page anchor / short name (custom sections only, e.g. fees, faq)", type: string }
+          - name: background
+            label: "Background colour (custom sections only)"
+            type: select
+            options:
+              values: [white, stone, forest]
+          - { name: eyebrow, label: "Small heading (custom sections only)", type: string }
+          - { name: heading, label: "Section heading (custom sections only)", type: string }
+          - { name: intro, label: "Intro text (custom sections only)", type: text }
+          - { name: body, label: "Body text — text layout only", type: text }
+          - name: cards
+            label: "Cards — cards layout only"
+            type: object
+            list: true
+            fields:
+              - name: icon
+                label: Icon
+                type: select
+                options:
+                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
+              - { name: title, label: Title, type: string }
+              - { name: description, label: Description, type: text }
+              - { name: meta, label: Small footer line (optional), type: string }
+          - { name: quote, label: "Quote text — quote layout only", type: text }
+          - { name: quoteAuthor, label: "Quote author — quote layout only", type: string }
 
       - name: hero
         label: Top section (hero)
@@ -175,39 +214,3 @@ content:
         fields:
           - { name: tagline, label: Tagline, type: text }
           - { name: bacpNumber, label: BACP membership number, type: string }
-
-      - name: customSections
-        label: Custom sections (add your own)
-        type: object
-        list: true
-        fields:
-          - { name: id, label: "Short name (lowercase, no spaces — e.g. fees, faq, testimonials). Type this same word into Section order to place it on the page.", type: string }
-          - name: layout
-            label: Layout style
-            type: select
-            options:
-              values: [text, cards, quote]
-          - name: background
-            label: Background colour
-            type: select
-            options:
-              values: [white, stone, forest]
-          - { name: eyebrow, label: "Small heading (text & cards layouts)", type: string }
-          - { name: heading, label: Section heading, type: string }
-          - { name: intro, label: "Intro text (text & cards layouts)", type: text }
-          - { name: body, label: "Body text — for the Text layout (press Enter for new lines)", type: text }
-          - name: cards
-            label: "Cards — for the Cards layout"
-            type: object
-            list: true
-            fields:
-              - name: icon
-                label: Icon
-                type: select
-                options:
-                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
-              - { name: title, label: Title, type: string }
-              - { name: description, label: Description, type: text }
-              - { name: meta, label: Small footer line (optional), type: string }
-          - { name: quote, label: "Quote text — for the Quote layout", type: text }
-          - { name: quoteAuthor, label: "Quote author — for the Quote layout", type: string }
