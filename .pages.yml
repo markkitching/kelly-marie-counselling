@@ -58,39 +58,65 @@ content:
 
       - name: sections
         label: Sections (drag to reorder — built-in and custom together)
-        type: object
+        type: block
         list: true
-        fields:
-          - name: type
-            label: "Section type (built-in: about / services / approach / process / contact — custom: text / cards / quote)"
-            type: select
-            options:
-              values: [about, services, approach, process, contact, text, cards, quote]
-          - { name: id, label: "Page anchor / short name (custom sections only, e.g. fees, faq)", type: string }
-          - name: background
-            label: "Background colour (custom sections only)"
-            type: select
-            options:
-              values: [white, stone, forest]
-          - { name: eyebrow, label: "Small heading (custom sections only)", type: string }
-          - { name: heading, label: "Section heading (custom sections only)", type: string }
-          - { name: intro, label: "Intro text (custom sections only)", type: text }
-          - { name: body, label: "Body text — text layout only", type: text }
-          - name: cards
-            label: "Cards — cards layout only"
-            type: object
-            list: true
+        blockKey: type
+        blocks:
+          - { name: about,    label: "About Kelly (built-in)" }
+          - { name: services, label: "Services (built-in)" }
+          - { name: approach, label: "Therapeutic Approach (built-in)" }
+          - { name: process,  label: "The Process (built-in)" }
+          - { name: contact,  label: "Contact (built-in)" }
+          - name: text
+            label: "Custom — text block"
             fields:
-              - name: icon
-                label: Icon
+              - { name: id, label: "Page anchor / short name (e.g. fees, faq)", type: string }
+              - name: background
+                label: Background colour
                 type: select
                 options:
-                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
-              - { name: title, label: Title, type: string }
-              - { name: description, label: Description, type: text }
-              - { name: meta, label: Small footer line (optional), type: string }
-          - { name: quote, label: "Quote text — quote layout only", type: text }
-          - { name: quoteAuthor, label: "Quote author — quote layout only", type: string }
+                  values: [white, stone, forest]
+              - { name: eyebrow, label: Small heading, type: string }
+              - { name: heading, label: Section heading, type: string }
+              - { name: intro, label: Intro text, type: text }
+              - { name: body, label: "Body text (press Enter for new lines)", type: text }
+          - name: cards
+            label: "Custom — icon cards"
+            fields:
+              - { name: id, label: "Page anchor / short name (e.g. fees, faq)", type: string }
+              - name: background
+                label: Background colour
+                type: select
+                options:
+                  values: [white, stone, forest]
+              - { name: eyebrow, label: Small heading, type: string }
+              - { name: heading, label: Section heading, type: string }
+              - { name: intro, label: Intro text, type: text }
+              - name: cards
+                label: Cards
+                type: object
+                list: true
+                fields:
+                  - name: icon
+                    label: Icon
+                    type: select
+                    options:
+                      values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
+                  - { name: title, label: Title, type: string }
+                  - { name: description, label: Description, type: text }
+                  - { name: meta, label: Small footer line (optional), type: string }
+          - name: quote
+            label: "Custom — quote banner"
+            fields:
+              - { name: id, label: "Page anchor / short name (e.g. fees, faq)", type: string }
+              - name: background
+                label: Background colour
+                type: select
+                options:
+                  values: [white, stone, forest]
+              - { name: heading, label: Section heading (optional), type: string }
+              - { name: quote, label: Quote text, type: text }
+              - { name: quoteAuthor, label: Quote author, type: string }
 
       - name: hero
         label: Top section (hero)
