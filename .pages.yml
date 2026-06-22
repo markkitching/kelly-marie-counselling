@@ -113,6 +113,28 @@ content:
               - { name: description, label: Description, type: text }
               - { name: meta, label: Footer line (duration / format), type: string }
 
+      - name: workplace
+        label: Workplace Wellness section
+        type: object
+        fields:
+          - { name: eyebrow, label: Small heading above title (optional), type: string }
+          - { name: heading, label: Section heading, type: string }
+          - { name: body, label: "Body text (press Enter for new lines)", type: text }
+          - { name: image, label: Image (optional), type: image }
+          - name: cards
+            label: Cards (optional — leave empty for text only)
+            type: object
+            list: true
+            fields:
+              - name: icon
+                label: Icon
+                type: select
+                options:
+                  values: [award, map-pin, clock, shield, heart, star, check, check-circle, user, users, brain, layers, leaf, feather, sun, moon, briefcase, monitor, book, clipboard, calendar, mail, phone, message-circle, globe, home, activity, compass, coffee, headphones, tag, target, thumbs-up, trending-up, zap]
+              - { name: title, label: Title, type: string }
+              - { name: description, label: Description, type: text }
+              - { name: meta, label: Footer line (optional), type: string }
+
       - name: approach
         label: Therapeutic approach
         type: object

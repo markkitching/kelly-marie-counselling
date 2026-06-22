@@ -261,6 +261,61 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════ WORKPLACE WELLNESS ═══════════════════════════════════════════════ -->
+  <section id="workplace" class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-12">
+        {% if content.workplace.eyebrow %}<span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ content.workplace.eyebrow }}</span>{% endif %}
+        <h2 class="font-serif text-forest text-4xl mt-2">{{ content.workplace.heading }}</h2>
+        <div class="divider mt-4 mb-4"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Text -->
+        <div class="text-gray-600 text-lg leading-relaxed">
+          {{ content.workplace.body | nl2br | safe }}
+        </div>
+
+        <!-- Photo slot (hero-style) -->
+        <div class="flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div class="absolute -top-4 -right-4 w-full h-full rounded-lg bg-sage/10 -z-10"></div>
+            <div class="aspect-[4/3] rounded-lg overflow-hidden photo-placeholder flex items-center justify-center relative">
+              <img
+                src="{{ content.workplace.image }}"
+                alt="{{ content.workplace.heading }}"
+                class="w-full h-full object-cover"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              />
+              <div class="hidden flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center absolute inset-0">
+                <i data-lucide="image" class="w-12 h-12"></i>
+                <p class="text-sm font-medium">Add an image in the editor</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional cards -->
+      {% if content.workplace.cards | length %}
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        {% for card in content.workplace.cards %}
+        <div class="service-card bg-white rounded-lg p-6 border-t-4 border-sage border border-gray-100">
+          <div class="w-10 h-10 bg-stone rounded flex items-center justify-center mb-4">
+            <i data-lucide="{{ card.icon }}" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description }}</p>
+          {% if card.meta %}<p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════════════ THERAPEUTIC APPROACH ═══════════════════════════════════════════════ -->
   <section id="approach" class="bg-forest py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

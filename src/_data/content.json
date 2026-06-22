@@ -88,6 +88,13 @@
       }
     ]
   },
+  "workplace": {
+    "eyebrow": "",
+    "heading": "Workplace Wellness",
+    "body": "Add your Workplace Wellness text here using the editor.",
+    "image": "",
+    "cards": []
+  },
   "approach": {
     "eyebrow": "Methodology",
     "heading": "Therapeutic Approach",
