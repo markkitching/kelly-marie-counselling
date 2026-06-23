@@ -104,11 +104,6 @@
         "description": "Works with the understanding that present difficulties are influenced by unconscious processes and previous life experiences. Psychodynamic therapy creates space to explore your patterns, defence mechanisms and emotional history, and how these may impact you in the present."
       },
       {
-        "icon": "layers",
-        "title": "Integrative",
-        "description": "Integrative practice takes elements from many therapeutic frameworks (such as the systemic and humanistic approaches) to provide support tailored to you. Mental health support is not \"one-size-fits-all\" so the integrative approach can adapt to everyone."
-      },
-      {
         "icon": "shield",
         "title": "Trauma-Informed",
         "description": "This framework prioritises sensitivity and collaborative sessions to acknowledge and address trauma and its role in mental health. There is a focus on creating a therapeutic environment that is safe, honest and understanding. You are the priority, and have control over the pace and direction of sessions, so the therapeutic work can provide effective support and empowerment."
@@ -116,7 +111,12 @@
       {
         "icon": "clock",
         "title": "Timeline Therapy",
-        "description": "This technique is designed to support emotional and personal growth by identifying unconscious patterns of language and behaviour. The process aims to release limiting beliefs and emotional blocks to create lasting changes. The therapeutic work allows exploration of patterns without going into the details of the past, to create more focus on implementing positive change in the present and future."
+        "description": "This technique is designed to support emotional and personal growth by identifying unconscious patterns of language and behaviour. The process aims to release limiting beliefs and emotional blocks to create lasting changes. The therapeutic work allows exploration of patterns by understanding the past, to being implementing positive change in the present and future."
+      },
+      {
+        "icon": "layers",
+        "title": "Integrative",
+        "description": "Integrative practice draws upon elements from many therapeutic frameworks (such as the systemic and humanistic approaches) to provide support tailored to each individual. Mental health support is not \"one-size-fits-all\" so the integrative approach can adapt to everyone."
       }
     ],
     "quote": "\"Out of your vulnerabilities will come your strength.\"",
