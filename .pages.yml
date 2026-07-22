@@ -21,8 +21,9 @@ content:
         label: Header / logo
         type: object
         fields:
+          - { name: logoImage, label: "Logo image (optional — overrides the icon below if set)", type: image }
           - name: logoIcon
-            label: Logo icon
+            label: Logo icon (used only if no logo image is set)
             type: select
             options:
               values: [leaf, heart, star, award, shield, sun, moon, feather, compass, home, anchor, activity, layers, zap, globe]
