@@ -39,6 +39,80 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
 - [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
+- [x] **"More" dropdown + holding pages** — six new pages stubbed out ✓
+- [ ] **Make the new pages CMS-editable** — see *Planned CMS work* below
+- [ ] **Spec the six new pages** — real content for Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team
+
+---
+
+## Planned CMS work — the new pages
+
+The **More** dropdown and its six holding pages are currently **hard-coded**, deliberately:
+nothing in `.pages.yml` or `content.json` was changed. This section records what
+needs doing to hand them over to the editor, once the pages are actually specced.
+
+### Where things live now
+
+| File | Role |
+|---|---|
+| `src/_data/newPages.json` | The six dropdown items (`title` + `slug`). Developer-owned, not editable in the CMS. |
+| `src/holding.njk` | Paginates over that list — one "coming soon" page per entry, all sharing the same placeholder copy. |
+| `src/_includes/site-header.njk` | Shared header/nav, including the dropdown markup. |
+| `src/_includes/site-footer.njk` | Shared footer + page scripts. |
+
+The four original links (About / Services / My Approach / Contact) are **unchanged** —
+still driven by `content.nav`, still pointing at sections of the homepage.
+
+### 1. Make the dropdown items editable
+
+Move `newPages.json` into `content.json` and add to `.pages.yml`:
+
+```yaml
+- name: dropdown
+  label: "More menu (dropdown)"
+  type: object
+  fields:
+    - { name: label, label: Menu button text, type: string }
+    - name: items
+      label: Menu items (drag to reorder)
+      type: object
+      list: true
+      fields:
+        - { name: title, label: Link text, type: string }
+        - { name: slug, label: "Page address — lowercase with dashes, e.g. meet-the-team", type: string }
+```
+
+Then point `site-header.njk` and `holding.njk` at `content.dropdown.items` instead of `newPages`.
+
+> ⚠️ **Warn the editor in the field label:** changing a `slug` changes that page's web
+> address, so any existing links to it (or search-engine results) will break.
+
+### 2. Give each page real content
+
+All six pages currently share one hard-coded placeholder. Two options:
+
+- **Simple** — add `heading` and `body` fields to each item in the list above, and have
+  `holding.njk` render them. Keeps one section per page. Good enough if these stay simple.
+- **Proper** — a separate Pages CMS `collection` (one file per page), so each page can
+  have its own sections, images and cards like the homepage does. This is the right
+  shape once the pages are properly specced, and is the recommended route.
+
+### 3. Also worth adding at the same time
+
+- **Publish toggle** — a `published` (or `comingSoon`) flag per item, so a page can be
+  built out before it's linked from every page on the site. Right now all six are live
+  in the menu the moment they exist.
+- **Per-page SEO** — `metaTitle` / `metaDescription` fields. Titles are currently derived
+  automatically as *"{Page name} | Kelly Marie Counselling"*, and there's no per-page description.
+- **Footer links** — the footer's Quick Links mirror `content.nav` only. Decide whether
+  the new pages belong there too.
+
+### 4. Open design question
+
+"Services" (an existing homepage section) overlaps conceptually with *Wellbeing*,
+*Counselling* and *Training & Coaching* in the dropdown. Worth resolving the
+information architecture when the new pages are specced, so visitors aren't offered
+two competing routes to similar content.
 
 ---
 
@@ -74,9 +148,15 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 ├── .pages.yml              ← Pages CMS editing-form definitions
 ├── package.json            ← Eleventy dependency + build scripts
 ├── src/
-│   ├── index.njk           ← Page template (HTML + Tailwind, with {{ placeholders }})
+│   ├── index.njk           ← Homepage (HTML + Tailwind, with {{ placeholders }})
+│   ├── holding.njk         ← Generates the six "coming soon" pages (one per newPages entry)
+│   ├── _includes/
+│   │   ├── site-header.njk ← Shared <head> + sticky nav (incl. the More dropdown)
+│   │   └── site-footer.njk ← Shared footer + page scripts
 │   ├── _data/
-│   │   └── content.json    ← ALL editable text lives here (what the CMS edits)
+│   │   ├── content.json    ← ALL editable text lives here (what the CMS edits)
+│   │   ├── colors.js       ← Resolves the chosen palette / custom hex overrides
+│   │   └── newPages.json   ← The six dropdown pages (hard-coded for now — see Planned CMS work)
 │   └── images/
 │       ├── kelly-hero.jpg
 │       └── kelly-about.jpg

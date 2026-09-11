@@ -1,0 +1,181 @@
+  <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+  <footer class="bg-forest text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              <i data-lucide="{{ content.header.logoIcon }}" class="text-sage w-4 h-4"></i>
+            </span>
+            <span class="font-serif text-white text-lg">{{ content.header.logoLine1 }} {{ content.header.logoLine2 }}</span>
+          </div>
+          <p class="text-white/50 text-sm leading-relaxed mb-4">
+            {{ content.footer.tagline }}
+          </p>
+          <!-- BACP badge -->
+          <div class="inline-flex items-center gap-2 bg-white/10 rounded px-3 py-2">
+            <i data-lucide="award" class="w-4 h-4 text-sage"></i>
+            <div class="text-xs leading-tight">
+              <div class="text-white font-medium">BACP Registered Member</div>
+              <div class="text-white/50">{{ content.footer.bacpNumber }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <h4 class="font-serif text-white text-base mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            {% for link in content.nav %}
+            <li><a href="/#{{ link.anchor }}" class="text-white/50 hover:text-sage text-sm transition-colors">{{ link.label }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-serif text-white text-base mb-4">Contact</h4>
+          <ul class="space-y-2.5">
+            <li class="flex items-center gap-2 text-white/50 text-sm">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-sage"></i>
+              <a href="mailto:{{ content.contact.email }}" class="hover:text-sage transition-colors">{{ content.contact.email }}</a>
+            </li>
+            <li class="flex items-center gap-2 text-white/50 text-sm">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage"></i>
+              <span>{{ content.contact.locationLine1 }}</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
+        <p>&copy; <span id="year"></span> {{ content.header.logoLine1 }} {{ content.header.logoLine2 }}. All rights reserved.</p>
+        <p>All client information treated in strict confidence in accordance with BACP ethical guidelines.</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════ JAVASCRIPT ═══════════════════════════════════════════════ -->
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Mobile nav toggle ──────────────────────────
+    const navToggle  = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navIcon    = document.getElementById('nav-icon');
+    let menuOpen = false;
+
+    navToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      navToggle.setAttribute('aria-expanded', menuOpen);
+      if (menuOpen) {
+        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+        mobileMenu.style.opacity  = '1';
+        navIcon.setAttribute('data-lucide', 'x');
+      } else {
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity   = '0';
+        navIcon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.opacity   = '0';
+        navIcon.setAttribute('data-lucide', 'menu');
+        navToggle.setAttribute('aria-expanded', 'false');
+        lucide.createIcons();
+      });
+    });
+
+    // ── "More" dropdown — desktop ──────────────────
+    const moreMenu   = document.getElementById('more-menu');
+    const moreToggle = document.getElementById('more-toggle');
+    const morePanel  = document.getElementById('more-panel');
+
+    const setMoreOpen = (open) => {
+      morePanel.classList.toggle('hidden', !open);
+      moreToggle.setAttribute('aria-expanded', open);
+    };
+
+    moreToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMoreOpen(morePanel.classList.contains('hidden'));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!moreMenu.contains(e.target)) setMoreOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMoreOpen(false);
+    });
+
+    // ── "More" dropdown — mobile ───────────────────
+    const moreToggleMobile = document.getElementById('more-toggle-mobile');
+    const morePanelMobile  = document.getElementById('more-panel-mobile');
+
+    moreToggleMobile.addEventListener('click', () => {
+      const open = !morePanelMobile.classList.toggle('hidden');
+      moreToggleMobile.setAttribute('aria-expanded', open);
+      // The outer menu is height-animated, so re-measure now the content changed.
+      if (menuOpen) mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+    });
+
+    // ── Formspree async submission ─────────────────
+    const form       = document.getElementById('contact-form');
+    const submitBtn  = document.getElementById('submit-btn');
+    const successMsg = document.getElementById('form-success');
+    const errorMsg   = document.getElementById('form-error');
+
+    if (form) form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (form.action.includes('YOUR_FORM_ID')) {
+        errorMsg.classList.remove('hidden');
+        errorMsg.querySelector('p').textContent = 'Contact form not yet configured — see README.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Sending…';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body:   new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          form.reset();
+          successMsg.classList.remove('hidden');
+          errorMsg.classList.add('hidden');
+          submitBtn.style.display = 'none';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        errorMsg.classList.remove('hidden');
+        successMsg.classList.add('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Submit Enquiry';
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+</body>
+</html>

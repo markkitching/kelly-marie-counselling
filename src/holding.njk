@@ -1,0 +1,50 @@
+---
+pagination:
+  data: newPages
+  size: 1
+  alias: page_item
+permalink: "/{{ page_item.slug }}/"
+eleventyComputed:
+  pageTitle: "{{ page_item.title | safe }}"
+---
+{% include "site-header.njk" %}
+
+  <!-- ═══════════════════════════════════════════════ HOLDING PAGE ═══════════════════════════════════════════════ -->
+  <section class="bg-stone min-h-[calc(100vh-72px)] flex items-center">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span class="w-px h-5 bg-sage"></span>
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">Coming soon</span>
+        <span class="w-px h-5 bg-sage"></span>
+      </div>
+
+      <h1 class="font-serif text-forest text-4xl lg:text-5xl leading-tight mb-6">
+        {{ page_item.title }}
+      </h1>
+
+      <div class="divider mb-8 mx-auto"></div>
+
+      <p class="text-gray-600 text-lg leading-relaxed mb-4">
+        This page is on its way — we're putting the finishing touches to it.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-10">
+        In the meantime, you're welcome to get in touch — I'm always happy to answer
+        questions directly.
+      </p>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/#contact" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          {{ content.hero.primaryButton }}
+        </a>
+        <a href="/" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          Back to home
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+{% include "site-footer.njk" %}
