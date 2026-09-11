@@ -63,7 +63,12 @@ over to the editor, once the pages are actually specced.
 
 The four original links (About / Services / My Approach / Contact) still come from
 `content.nav` and still point at sections of the homepage — their destinations are
-unchanged. The menu is a single flat level; there is no dropdown.
+unchanged.
+
+**How the menu behaves:** the header shows the logo, a "Request a Consultation" button
+and a **Menu** handle at every screen size. The handle opens one panel listing all ten
+links on a single level — no submenus, no separate desktop and mobile arrangements to
+keep in sync. It closes on link click, Escape, or a click outside.
 
 ### 1. ⚠️ Make the menu one editable, reorderable list
 
@@ -109,10 +114,9 @@ Contact wherever they want it.
 > ⚠️ **Warn the editor in the field label:** changing a `slug` changes that page's web
 > address, so any existing links to it (or search-engine results) will break.
 
-> **Watch the menu width.** Ten items already fill the header bar — the
-> "Request a Consultation" button had to come out of the top bar to make room (it's
-> still in the hero and the mobile menu). Adding more items, or much longer labels,
-> will overflow. Worth either capping the count, or revisiting the design at that point.
+> **Room to grow.** Because every link lives in the dropdown panel rather than spread
+> across the header bar, adding more items doesn't threaten the layout — the panel just
+> gets taller. Only worry if the list gets long enough to need scrolling on a phone.
 
 ### 2. Give each page real content
 
@@ -137,7 +141,7 @@ All six pages currently share one hard-coded placeholder. Two options:
 ### 4. Open design question
 
 "Services" (an existing homepage section) overlaps conceptually with *Wellbeing*,
-*Counselling* and *Training & Coaching*, which now sit beside it in the same flat menu.
+*Counselling* and *Training & Coaching*, which now sit beside it in the same menu.
 Worth resolving the information architecture when the new pages are specced, so
 visitors aren't offered two competing routes to similar content.
 

@@ -67,36 +67,36 @@
     lucide.createIcons();
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── Mobile nav toggle ──────────────────────────
-    const navToggle  = document.getElementById('nav-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navIcon    = document.getElementById('nav-icon');
-    let menuOpen = false;
+    // ── Menu panel ─────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu   = document.getElementById('nav-menu');
+    const navIcon   = document.getElementById('nav-icon');
 
-    navToggle.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      navToggle.setAttribute('aria-expanded', menuOpen);
-      if (menuOpen) {
-        mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-        mobileMenu.style.opacity  = '1';
-        navIcon.setAttribute('data-lucide', 'x');
-      } else {
-        mobileMenu.style.maxHeight = '0';
-        mobileMenu.style.opacity   = '0';
-        navIcon.setAttribute('data-lucide', 'menu');
-      }
+    const setMenuOpen = (open) => {
+      navMenu.classList.toggle('hidden', !open);
+      navToggle.setAttribute('aria-expanded', open);
+      navIcon.setAttribute('data-lucide', open ? 'x' : 'menu');
       lucide.createIcons();
+    };
+
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenuOpen(navMenu.classList.contains('hidden'));
     });
 
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuOpen = false;
-        mobileMenu.style.maxHeight = '0';
-        mobileMenu.style.opacity   = '0';
-        navIcon.setAttribute('data-lucide', 'menu');
-        navToggle.setAttribute('aria-expanded', 'false');
-        lucide.createIcons();
-      });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) setMenuOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !navMenu.classList.contains('hidden')) {
+        setMenuOpen(false);
+        navToggle.focus();
+      }
     });
 
     // ── Formspree async submission ─────────────────

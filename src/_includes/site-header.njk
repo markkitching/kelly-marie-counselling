@@ -44,7 +44,10 @@
     .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(28,53,83,0.12); }
     .step-connector { flex: 1; height: 2px; background: {{ colors.accent }}; opacity: 0.4; margin-top: -1.5rem; }
     .photo-placeholder { background: linear-gradient(135deg, {{ colors.accent }}22 0%, {{ colors.dark }}22 100%); }
-    #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; }
+    #nav-menu { transform-origin: top right; }
+    #nav-menu:not(.hidden) { animation: navMenuIn 0.15s ease-out; }
+    @keyframes navMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { #nav-menu:not(.hidden) { animation: none; } }
     .divider { width: 48px; height: 3px; background: {{ colors.accent }}; }
   </style>
 </head>
@@ -56,7 +59,7 @@
   ════════════════════════════════════════════════ -->
   <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
     <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-[72px]">
+      <div class="relative flex items-center justify-between h-[72px]">
 
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 group">
@@ -72,31 +75,31 @@
           </span>
         </a>
 
-        <!-- Desktop links. The "Request a Consultation" button lives in the hero and the
-             mobile menu only — in the top bar it would duplicate the Contact link and push
-             the ten-item menu past the container width. -->
-        <div class="hidden xl:flex items-center gap-4">
-          {% for link in mainNav %}
-          <a href="{{ link.href }}" class="text-sm text-gray-600 hover:text-forest transition-colors whitespace-nowrap">{{ link.label }}</a>
-          {% endfor %}
+        <!-- Right-hand controls -->
+        <div class="flex items-center gap-3">
+          <a href="/#contact" class="hidden sm:inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded hover:bg-sage transition-colors whitespace-nowrap">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            {{ content.hero.primaryButton }}
+          </a>
+
+          <button id="nav-toggle"
+            class="flex items-center gap-2 p-2 rounded text-forest hover:bg-stone transition-colors"
+            aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" aria-haspopup="true">
+            <span class="hidden sm:inline text-sm font-medium">Menu</span>
+            <i data-lucide="menu" class="w-5 h-5" id="nav-icon"></i>
+          </button>
         </div>
 
-        <!-- Mobile hamburger -->
-        <button id="nav-toggle" class="xl:hidden p-2 rounded text-forest hover:bg-stone transition-colors" aria-label="Toggle menu" aria-expanded="false">
-          <i data-lucide="menu" class="w-5 h-5" id="nav-icon"></i>
-        </button>
-      </div>
-
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="xl:hidden overflow-hidden max-h-0 opacity-0">
-        <div class="py-4 space-y-1 border-t border-gray-100">
+        <!-- Menu panel — one flat list, same behaviour at every width -->
+        <div id="nav-menu"
+          class="hidden absolute right-0 top-full w-64 max-w-[calc(100vw-2rem)] bg-white border border-gray-200 rounded-b rounded-tl shadow-lg py-2">
           {% for link in mainNav %}
-          <a href="{{ link.href }}" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">{{ link.label }}</a>
+          <a href="{{ link.href }}" class="block px-4 py-2.5 text-sm text-gray-700 hover:text-forest hover:bg-stone transition-colors nav-link">{{ link.label }}</a>
           {% endfor %}
 
-          <div class="pt-2">
-            <a href="/#contact" class="inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded mobile-link">
-              <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <div class="sm:hidden px-3 pt-3 pb-1 mt-1 border-t border-gray-100">
+            <a href="/#contact" class="flex w-full items-center justify-center gap-1.5 bg-forest text-white text-sm font-medium px-3 py-2.5 rounded nav-link">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 flex-shrink-0"></i>
               {{ content.hero.primaryButton }}
             </a>
           </div>
