@@ -99,40 +99,6 @@
       });
     });
 
-    // ── "More" dropdown — desktop ──────────────────
-    const moreMenu   = document.getElementById('more-menu');
-    const moreToggle = document.getElementById('more-toggle');
-    const morePanel  = document.getElementById('more-panel');
-
-    const setMoreOpen = (open) => {
-      morePanel.classList.toggle('hidden', !open);
-      moreToggle.setAttribute('aria-expanded', open);
-    };
-
-    moreToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setMoreOpen(morePanel.classList.contains('hidden'));
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!moreMenu.contains(e.target)) setMoreOpen(false);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setMoreOpen(false);
-    });
-
-    // ── "More" dropdown — mobile ───────────────────
-    const moreToggleMobile = document.getElementById('more-toggle-mobile');
-    const morePanelMobile  = document.getElementById('more-panel-mobile');
-
-    moreToggleMobile.addEventListener('click', () => {
-      const open = !morePanelMobile.classList.toggle('hidden');
-      moreToggleMobile.setAttribute('aria-expanded', open);
-      // The outer menu is height-animated, so re-measure now the content changed.
-      if (menuOpen) mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-    });
-
     // ── Formspree async submission ─────────────────
     const form       = document.getElementById('contact-form');
     const submitBtn  = document.getElementById('submit-btn');

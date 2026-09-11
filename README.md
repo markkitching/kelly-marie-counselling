@@ -39,53 +39,80 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
 - [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
-- [x] **"More" dropdown + holding pages** — six new pages stubbed out ✓
-- [ ] **Make the new pages CMS-editable** — see *Planned CMS work* below
+- [x] **Six new menu items + holding pages** — Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓
+- [ ] **Make the whole menu reorderable in the CMS** — currently only the four original links can be reordered; see *Planned CMS work* below
 - [ ] **Spec the six new pages** — real content for Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team
 
 ---
 
 ## Planned CMS work — the new pages
 
-The **More** dropdown and its six holding pages are currently **hard-coded**, deliberately:
-nothing in `.pages.yml` or `content.json` was changed. This section records what
-needs doing to hand them over to the editor, once the pages are actually specced.
+The six new pages are currently **hard-coded**, deliberately: nothing in `.pages.yml`
+or `content.json` was changed. This section records what needs doing to hand them
+over to the editor, once the pages are actually specced.
 
 ### Where things live now
 
 | File | Role |
 |---|---|
-| `src/_data/newPages.json` | The six dropdown items (`title` + `slug`). Developer-owned, not editable in the CMS. |
-| `src/holding.njk` | Paginates over that list — one "coming soon" page per entry, all sharing the same placeholder copy. |
-| `src/_includes/site-header.njk` | Shared header/nav, including the dropdown markup. |
+| `src/_data/newPages.json` | The six new pages (`title` + `slug`). Developer-owned, not editable in the CMS. |
+| `src/_data/mainNav.js` | Merges `content.nav` + `newPages` into the single flat menu, pinning Contact last. |
+| `src/holding.njk` | Paginates over `newPages` — one "coming soon" page per entry, all sharing the same placeholder copy. |
+| `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
-The four original links (About / Services / My Approach / Contact) are **unchanged** —
-still driven by `content.nav`, still pointing at sections of the homepage.
+The four original links (About / Services / My Approach / Contact) still come from
+`content.nav` and still point at sections of the homepage — their destinations are
+unchanged. The menu is a single flat level; there is no dropdown.
 
-### 1. Make the dropdown items editable
+### 1. ⚠️ Make the menu one editable, reorderable list
 
-Move `newPages.json` into `content.json` and add to `.pages.yml`:
+**This is the important one.** The menu is currently assembled from *two* sources that
+the editor can only half-control:
+
+- `content.nav` — editable and drag-reorderable in the CMS, but only covers the four
+  homepage-section links
+- `newPages.json` — the six new pages, **not editable at all**, and always inserted
+  between "My Approach" and "Contact" by `mainNav.js`
+
+So **the editor cannot currently reorder the menu as a whole** — they can shuffle the
+four old links among themselves, but can't move Wellbeing above Services, can't move
+Podcast to the end, and can't reposition Contact. The Contact-last rule is hard-coded
+in `mainNav.js`.
+
+The fix is to collapse both sources into **one** list in `content.json`, where each
+entry is either a homepage section link or a standalone page:
 
 ```yaml
-- name: dropdown
-  label: "More menu (dropdown)"
+- name: nav
+  label: Main menu (drag to reorder)
   type: object
+  list: true
   fields:
-    - { name: label, label: Menu button text, type: string }
-    - name: items
-      label: Menu items (drag to reorder)
-      type: object
-      list: true
-      fields:
-        - { name: title, label: Link text, type: string }
-        - { name: slug, label: "Page address — lowercase with dashes, e.g. meet-the-team", type: string }
+    - { name: label, label: Link text, type: string }
+    - name: type
+      label: What does this link go to?
+      type: select
+      options:
+        values:
+          - { value: section, label: "A section of the homepage" }
+          - { value: page,    label: "Its own page" }
+    - { name: anchor, label: "If a homepage section — which one (e.g. about, services)", type: string }
+    - { name: slug,   label: "If its own page — page address, lowercase with dashes (e.g. meet-the-team)", type: string }
 ```
 
-Then point `site-header.njk` and `holding.njk` at `content.dropdown.items` instead of `newPages`.
+`mainNav.js` then becomes a thin mapper (`type === 'page' ? '/'+slug+'/' : '/#'+anchor`)
+with no ordering logic of its own, and `holding.njk` paginates over the entries where
+`type === 'page'`. Dragging rows in the CMS reorders the real menu — including moving
+Contact wherever they want it.
 
 > ⚠️ **Warn the editor in the field label:** changing a `slug` changes that page's web
 > address, so any existing links to it (or search-engine results) will break.
+
+> **Watch the menu width.** Ten items already fill the header bar — the
+> "Request a Consultation" button had to come out of the top bar to make room (it's
+> still in the hero and the mobile menu). Adding more items, or much longer labels,
+> will overflow. Worth either capping the count, or revisiting the design at that point.
 
 ### 2. Give each page real content
 
@@ -110,9 +137,9 @@ All six pages currently share one hard-coded placeholder. Two options:
 ### 4. Open design question
 
 "Services" (an existing homepage section) overlaps conceptually with *Wellbeing*,
-*Counselling* and *Training & Coaching* in the dropdown. Worth resolving the
-information architecture when the new pages are specced, so visitors aren't offered
-two competing routes to similar content.
+*Counselling* and *Training & Coaching*, which now sit beside it in the same flat menu.
+Worth resolving the information architecture when the new pages are specced, so
+visitors aren't offered two competing routes to similar content.
 
 ---
 
@@ -151,12 +178,13 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 │   ├── index.njk           ← Homepage (HTML + Tailwind, with {{ placeholders }})
 │   ├── holding.njk         ← Generates the six "coming soon" pages (one per newPages entry)
 │   ├── _includes/
-│   │   ├── site-header.njk ← Shared <head> + sticky nav (incl. the More dropdown)
+│   │   ├── site-header.njk ← Shared <head> + sticky nav
 │   │   └── site-footer.njk ← Shared footer + page scripts
 │   ├── _data/
 │   │   ├── content.json    ← ALL editable text lives here (what the CMS edits)
 │   │   ├── colors.js       ← Resolves the chosen palette / custom hex overrides
-│   │   └── newPages.json   ← The six dropdown pages (hard-coded for now — see Planned CMS work)
+│   │   ├── newPages.json   ← The six new pages (hard-coded for now — see Planned CMS work)
+│   │   └── mainNav.js      ← Merges content.nav + newPages into the flat menu
 │   └── images/
 │       ├── kelly-hero.jpg
 │       └── kelly-about.jpg

@@ -45,9 +45,6 @@
     .step-connector { flex: 1; height: 2px; background: {{ colors.accent }}; opacity: 0.4; margin-top: -1.5rem; }
     .photo-placeholder { background: linear-gradient(135deg, {{ colors.accent }}22 0%, {{ colors.dark }}22 100%); }
     #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; }
-    #more-toggle svg, #more-toggle-mobile svg { transition: transform 0.2s ease; }
-    #more-toggle[aria-expanded="true"] svg,
-    #more-toggle-mobile[aria-expanded="true"] svg { transform: rotate(180deg); }
     .divider { width: 48px; height: 3px; background: {{ colors.accent }}; }
   </style>
 </head>
@@ -75,61 +72,27 @@
           </span>
         </a>
 
-        <!-- Desktop links -->
-        <div class="hidden md:flex items-center gap-8">
-          {% for link in content.nav %}
-          <a href="/#{{ link.anchor }}" class="text-sm text-gray-600 hover:text-forest transition-colors">{{ link.label }}</a>
+        <!-- Desktop links. The "Request a Consultation" button lives in the hero and the
+             mobile menu only — in the top bar it would duplicate the Contact link and push
+             the ten-item menu past the container width. -->
+        <div class="hidden xl:flex items-center gap-4">
+          {% for link in mainNav %}
+          <a href="{{ link.href }}" class="text-sm text-gray-600 hover:text-forest transition-colors whitespace-nowrap">{{ link.label }}</a>
           {% endfor %}
-
-          <!-- More dropdown -->
-          <div class="relative" id="more-menu">
-            <button type="button" id="more-toggle"
-              class="flex items-center gap-1 text-sm text-gray-600 hover:text-forest transition-colors"
-              aria-expanded="false" aria-haspopup="true" aria-controls="more-panel">
-              More
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-200" id="more-chevron"></i>
-            </button>
-            <div id="more-panel"
-              class="hidden absolute right-0 top-full mt-3 w-56 bg-white border border-gray-200 rounded shadow-lg py-2">
-              {% for item in newPages %}
-              <a href="/{{ item.slug }}/"
-                class="block px-4 py-2 text-sm text-gray-600 hover:text-forest hover:bg-stone transition-colors">{{ item.title }}</a>
-              {% endfor %}
-            </div>
-          </div>
-
-          <a href="/#contact" class="inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded hover:bg-sage transition-colors">
-            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-            {{ content.hero.primaryButton }}
-          </a>
         </div>
 
         <!-- Mobile hamburger -->
-        <button id="nav-toggle" class="md:hidden p-2 rounded text-forest hover:bg-stone transition-colors" aria-label="Toggle menu" aria-expanded="false">
+        <button id="nav-toggle" class="xl:hidden p-2 rounded text-forest hover:bg-stone transition-colors" aria-label="Toggle menu" aria-expanded="false">
           <i data-lucide="menu" class="w-5 h-5" id="nav-icon"></i>
         </button>
       </div>
 
       <!-- Mobile menu -->
-      <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0">
+      <div id="mobile-menu" class="xl:hidden overflow-hidden max-h-0 opacity-0">
         <div class="py-4 space-y-1 border-t border-gray-100">
-          {% for link in content.nav %}
-          <a href="/#{{ link.anchor }}" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">{{ link.label }}</a>
+          {% for link in mainNav %}
+          <a href="{{ link.href }}" class="block px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">{{ link.label }}</a>
           {% endfor %}
-
-          <!-- More (collapsible) -->
-          <button type="button" id="more-toggle-mobile"
-            class="w-full flex items-center justify-between px-2 py-2 text-gray-700 hover:text-forest hover:bg-stone rounded transition-colors"
-            aria-expanded="false" aria-controls="more-panel-mobile">
-            More
-            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" id="more-chevron-mobile"></i>
-          </button>
-          <div id="more-panel-mobile" class="hidden pl-3 border-l border-gray-100 ml-2">
-            {% for item in newPages %}
-            <a href="/{{ item.slug }}/"
-              class="block px-2 py-2 text-sm text-gray-600 hover:text-forest hover:bg-stone rounded transition-colors mobile-link">{{ item.title }}</a>
-            {% endfor %}
-          </div>
 
           <div class="pt-2">
             <a href="/#contact" class="inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded mobile-link">
