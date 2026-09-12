@@ -70,13 +70,12 @@
     // ── Menu panel ─────────────────────────────────
     const navToggle = document.getElementById('nav-toggle');
     const navMenu   = document.getElementById('nav-menu');
-    const navIcon   = document.getElementById('nav-icon');
 
+    // The handle's open/closed appearance is driven from aria-expanded in CSS.
     const setMenuOpen = (open) => {
       navMenu.classList.toggle('hidden', !open);
       navToggle.setAttribute('aria-expanded', open);
-      navIcon.setAttribute('data-lucide', open ? 'x' : 'menu');
-      lucide.createIcons();
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
 
     navToggle.addEventListener('click', (e) => {

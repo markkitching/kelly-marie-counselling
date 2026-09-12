@@ -47,7 +47,37 @@
     #nav-menu { transform-origin: top right; }
     #nav-menu:not(.hidden) { animation: navMenuIn 0.15s ease-out; }
     @keyframes navMenuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-    @media (prefers-reduced-motion: reduce) { #nav-menu:not(.hidden) { animation: none; } }
+
+    /* Menu handle — three bars that fold into a cross */
+    .nav-burger {
+      width: 44px; height: 44px; border-radius: 6px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: {{ colors.dark }};
+      border: 1px solid {{ colors.accent }}33;
+      background: transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-burger:hover { background: {{ colors.accent }}14; border-color: {{ colors.accent }}66; }
+    .nav-burger-bars { position: relative; width: 20px; height: 14px; }
+    .nav-burger-bars span {
+      position: absolute; left: 0; height: 2px; border-radius: 2px;
+      background: currentColor;
+      transition: width 0.28s ease, opacity 0.18s ease,
+                  transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-burger-bars span:nth-child(1) { top: 0;    width: 20px; }
+    .nav-burger-bars span:nth-child(2) { top: 6px;  width: 12px; }
+    .nav-burger-bars span:nth-child(3) { top: 12px; width: 20px; }
+    .nav-burger:hover .nav-burger-bars span:nth-child(2) { width: 20px; }
+
+    .nav-burger[aria-expanded="true"] .nav-burger-bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger[aria-expanded="true"] .nav-burger-bars span:nth-child(2) { opacity: 0; transform: translateX(-8px); }
+    .nav-burger[aria-expanded="true"] .nav-burger-bars span:nth-child(3) { width: 20px; transform: translateY(-6px) rotate(-45deg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #nav-menu:not(.hidden) { animation: none; }
+      .nav-burger-bars span { transition: none; }
+    }
     .divider { width: 48px; height: 3px; background: {{ colors.accent }}; }
   </style>
 </head>
@@ -82,11 +112,11 @@
             {{ content.hero.primaryButton }}
           </a>
 
-          <button id="nav-toggle"
-            class="flex items-center gap-2 p-2 rounded text-forest hover:bg-stone transition-colors"
-            aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" aria-haspopup="true">
-            <span class="hidden sm:inline text-sm font-medium">Menu</span>
-            <i data-lucide="menu" class="w-5 h-5" id="nav-icon"></i>
+          <button id="nav-toggle" class="nav-burger"
+            aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu" aria-haspopup="true">
+            <span class="nav-burger-bars" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
           </button>
         </div>
 
