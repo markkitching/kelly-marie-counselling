@@ -40,79 +40,59 @@ photos are editable. If something doesn't look right, you can always change it b
 - [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
 - [x] **Six new menu items + holding pages** — Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓
-- [ ] **Make the whole menu reorderable in the CMS** — currently only the four original links can be reordered; see *Planned CMS work* below
+- [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
+- [ ] **Make the six new pages' content editable** — see *CMS* section below
 - [ ] **Spec the six new pages** — real content for Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team
 
 ---
 
-## Planned CMS work — the new pages
+## CMS — menu control (done) and what's still planned
 
-The six new pages are currently **hard-coded**, deliberately: nothing in `.pages.yml`
-or `content.json` was changed. This section records what needs doing to hand them
-over to the editor, once the pages are actually specced.
-
-### Where things live now
+### Where things live
 
 | File | Role |
 |---|---|
-| `src/_data/newPages.json` | The six new pages (`title` + `slug`). Developer-owned, not editable in the CMS. |
-| `src/_data/mainNav.js` | Merges `content.nav` + `newPages` into the single flat menu, pinning Contact last. |
-| `src/holding.njk` | Paginates over `newPages` — one "coming soon" page per entry, all sharing the same placeholder copy. |
+| `src/_data/menuItems.js` | **Code-owned** menu catalogue: each item's label and destination. Not editable in the CMS, by design. |
+| `src/_data/newPages.json` | The six standalone pages (`title` + `slug`). Feeds both the catalogue and page generation. |
+| `src/_data/mainNav.js` | Applies the editor's order and show/hide choices to that catalogue. |
+| `src/holding.njk` | Paginates over `newPages` — one "coming soon" page per entry. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
-The four original links (About / Services / My Approach / Contact) still come from
-`content.nav` and still point at sections of the homepage — their destinations are
-unchanged.
-
 **How the menu behaves:** the header shows the logo, a "Request a Consultation" button
-and a **Menu** handle at every screen size. The handle opens one panel listing all ten
-links on a single level — no submenus, no separate desktop and mobile arrangements to
-keep in sync. It closes on link click, Escape, or a click outside.
+and a burger handle at every screen size. The handle opens one panel listing the links
+on a single level — no submenus, no separate desktop and mobile arrangements to keep in
+sync. It closes on link click, Escape, or a click outside.
 
-### 1. ⚠️ Make the menu one editable, reorderable list
+### ✅ 1. Menu order and visibility — editable
 
-**This is the important one.** The menu is currently assembled from *two* sources that
-the editor can only half-control:
+Under **Main menu** in the editor, each row is one menu link. The editor can:
 
-- `content.nav` — editable and drag-reorderable in the CMS, but only covers the four
-  homepage-section links
-- `newPages.json` — the six new pages, **not editable at all**, and always inserted
-  between "My Approach" and "Contact" by `mainNav.js`
+- **drag rows** to change the order links appear in
+- **untick "Show in menu"** to hide a link
 
-So **the editor cannot currently reorder the menu as a whole** — they can shuffle the
-four old links among themselves, but can't move Wellbeing above Services, can't move
-Podcast to the end, and can't reposition Contact. The Contact-last rule is hard-coded
-in `mainNav.js`.
+They deliberately *cannot* edit link names or destinations — those live in
+`menuItems.js`, so a link can't be renamed into something misleading or pointed at a
+URL that doesn't exist.
 
-The fix is to collapse both sources into **one** list in `content.json`, where each
-entry is either a homepage section link or a standalone page:
+> **Hiding is not deleting.** A hidden page stays online at its own address; it just
+> isn't linked from the menu. That's what makes it possible to build a page out before
+> announcing it.
 
-```yaml
-- name: nav
-  label: Main menu (drag to reorder)
-  type: object
-  list: true
-  fields:
-    - { name: label, label: Link text, type: string }
-    - name: type
-      label: What does this link go to?
-      type: select
-      options:
-        values:
-          - { value: section, label: "A section of the homepage" }
-          - { value: page,    label: "Its own page" }
-    - { name: anchor, label: "If a homepage section — which one (e.g. about, services)", type: string }
-    - { name: slug,   label: "If its own page — page address, lowercase with dashes (e.g. meet-the-team)", type: string }
+Stored in `content.json` as:
+
+```json
+"menu": [
+  { "item": "about", "visible": true },
+  { "item": "wellbeing", "visible": false }
+]
 ```
 
-`mainNav.js` then becomes a thin mapper (`type === 'page' ? '/'+slug+'/' : '/#'+anchor`)
-with no ordering logic of its own, and `holding.njk` paginates over the entries where
-`type === 'page'`. Dragging rows in the CMS reorders the real menu — including moving
-Contact wherever they want it.
+`mainNav.js` skips rows whose `item` is unknown, so a stale row can't break the build.
 
-> ⚠️ **Warn the editor in the field label:** changing a `slug` changes that page's web
-> address, so any existing links to it (or search-engine results) will break.
+> ⚠️ **One sync point for developers:** the list of choices in the **Menu link**
+> dropdown is written out in `.pages.yml`. Adding a page to `newPages.json` means adding
+> a matching option there too, or it won't be selectable.
 
 > **Room to grow.** Because every link lives in the dropdown panel rather than spread
 > across the header bar, adding more items doesn't threaten the layout — the panel just
@@ -135,8 +115,9 @@ All six pages currently share one hard-coded placeholder. Two options:
   in the menu the moment they exist.
 - **Per-page SEO** — `metaTitle` / `metaDescription` fields. Titles are currently derived
   automatically as *"{Page name} | Kelly Marie Counselling"*, and there's no per-page description.
-- **Footer links** — the footer's Quick Links mirror `content.nav` only. Decide whether
-  the new pages belong there too.
+- **Footer links** — the footer's Quick Links show only the homepage-section links
+  (About / Services / My Approach / Contact), matching what it showed before. Decide
+  whether the six pages belong there too.
 
 ### 4. Open design question
 
@@ -187,8 +168,9 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 │   ├── _data/
 │   │   ├── content.json    ← ALL editable text lives here (what the CMS edits)
 │   │   ├── colors.js       ← Resolves the chosen palette / custom hex overrides
-│   │   ├── newPages.json   ← The six new pages (hard-coded for now — see Planned CMS work)
-│   │   └── mainNav.js      ← Merges content.nav + newPages into the flat menu
+│   │   ├── newPages.json   ← The six standalone pages (developer-owned)
+│   │   ├── menuItems.js    ← Menu labels + destinations (locked, not CMS-editable)
+│   │   └── mainNav.js      ← Applies the editor's order / show-hide choices
 │   └── images/
 │       ├── kelly-hero.jpg
 │       └── kelly-about.jpg

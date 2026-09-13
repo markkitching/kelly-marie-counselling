@@ -49,13 +49,28 @@ content:
           - { name: customLight, label: "Advanced — light background colour (hex, optional)", type: string }
           - { name: customCream, label: "Advanced — soft tint colour (hex, optional)", type: string }
 
-      - name: nav
-        label: Navigation links (drag to reorder)
+      - name: menu
+        label: Main menu
+        description: "Drag the rows to change the order links appear in. Untick \"Show in menu\" to hide one without deleting it — the page itself stays online, it just isn't linked. Link names and their destinations are fixed and can't be edited here."
         type: object
         list: true
         fields:
-          - { name: label, label: Link text, type: string }
-          - { name: anchor, label: "Links to section (type a section name, e.g. about, services, or a custom section's short name)", type: string }
+          - name: item
+            label: Menu link
+            type: select
+            options:
+              values:
+                - { value: about, label: "About" }
+                - { value: services, label: "Services" }
+                - { value: approach, label: "My Approach" }
+                - { value: wellbeing, label: "Wellbeing" }
+                - { value: counselling, label: "Counselling" }
+                - { value: training-coaching, label: "Training & Coaching" }
+                - { value: podcast, label: "Podcast" }
+                - { value: merchandise, label: "Merchandise" }
+                - { value: meet-the-team, label: "Meet the Team" }
+                - { value: contact, label: "Contact" }
+          - { name: visible, label: "Show in menu", type: boolean }
 
       - name: hero
         label: Top section (hero)

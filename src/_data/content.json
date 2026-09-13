@@ -13,23 +13,17 @@
   "theme": {
     "palette": "navy"
   },
-  "nav": [
-    {
-      "label": "About",
-      "anchor": "about"
-    },
-    {
-      "label": "Services",
-      "anchor": "services"
-    },
-    {
-      "label": "My Approach",
-      "anchor": "approach"
-    },
-    {
-      "label": "Contact",
-      "anchor": "contact"
-    }
+  "menu": [
+    { "item": "about", "visible": true },
+    { "item": "services", "visible": true },
+    { "item": "approach", "visible": true },
+    { "item": "wellbeing", "visible": true },
+    { "item": "counselling", "visible": true },
+    { "item": "training-coaching", "visible": true },
+    { "item": "podcast", "visible": true },
+    { "item": "merchandise", "visible": true },
+    { "item": "meet-the-team", "visible": true },
+    { "item": "contact", "visible": true }
   ],
   "hero": {
     "eyebrow": "BACP Registered Psychotherapist · Leeds",
