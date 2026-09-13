@@ -28,15 +28,15 @@
     },
     {
       "item": "wellbeing",
-      "visible": true
+      "visible": false
     },
     {
       "item": "counselling",
-      "visible": true
+      "visible": false
     },
     {
       "item": "training-coaching",
-      "visible": true
+      "visible": false
     },
     {
       "item": "podcast",
@@ -48,7 +48,7 @@
     },
     {
       "item": "meet-the-team",
-      "visible": true
+      "visible": false
     },
     {
       "item": "contact",
