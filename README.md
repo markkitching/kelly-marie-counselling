@@ -15,7 +15,8 @@ editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) �
 2. Choose the **kelly-marie-counselling** project.
 3. In the sidebar you'll see one entry per part of the site — *Page settings, Header / logo,
    Colours / theme, Main menu, Top section (hero), About Kelly, Services, Workplace Wellness,
-   Therapeutic approach, The process, Contact, Footer.* Click whichever you want to change.
+   Therapeutic approach, The process, Contact, Footer,* plus one **Page:** entry per standalone
+   page. Click whichever you want to change.
 4. Change any text, or upload a new photo (Hero photo / About photo).
 5. Click **Save**.
 6. Wait about **1–2 minutes** — the live website updates itself automatically.
@@ -42,12 +43,12 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
 - [x] **Six new menu items + holding pages** — Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓
 - [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
-- [ ] **Make the six new pages' content editable** — see *CMS* section below
+- [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [ ] **Spec the six new pages** — real content for Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team
 
 ---
 
-## CMS — menu control (done) and what's still planned
+## CMS — what the editor controls, and what's next
 
 ### Where things live
 
@@ -56,7 +57,9 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/_data/menuItems.js` | **Code-owned** menu catalogue: each item's label and destination. Not editable in the CMS, by design. |
 | `src/_data/newPages.json` | The six standalone pages (`title` + `slug`). Feeds both the catalogue and page generation. |
 | `src/_data/mainNav.js` | Applies the editor's order and show/hide choices to that catalogue. |
-| `src/holding.njk` | Paginates over `newPages` — one "coming soon" page per entry. |
+| `src/content/pages/` | Editable content for the six standalone pages, one file each. |
+| `src/_data/pages.js` | Loads those files, keyed by slug. |
+| `src/holding.njk` | Builds each page — real content when filled in, "coming soon" placeholder when not. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
@@ -101,21 +104,32 @@ Stored in `src/content/menu.json` as:
 > across the header bar, adding more items doesn't threaten the layout — the panel just
 > gets taller. Only worry if the list gets long enough to need scrolling on a phone.
 
-### 2. Give each page real content
+### ✅ 2. Page content — editable
 
-All six pages currently share one hard-coded placeholder. Two options:
+Each of the six pages has its own editor entry (**Page: Wellbeing**, **Page: Podcast**
+and so on) with a simple set of fields:
 
-- **Simple** — add `heading` and `body` fields to each item in the list above, and have
-  `holding.njk` render them. Keeps one section per page. Good enough if these stay simple.
-- **Proper** — a separate Pages CMS `collection` (one file per page), so each page can
-  have its own sections, images and cards like the homepage does. This is the right
-  shape once the pages are properly specced, and is the recommended route.
+| Field | Notes |
+|---|---|
+| Small heading | Optional label above the title |
+| Page title | Falls back to the menu name if left blank |
+| Intro paragraph | Shown slightly larger |
+| Main text | Press Enter for new lines |
+| Photo | Optional — sits beside the text, height-capped so a tall portrait can't tower over short copy |
+
+> **The placeholder is the fallback.** Leave *Intro* and *Main text* both empty and the
+> page keeps its "coming soon" holding screen. So pages can be filled in one at a time,
+> and an unfinished one never looks broken.
+
+Content lives in `src/content/pages/<slug>.json`, loaded by `src/_data/pages.js`.
+
+**If these pages outgrow simple text**, the next step is a reusable section builder
+(text block / cards / image+text) so each page can be assembled from blocks — the
+"Custom sections" TODO. Worth doing once we know what Podcast, Merchandise and Meet the
+Team actually need, since those three are quite different in shape from the service pages.
 
 ### 3. Also worth adding at the same time
 
-- **Publish toggle** — a `published` (or `comingSoon`) flag per item, so a page can be
-  built out before it's linked from every page on the site. Right now all six are live
-  in the menu the moment they exist.
 - **Per-page SEO** — `metaTitle` / `metaDescription` fields. Titles are currently derived
   automatically as *"{Page name} | Kelly Marie Counselling"*, and there's no per-page description.
 - **Footer links** — the footer's Quick Links show only the homepage-section links
@@ -170,8 +184,10 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 │   │   └── site-footer.njk ← Shared footer + page scripts
 │   ├── content/            ← ALL editable text (one file per section — what the CMS edits)
 │   │   ├── hero.json  about.json  services.json  …
+│   │   └── pages/          ← Content for the six standalone pages
 │   ├── _data/
 │   │   ├── content.js      ← Merges src/content/*.json into one `content` object
+│   │   ├── pages.js        ← Loads src/content/pages/*.json
 │   │   ├── colors.js       ← Resolves the chosen palette / custom hex overrides
 │   │   ├── newPages.json   ← The six standalone pages (developer-owned)
 │   │   ├── menuItems.js    ← Menu labels + destinations (locked, not CMS-editable)

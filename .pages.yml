@@ -523,3 +523,141 @@ content:
       - name: bacpNumber
         label: BACP membership number
         type: string
+  - name: page-wellbeing
+    label: 'Page: Wellbeing'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/wellbeing.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Wellbeing")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
+  - name: page-counselling
+    label: 'Page: Counselling'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/counselling.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Counselling")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
+  - name: page-training-coaching
+    label: 'Page: Training & Coaching'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/training-coaching.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Training & Coaching")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
+  - name: page-podcast
+    label: 'Page: Podcast'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/podcast.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Podcast")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
+  - name: page-merchandise
+    label: 'Page: Merchandise'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/merchandise.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Merchandise")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
+  - name: page-meet-the-team
+    label: 'Page: Meet the Team'
+    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
+      and the placeholder stays. This page's menu link is under Main menu.
+    type: file
+    path: src/content/pages/meet-the-team.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above the title (optional)
+        type: string
+      - name: heading
+        label: Page title (leave blank to use "Meet the Team")
+        type: string
+      - name: intro
+        label: Intro paragraph (shown slightly larger)
+        type: text
+      - name: body
+        label: Main text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Photo (optional — sits beside the text)
+        type: image
