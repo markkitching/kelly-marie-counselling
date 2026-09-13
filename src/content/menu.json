@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "item": "about",
+      "visible": true
+    },
+    {
+      "item": "services",
+      "visible": true
+    },
+    {
+      "item": "approach",
+      "visible": true
+    },
+    {
+      "item": "wellbeing",
+      "visible": false
+    },
+    {
+      "item": "counselling",
+      "visible": false
+    },
+    {
+      "item": "training-coaching",
+      "visible": false
+    },
+    {
+      "item": "podcast",
+      "visible": false
+    },
+    {
+      "item": "merchandise",
+      "visible": false
+    },
+    {
+      "item": "meet-the-team",
+      "visible": false
+    },
+    {
+      "item": "contact",
+      "visible": true
+    }
+  ]
+}
