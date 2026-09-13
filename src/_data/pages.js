@@ -7,6 +7,18 @@ const PAGES_DIR = path.join(__dirname, "..", "content", "pages");
 // counts as empty — otherwise the page would drop its placeholder for a blank screen.
 const clean = (value) => (typeof value === "string" ? value.trim() : value || "");
 
+// These files are written by the CMS, which has been seen to save an empty file when
+// every field is cleared. Treat anything unreadable as "not written yet" rather than
+// letting it fail the build — a failed build blocks every later edit from deploying.
+const readJson = (file) => {
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8")) || {};
+  } catch {
+    console.warn(`[content] ${path.basename(file)} is empty or invalid — using the placeholder`);
+    return {};
+  }
+};
+
 // Editable content for the standalone pages, keyed by slug. A page with nothing filled
 // in falls back to the "coming soon" placeholder in holding.njk, so pages can be
 // written one at a time.
@@ -18,7 +30,7 @@ module.exports = () => {
   for (const file of fs.readdirSync(PAGES_DIR).sort()) {
     if (!file.endsWith(".json")) continue;
 
-    const raw = JSON.parse(fs.readFileSync(path.join(PAGES_DIR, file), "utf8"));
+    const raw = readJson(path.join(PAGES_DIR, file));
     const page = {
       eyebrow: clean(raw.eyebrow),
       heading: clean(raw.heading),

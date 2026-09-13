@@ -15,9 +15,18 @@ module.exports = () => {
   for (const file of fs.readdirSync(CONTENT_DIR).sort()) {
     if (!file.endsWith(".json")) continue;
     const key = path.basename(file, ".json");
-    content[key] = JSON.parse(
-      fs.readFileSync(path.join(CONTENT_DIR, file), "utf8")
-    );
+
+    // The CMS has been seen to write an empty file when every field is cleared. Losing
+    // one section's text is bad; failing the build is worse, because it blocks every
+    // later edit from deploying too.
+    try {
+      content[key] = JSON.parse(
+        fs.readFileSync(path.join(CONTENT_DIR, file), "utf8")
+      );
+    } catch {
+      console.warn(`[content] ${file} is empty or invalid — skipping that section`);
+      content[key] = {};
+    }
   }
 
   return content;
