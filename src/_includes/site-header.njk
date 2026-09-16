@@ -78,6 +78,47 @@
       #nav-menu:not(.hidden) { animation: none; }
       .nav-burger-bars span { transition: none; }
     }
+    /* Podcast episode — a still that becomes the player on click, so nothing is
+       requested from YouTube until the visitor asks for it */
+    .yt-facade {
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      padding: 0; border: 0; cursor: pointer; background: #000; overflow: hidden;
+    }
+    .yt-facade img {
+      display: block; width: 100%; height: 100%; object-fit: cover;
+      transition: opacity 0.2s ease, transform 0.35s ease;
+    }
+    .yt-facade:hover img { opacity: 0.82; transform: scale(1.03); }
+    .yt-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .yt-play svg {
+      box-sizing: border-box; width: 54px; height: 54px; padding: 13px;
+      color: #fff; background: {{ colors.dark }}d9; border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .yt-facade:hover .yt-play svg { background: {{ colors.dark }}; transform: scale(1.07); }
+    .yt-facade:focus-visible { outline: 3px solid {{ colors.accent }}; outline-offset: -3px; }
+    .yt-frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+
+    .episode-media {
+      aspect-ratio: 16 / 9; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .episode-audio {
+      background: linear-gradient(135deg, {{ colors.accent }}22 0%, {{ colors.dark }}22 100%);
+      color: {{ colors.dark }}; opacity: 0.75;
+    }
+    .episode-pending {
+      background: {{ colors.light }}; border-bottom: 1px dashed {{ colors.accent }}4d;
+      color: {{ colors.accent }}; opacity: 0.6;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .yt-facade img, .yt-play svg { transition: none; }
+      .yt-facade:hover img { transform: none; }
+    }
+
     /* FAQ accordion — the plus turns into a cross when open */
     .faq summary::-webkit-details-marker { display: none; }
     .faq summary::marker { content: ""; }

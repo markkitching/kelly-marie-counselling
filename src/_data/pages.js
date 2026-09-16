@@ -19,6 +19,28 @@ const readJson = (file) => {
   }
 };
 
+// A YouTube link can be pasted in any of the forms the site hands out — a watch URL, a
+// youtu.be short link, an embed or shorts URL — or just the bare id. All we keep is the
+// id, which is what both the thumbnail and the player need.
+const YOUTUBE_ID = /(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([A-Za-z0-9_-]{11})/;
+const youtubeId = (value) => {
+  const raw = clean(value);
+  if (/^[A-Za-z0-9_-]{11}$/.test(raw)) return raw;
+  const found = raw.match(YOUTUBE_ID);
+  return found ? found[1] : "";
+};
+
+// Spotify's share menu gives out open.spotify.com links, spotify.link short links and
+// spotify: URIs. Anything that isn't one of those is dropped rather than rendered as a
+// link that goes somewhere unexpected.
+const SPOTIFY_URL = /^https:\/\/([a-z0-9-]+\.)*(spotify\.com|spotify\.link)\//;
+const spotifyUrl = (value) => {
+  const raw = clean(value);
+  const uri = raw.match(/^spotify:([a-z]+):([A-Za-z0-9]+)$/);
+  if (uri) return `https://open.spotify.com/${uri[1]}/${uri[2]}`;
+  return SPOTIFY_URL.test(raw) ? raw : "";
+};
+
 // One repeatable block — a card, an episode, a person. `keys` is the shape we render,
 // so an unexpected field in the file is ignored rather than leaking into the page.
 // Rows missing `required` are dropped: adding a row in the CMS and leaving it blank
@@ -66,7 +88,12 @@ module.exports = () => {
       linksTitle: clean(raw.linksTitle),
       links: rows(raw.links, "label", ["label", "icon", "href"]),
       episodesTitle: clean(raw.episodesTitle),
-      episodes: rows(raw.episodes, "title", ["number", "title", "description", "meta", "href"]),
+      episodes: rows(raw.episodes, "title", ["number", "title", "description", "meta", "youtube", "spotify"])
+        .map((episode) => ({
+          ...episode,
+          youtube: youtubeId(episode.youtube),
+          spotify: spotifyUrl(episode.spotify),
+        })),
       productsTitle: clean(raw.productsTitle),
       products: rows(raw.products, "name", ["name", "price", "description", "image", "meta", "href"]),
       peopleTitle: clean(raw.peopleTitle),

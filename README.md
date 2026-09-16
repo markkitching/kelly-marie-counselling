@@ -122,7 +122,7 @@ combination is in use.
 | **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
 | **Checklist** | Section heading + rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
-| **Episodes** | Section heading + rows of *number, title, description, meta, link* | Podcast |
+| **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link* | Podcast |
 | **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
@@ -148,6 +148,42 @@ rendered by `src/_includes/page-body.njk`.
 > list in the CMS, which is a much larger change. Worth revisiting only if a page
 > genuinely needs a different order.
 
+### Podcast episodes — how adding one will work
+
+Pages CMS can't browse YouTube or Spotify, so an episode is added by **pasting a link**.
+Each episode row has:
+
+| Field | Notes |
+|---|---|
+| Episode number | Optional, shown as a small label |
+| Title | Required — a row with no title isn't rendered |
+| Description | Optional |
+| Duration / date | Optional free text |
+| YouTube link | Paste anything YouTube's Share button gives you |
+| Spotify link | Paste anything Spotify's Share button gives you |
+
+**The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
+watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so
+whatever gets pasted, it works. Spotify accepts `open.spotify.com` links, `spotify.link`
+short links and `spotify:episode:…` URIs; anything that isn't a Spotify address is
+ignored rather than rendered as a link that goes somewhere unexpected.
+
+What each combination produces:
+
+| Episode has | Card shows |
+|---|---|
+| A YouTube link | The video still, which becomes the player when clicked, plus both listen links |
+| Spotify only | An "Audio episode" panel and a *Listen on Spotify* link |
+| Neither | A "Not published yet" placeholder — so a planned episode can be listed before it exists |
+
+Every card keeps a media area of the same size, so cards sitting side by side line up
+whichever combination they use.
+
+> **Nothing is requested from YouTube until someone presses play.** The card shows a
+> still image, and only on click does the player load — from `youtube-nocookie.com`.
+> For a counselling site, where a visitor reading the page shouldn't be handed to
+> Google's tracking, that's worth the small amount of extra code.
+
 ### ⚠️ 2a. `.pages.yml` must be updated before this content goes live
 
 The new block fields **are not yet in the CMS schema**. Until they are:
@@ -167,7 +203,7 @@ or assumptions and need Kelly's sign-off before publishing:
 
 | Page | Needs confirming |
 |---|---|
-| Podcast | The show name *"Making It a Priority"* is a suggestion. Episode titles are proposed topics, not recorded episodes. Spotify / Apple / YouTube / RSS links are empty placeholders. |
+| Podcast | Named *The Kelly Marie Podcast*. The show's Spotify and YouTube addresses are still needed, and the four listed episodes are placeholder topics to be replaced with real ones. |
 | Merchandise | The four products are illustrative. No prices are quoted — each shows "Coming soon" instead. |
 | Meet the Team | The second card is an unnamed "Associate Practitioner — joining soon" placeholder. Delete it if the practice isn't recruiting. Kelly's card has no portrait: the photo currently in *About* is a landscape, not a headshot. |
 | Counselling | The fees FAQ says fees are confirmed at consultation rather than quoting a figure. |

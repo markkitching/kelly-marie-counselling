@@ -158,30 +158,57 @@
 <section class="{{ bg }} py-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     {{ blockHeading(pageContent.episodesTitle) }}
-    <div class="max-w-3xl mx-auto space-y-4">
+    <div class="grid md:grid-cols-2 gap-8">
       {% for episode in pageContent.episodes %}
-      <article class="service-card bg-white rounded-lg border border-gray-100 border-l-4 border-l-sage p-6 flex flex-col sm:flex-row gap-5">
-        {% if episode.number %}
-        <div class="flex-shrink-0">
-          <div class="w-14 h-14 bg-stone rounded flex flex-col items-center justify-center leading-none">
-            <span class="text-[9px] uppercase tracking-wider text-sage font-semibold">Ep</span>
-            <span class="font-serif text-forest text-xl">{{ episode.number }}</span>
-          </div>
+      <article class="service-card bg-white rounded-lg border border-gray-100 overflow-hidden flex flex-col">
+
+        {% if episode.youtube %}
+        {#- Nothing is requested from YouTube until the visitor chooses to play. -#}
+        <button type="button" class="yt-facade" data-youtube="{{ episode.youtube }}"
+          aria-label="Play &ldquo;{{ episode.title }}&rdquo;">
+          <img src="https://i.ytimg.com/vi/{{ episode.youtube }}/hqdefault.jpg" alt="" loading="lazy"
+            onerror="this.style.display='none'" />
+          <span class="yt-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+        {% elif episode.spotify %}
+        {#- Audio only — no video to show, but the row still needs a media area. -#}
+        <div class="episode-media episode-audio">
+          <i data-lucide="headphones" class="w-7 h-7"></i>
+          <span>Audio episode</span>
+        </div>
+        {% else %}
+        {#- Published nowhere yet, so the media area says so rather than sitting empty. -#}
+        <div class="episode-media episode-pending">
+          <i data-lucide="play" class="w-6 h-6"></i>
+          <span>Not published yet</span>
         </div>
         {% endif %}
-        <div class="flex-1">
-          <h3 class="font-serif text-forest text-xl mb-2">{{ episode.title }}</h3>
-          {% if episode.description %}
-          <p class="text-gray-600 text-sm leading-relaxed mb-3">{{ episode.description }}</p>
+
+        <div class="p-6 flex flex-col flex-1">
+          {% if episode.number %}
+          <span class="text-xs text-sage font-semibold uppercase tracking-wide">Episode {{ episode.number }}</span>
           {% endif %}
-          <div class="flex flex-wrap items-center gap-4">
+          <h3 class="font-serif text-forest text-xl mt-1 mb-2">{{ episode.title }}</h3>
+          {% if episode.description %}
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ episode.description }}</p>
+          {% endif %}
+
+          <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2">
             {% if episode.meta %}
-            <span class="text-xs text-sage font-semibold uppercase tracking-wide">{{ episode.meta }}</span>
+            <span class="text-xs text-gray-500">{{ episode.meta }}</span>
             {% endif %}
-            {% if episode.href %}
-            <a href="{{ episode.href }}" target="_blank" rel="noopener"
+            {% if episode.spotify %}
+            <a href="{{ episode.spotify }}" target="_blank" rel="noopener"
               class="inline-flex items-center gap-1.5 text-sm font-medium text-forest hover:text-sage transition-colors">
-              <i data-lucide="play-circle" class="w-4 h-4"></i> Listen
+              <i data-lucide="music" class="w-4 h-4"></i> Listen on Spotify
+            </a>
+            {% endif %}
+            {% if episode.youtube %}
+            <a href="https://www.youtube.com/watch?v={{ episode.youtube }}" target="_blank" rel="noopener"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-forest hover:text-sage transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i> Watch on YouTube
             </a>
             {% endif %}
           </div>
