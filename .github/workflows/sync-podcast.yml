@@ -1,12 +1,15 @@
 name: Sync podcast episodes
 
-# Runs daily, and on demand from the Actions tab. Each run pulls the show's recent
-# episodes from Spotify into src/content/pages/podcast.json and commits only if
-# something actually changed — which then triggers the usual Cloudflare deploy.
+# Runs daily, and on demand from the Actions tab. Each run pulls the channel's recent
+# episodes into src/content/pages/podcast.json and commits only if something actually
+# changed — which then triggers the usual Cloudflare deploy.
 #
-# Needs two repository secrets, from https://developer.spotify.com/dashboard:
-#   SPOTIFY_CLIENT_ID
-#   SPOTIFY_CLIENT_SECRET
+# Needs one repository variable:
+#   YOUTUBE_CHANNEL_ID   the UC… id from YouTube Studio > Settings > Channel > Advanced
+#
+# The default source is the channel's public Atom feed, which needs no credentials but
+# carries only the 15 most recent videos. For the full back catalogue, add a
+# YOUTUBE_API_KEY secret and set EPISODE_SOURCE to youtube-api below.
 
 on:
   workflow_dispatch:
@@ -34,11 +37,13 @@ jobs:
       - name: Check the merge rules still hold
         run: node scripts/test-sync-merge.js
 
-      - name: Pull episodes from Spotify
+      - name: Pull episodes
         env:
-          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
-          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
-        run: node scripts/sync-spotify-episodes.js
+          EPISODE_SOURCE: ${{ vars.EPISODE_SOURCE || 'youtube-rss' }}
+          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          EPISODE_SYNC_LIMIT: ${{ vars.EPISODE_SYNC_LIMIT || '30' }}
+        run: node scripts/sync-podcast-episodes.js
 
       - name: Confirm the site still builds
         run: |

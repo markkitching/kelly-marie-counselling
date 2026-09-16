@@ -6,7 +6,7 @@
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve",
-    "sync:podcast": "node scripts/sync-spotify-episodes.js",
+    "sync:podcast": "node scripts/sync-podcast-episodes.js",
     "test:sync": "node scripts/test-sync-merge.js"
   },
   "devDependencies": {

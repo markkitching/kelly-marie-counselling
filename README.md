@@ -47,8 +47,8 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
-- [x] **Podcast episodes pull automatically from Spotify** — daily, with order and edits preserved ✓
-- [ ] **Add the two Spotify secrets** — the sync can't run until `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` exist
+- [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
+- [ ] **Add `YOUTUBE_CHANNEL_ID`** — the sync can't run until that repository variable exists
 
 ---
 
@@ -67,7 +67,7 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/_includes/page-body.njk` | Renders the optional content blocks that make up a page. |
 | `scripts/gen-pages-yml.py` | Regenerates the six `Page:` entries in `.pages.yml` from one block map. |
 | `scripts/check-pages-yml.py` | Verifies a CMS save can't drop any stored field. |
-| `scripts/sync-spotify-episodes.js` | Pulls recent episodes from Spotify into the podcast page. |
+| `scripts/sync-podcast-episodes.js` | Pulls recent episodes from YouTube (or Spotify) into the podcast page. |
 | `scripts/test-sync-merge.js` | Proves the sync can't undo the editor's order, edits or hidden episodes. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
@@ -154,57 +154,68 @@ rendered by `src/_includes/page-body.njk`.
 > list in the CMS, which is a much larger change. Worth revisiting only if a page
 > genuinely needs a different order.
 
-### Podcast episodes sync automatically from Spotify
+### Podcast episodes sync automatically
 
-A scheduled job pulls the show's 30 most recent episodes into
-`src/content/pages/podcast.json`, where they behave like any other episode: reorder them
-by dragging, untick one to hide it, edit any wording. The page then renders the first 10
-ticked.
+A scheduled job pulls the show's recent episodes into `src/content/pages/podcast.json`,
+where they behave like any other episode: reorder by dragging, untick to hide, edit any
+wording. The page renders the first 10 ticked.
+
+**The source is YouTube, not Spotify.** Spotify's Web API would work, but Spotify has
+new app creation on hold, so most people can't obtain credentials at all. YouTube is the
+better source regardless: it hands back a video id, which is what the episode card needs
+to show a playable still rather than just a link out.
+
+| Source | Setup | Reach |
+|---|---|---|
+| `youtube-rss` *(default)* | nothing but the channel id | the 15 most recent videos |
+| `youtube-api` | a Google API key | the full back catalogue |
+| `spotify` | client id + secret | the show's episodes — kept working, but see above |
+
+**Setup.** Add the channel id as a repository *variable* under *Settings → Secrets and
+variables → Actions → Variables*:
+
+| Name | Where from |
+|---|---|
+| `YOUTUBE_CHANNEL_ID` | YouTube Studio → Settings → Channel → Advanced. It is the `UC…` form — the `@handle` will not work |
+
+That is enough for the default. For more than 15 episodes, create an API key at
+<https://console.cloud.google.com/apis/credentials> with **YouTube Data API v3** enabled,
+add it as the secret `YOUTUBE_API_KEY`, and set the variable `EPISODE_SOURCE` to
+`youtube-api`. It costs one quota unit per call against a free daily allowance of 10,000
+— the script uses `playlistItems.list` rather than `search.list`, which would cost 100.
 
 ```bash
-npm run test:sync                                  # the merge rules
-npm run sync:podcast                               # needs the two secrets below
-node scripts/sync-spotify-episodes.js --dry-run    # show what would change
-node scripts/sync-spotify-episodes.js --fixture f.json   # test with a saved response
+npm run test:sync                                       # the merge rules — 23 checks
+npm run sync:podcast                                    # needs YOUTUBE_CHANNEL_ID
+node scripts/sync-podcast-episodes.js --dry-run         # show what would change
+node scripts/sync-podcast-episodes.js --fixture f.xml   # test against a saved feed
+node scripts/sync-podcast-episodes.js --source youtube-api
 ```
 
-**Setup (one time).** Create an app at <https://developer.spotify.com/dashboard>, then
-add its two values as repository secrets under *Settings → Secrets and variables →
-Actions*:
+`.github/workflows/sync-podcast.yml` runs daily at 06:00 UTC and on demand from the
+Actions tab. It runs the merge tests first, syncs, confirms the site still builds, and
+commits only if something changed — which triggers the usual Cloudflare deploy.
 
-| Secret | Where from |
-|---|---|
-| `SPOTIFY_CLIENT_ID` | the Spotify app's dashboard |
-| `SPOTIFY_CLIENT_SECRET` | same page, behind *View client secret* |
-
-`.github/workflows/sync-podcast.yml` then runs daily at 06:00 UTC, and on demand from
-the Actions tab. It commits only when something changed, which triggers the usual
-Cloudflare deploy. Optional overrides: `SPOTIFY_SHOW_ID`, `SPOTIFY_MARKET` (default
-`GB`), `SPOTIFY_EPISODE_LIMIT` (default 30, Spotify's own maximum is 50).
-
-**What the sync will and won't do.** These rules exist so an automated job can never
-quietly undo an afternoon's editing, and each one is covered by `npm run test:sync`:
+**What the sync will and won't do.** These rules exist so a nightly job can never quietly
+undo an afternoon's editing, and every one is covered by `npm run test:sync`:
 
 | | |
 |---|---|
 | Order | Never rearranged. Existing episodes stay where they were put; new ones go on top, newest first |
-| Your edits | A field with something in it is never overwritten. Rewrite a title or description for the website and it stays. Clear it and the next sync refills it from Spotify |
+| Your edits | A field with something in it is never overwritten. Rewrite a title or description for the website and it stays. Clear it and the next sync refills it |
 | Hidden episodes | Stay hidden |
-| YouTube links | Added by hand, and preserved — Spotify knows nothing about them |
-| Deletions | Never. An episode that vanishes from Spotify stays in the file until someone removes it |
-| Failure | Writes nothing and exits non-zero. An outage at Spotify cannot empty the page |
+| Deletions | Never. An episode that vanishes upstream stays in the file until someone removes it |
+| Failure | Writes nothing and exits non-zero. An outage upstream cannot empty the page |
 
-Episodes are matched on their Spotify id, so re-syncing the same episodes is a genuine
-no-op — the job commits nothing and no deploy is triggered.
+> **Identity is the video id**, parsed exactly as `src/_data/pages.js` parses it — so an
+> episode whose YouTube link was pasted in by hand is recognised as the same episode and
+> is not duplicated. An episode with no YouTube link at all is invisible to the sync and
+> left completely alone, which is why the original placeholder topics survive untouched,
+> and why they drop off the page once real episodes sit above them.
 
-> **The description is trimmed to 240 characters** on a word boundary. Podcast
-> descriptions tend to carry sponsor copy and link dumps that would wreck a card. Rewrite
-> any of them and the sync will leave your version alone.
-
-> **Identity comes from the Spotify link.** An episode added by hand with no Spotify link
-> is invisible to the sync and left completely alone — which is how the original
-> placeholder topics survive untouched, and why they drop off the page once thirty real
-> episodes sit above them.
+> **Descriptions are trimmed to 240 characters** on a word boundary. YouTube descriptions
+> carry timestamps, links and sponsor copy that would wreck a card. Rewrite any of them
+> and the sync leaves your version alone.
 
 ### Podcast episodes — how adding one will work
 
