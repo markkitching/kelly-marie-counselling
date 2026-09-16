@@ -4,7 +4,7 @@ A single-page counselling website for Kelly Marie Counselling (Leeds), built wit
 [Eleventy](https://www.11ty.dev/) + Tailwind CSS, hosted on Cloudflare Pages, and
 editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) — no code required.
 
-- **Live site:** https://kellymariecounselling.com
+- **Live site:** https://kellymariewellbeing.com  (`kellymariecounselling.com` redirects to it)
 - **Visual editor:** https://app.pagescms.org (sign in with GitHub)
 
 ---
@@ -37,7 +37,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
 - [ ] **Phone number** — removed for now; ask the developer to re-add when a number is available
 - [x] **BACP membership number** — set in the editor (No. 00922563) ✓
-- [x] **Custom domain** — `kellymariecounselling.com` live on Cloudflare Pages ✓
+- [x] **Custom domain** — `kellymariewellbeing.com` live on Cloudflare Pages, old domain redirecting ✓
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
 - [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
@@ -367,6 +367,19 @@ or assumptions and need Kelly's sign-off before publishing:
   (About / Services / My Approach / Contact), matching what it showed before. Decide
   whether the six pages belong there too.
 
+### Brand names don't currently match
+
+The header and footer read **Kelly Marie Wellbeing**, but the browser tab title and the
+search-engine description in *Page settings* still read **Kelly Marie Counselling**.
+Those two fields are what Google prints in its results, so the site currently presents
+one name to visitors and another to search.
+
+That is worth a deliberate decision rather than a quick fix: "counselling" is the word
+people actually search for, so replacing it in the title and description may cost real
+traffic. A common middle course is a title carrying both — *"Kelly Marie Wellbeing |
+Counselling & Psychotherapy in Leeds"* — which keeps the search term while matching the
+brand. Both fields are editable under **Page settings**.
+
 ### 4. Open design question
 
 "Services" (an existing homepage section) overlaps conceptually with *Wellbeing*,
@@ -451,11 +464,22 @@ npm run build      # one-off build into _site/
 
 ### Contact form (Formspree)
 The form posts to the Formspree endpoint stored in `src/content/site.json` → `formspreeEndpoint`
-(currently `https://formspree.io/f/mwvjrpyo`, delivering to kelly@kellymariecounselling.com).
+(currently `https://formspree.io/f/mwvjrpyo`).
+
+> ⚠️ **The delivery address lives at Formspree, not in this repo.** It was set to
+> kelly@**kellymariecounselling**.com before the domain moved. If that mailbox has gone,
+> enquiries submitted through the form go nowhere and nobody is told. Worth confirming in
+> the Formspree dashboard that it now delivers to kelly@kellymariewellbeing.com — and
+> worth sending a test enquiry through the live form either way, since this is the one
+> failure on the site that is completely silent.
 
 ---
 
 ## Custom domain migration (Hostinger → Cloudflare) — reference
+
+The site now serves from `kellymariewellbeing.com`; `kellymariecounselling.com` redirects
+to it. The notes below describe the original migration of the older domain and still
+apply to its DNS.
 
 `kellymariecounselling.com` is **registered** with Hostinger (unchanged). Only **DNS management**
 moved to Cloudflare, because Cloudflare Pages needs Cloudflare-hosted DNS to serve an apex (no-`www`) domain.
