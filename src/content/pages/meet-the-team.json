@@ -3,25 +3,21 @@
   "heading": "Meet the Team",
   "intro": "A small practice, built on the belief that good therapy depends a great deal on the person delivering it.",
   "body": "This is an independent practice based in Leeds, working with individuals, groups and organisations across the UK. Everything here is delivered personally — there is no call centre, no triage form, and no chance of being passed between practitioners.\n\nAll clinical work is conducted in line with the BACP Ethical Framework and supported by regular clinical supervision. That is a professional requirement, and more importantly it is what keeps the work safe and properly thought about.\n\nThe practice is growing carefully. Any practitioner who joins will be BACP-registered, supervised, and chosen for fit rather than availability.",
-  "image": "",
   "peopleTitle": "Who You'll Be Working With",
   "people": [
     {
       "name": "Kelly Marie",
       "role": "Founder & Psychotherapist",
       "credentials": "BACP Registered Member · No. 00922563",
-      "bio": "A psychotherapist with over a decade of clinical experience working with individuals, couples, young people and organisations. Kelly's practice is grounded in psychodynamic theory alongside integrative and trauma-informed approaches. She specialises in workplace therapy and wellbeing, and has worked with organisations including LADBible and Genuit Group.",
-      "image": ""
+      "bio": "A psychotherapist with over a decade of clinical experience working with individuals, couples, young people and organisations. Kelly's practice is grounded in psychodynamic theory alongside integrative and trauma-informed approaches. She specialises in workplace therapy and wellbeing, and has worked with organisations including LADBible and Genuit Group."
     },
     {
-      "name": "Associate Practitioner",
-      "role": "Joining soon",
-      "credentials": "BACP Registered",
-      "bio": "The practice is currently looking to appoint an associate psychotherapist to support growing demand, particularly for workplace referrals. Details will be published here once an appointment is made.",
-      "image": ""
+      "name": "Ella Kitching",
+      "role": "Head of Media",
+      "credentials": "B.Sc. Psychology (Hons)",
+      "bio": "Ella's great innit"
     }
   ],
-  "faqsTitle": "",
   "faqs": [
     {
       "question": "Will I always see the same therapist?",
@@ -39,6 +35,5 @@
   "ctaHeading": "Interested in Joining the Practice?",
   "ctaText": "I am always glad to hear from BACP-registered therapists whose approach might fit here, particularly those with experience of workplace or group work. Equally, if you are looking for support rather than a role, the door is open.",
   "ctaButtonLabel": "Get in Touch",
-  "ctaButtonIcon": "mail",
-  "ctaButtonHref": ""
+  "ctaButtonIcon": "mail"
 }
