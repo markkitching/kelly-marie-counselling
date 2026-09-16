@@ -19,20 +19,6 @@
   "episodesTitle": "Episodes",
   "episodes": [
     {
-      "title": "Imagine if we aged like The Sims",
-      "description": "well... in the way we talk about aging and birthdays, you'd think we do!",
-      "meta": "15 Sep 2026",
-      "youtube": "1XmqYzT4qBU",
-      "visible": true
-    },
-    {
-      "title": "Why do we do this every year?!",
-      "description": "From The Kelly Marie Podcast's latest episode \"Beating The Birthday Blues\"",
-      "meta": "15 Sep 2026",
-      "youtube": "kqpkhv-iWu8",
-      "visible": true
-    },
-    {
       "title": "Beating the Birthday Blues | The Kelly Marie Podcast",
       "description": "Of course the virgo is talking about mental health on her birthday... What are the birthday blues? How does it impact us? What can we do about it? Follow us on TikTok: https://www.tiktok.com/@thekellymariepodcast",
       "meta": "15 Sep 2026",
@@ -44,6 +30,20 @@
       "description": "Did you have a good summer? Great! But now what? This year I want to do my best to thrive this winter and here is how I'm doing it. Follow us on TikTok: @thekellymariepodcast",
       "meta": "11 Sep 2026",
       "youtube": "4KQKkeRfk-0",
+      "visible": true
+    },
+    {
+      "title": "Imagine if we aged like The Sims",
+      "description": "well... in the way we talk about aging and birthdays, you'd think we do!",
+      "meta": "15 Sep 2026",
+      "youtube": "1XmqYzT4qBU",
+      "visible": true
+    },
+    {
+      "title": "Why do we do this every year?!",
+      "description": "From The Kelly Marie Podcast's latest episode \"Beating The Birthday Blues\"",
+      "meta": "15 Sep 2026",
+      "youtube": "kqpkhv-iWu8",
       "visible": true
     }
   ],
