@@ -45,12 +45,16 @@ def listblock(name, label, description, subfields, *, summary, indent=6):
            f"{pad}  fields:\n")
     return out + subfields
 
-def sub(name, label, ftype, indent=6, description=None):
+def sub(name, label, ftype, indent=6, description=None, values=None):
     pad = " " * (indent + 4)
     out = f"{pad}- name: {name}\n{pad}  label: {label}\n"
     if description:
         out += f"{pad}  description: {description}\n"
-    return out + f"{pad}  type: {ftype}\n"
+    out += f"{pad}  type: {ftype}\n"
+    if values:
+        out += f"{pad}  options:\n{pad}    values:\n"
+        out += "".join(f"{pad}      - {v}\n" for v in values)
+    return out
 
 def build(slug, title):
     blocks = BLOCKS[slug]
@@ -105,8 +109,9 @@ def build(slug, title):
                   description="Paste anything YouTube's Share button gives you. Adds a video the visitor can play here.")
             + sub("spotify", "Spotify link", "string",
                   description="Paste anything Spotify's Share button gives you.")
-            + sub("visible", "Show this episode on the page", "boolean",
-                  description="Untick to hide it without deleting it. The page shows the first 10 that are ticked."), summary="{title}")
+            + sub("visible", "On the page", "select", values=["Shown", "Hidden"],
+                  description="Hidden takes it off the page without deleting it. The page shows the first 10 marked Shown."),
+            summary="{visible} · {title}")
 
     if "products" in blocks:
         body += f("productsTitle", "Products — section heading (optional)", "string")

@@ -1198,7 +1198,7 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: '{title}'
+            summary: '{visible} · {title}'
         fields:
           - name: number
             label: Episode number (optional)
@@ -1221,9 +1221,13 @@ content:
             description: Paste anything Spotify's Share button gives you.
             type: string
           - name: visible
-            label: Show this episode on the page
-            description: Untick to hide it without deleting it. The page shows the first 10 that are ticked.
-            type: boolean
+            label: On the page
+            description: Hidden takes it off the page without deleting it. The page shows the first 10 marked Shown.
+            type: select
+            options:
+              values:
+                - Shown
+                - Hidden
       - name: ctaHeading
         label: Closing section — heading (optional)
         type: string

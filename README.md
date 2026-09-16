@@ -250,22 +250,31 @@ Each episode row has:
 | Title | Required — a row with no title isn't rendered |
 | Description | Optional |
 | Duration / date | Optional free text |
-| Show this episode | Tick box — untick to hide without deleting |
+| On the page | *Shown* or *Hidden* — hiding takes it off the page without deleting it |
 | YouTube link | Paste anything YouTube's Share button gives you |
 | Spotify link | Paste anything Spotify's Share button gives you |
 
 **Choosing which episodes appear, and in what order.** Drag the rows to reorder them —
-that order is what the page uses, so newest-first is just a matter of dragging. Untick
-*Show this episode* to take one off the page while keeping it in the list.
+that order is what the page uses, so newest-first is just a matter of dragging. Set an
+episode to *Hidden* to take it off the page while keeping it in the list.
+
+Each row collapses to one line reading **`Shown · Episode title`**, so the whole list can
+be read and reordered without opening anything. That is why *On the page* is a two-value
+dropdown rather than a tick box: `summary` renders text, so a tick box's state could not
+appear in the line. Pages CMS has no way to put an interactive control in a collapsed
+row, so a toggle you can click without opening the row isn't available.
 
 **The page shows the first 10 ticked episodes** (`EPISODE_LIMIT` in `src/_data/pages.js`).
 Beyond that, a line appears under the grid linking out to the full back catalogue, so a
 long-running show doesn't turn the page into an endless scroll. Every episode can stay
 in the CMS regardless — the limit only affects what's rendered.
 
-> An episode row saved before the tick box existed has no `visible` value, and is
-> treated as shown. `clean()` passes booleans through untouched for the same reason —
-> were `false` flattened to `""`, an unticked episode would go on showing.
+> **Only an explicit "hidden" hides a row.** `isHidden()` in `src/_data/pages.js` accepts
+> the `Hidden` value, the `false` that rows written before the dropdown existed still
+> carry, and any casing or stray spacing around either. Everything else shows, including
+> a row with no value and one the CMS left the key out of. Erring the other way would
+> silently publish an episode someone had hidden. `clean()` passes booleans through
+> untouched for the same reason — were `false` flattened to `""` it would read as shown.
 
 **The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
 watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so

@@ -52,6 +52,14 @@ const spotifyUrl = (value) => {
   return SPOTIFY_URL.test(raw) ? raw : "";
 };
 
+// "On the page" is a Shown/Hidden choice, but rows written before it became one still
+// hold the old true/false, and the CMS leaves the key out entirely when nothing is
+// chosen. Only an explicit "hidden" takes a row off the page — everything else, including
+// a missing value, shows. Getting this backwards would silently publish something the
+// editor had hidden.
+const isHidden = (value) =>
+  value === false || String(value).trim().toLowerCase() === "hidden";
+
 // One repeatable block — a card, an episode, a person. `keys` is the shape we render,
 // so an unexpected field in the file is ignored rather than leaking into the page.
 // Rows missing `required` are dropped: adding a row in the CMS and leaving it blank
@@ -102,9 +110,7 @@ module.exports = () => {
           youtube: youtubeId(episode.youtube),
           spotify: spotifyUrl(episode.spotify),
         }))
-        // An episode added before the tick box existed has no `visible` key, and should
-        // keep showing.
-        .filter((episode) => episode.visible !== false),
+        .filter((episode) => !isHidden(episode.visible)),
       productsTitle: clean(raw.productsTitle),
       products: rows(raw.products, "name", ["name", "price", "description", "image", "meta", "href"]),
       peopleTitle: clean(raw.peopleTitle),

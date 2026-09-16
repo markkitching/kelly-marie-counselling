@@ -23,7 +23,7 @@ const mergeSpotify = (existing, incoming) => merge(existing, incoming, "spotify"
 const local = (id, extra = {}) => ({
   number: "", title: `Local ${id}`, description: "", meta: "",
   youtube: "", spotify: id ? `https://open.spotify.com/episode/${id}` : "",
-  visible: true, ...extra,
+  visible: "Shown", ...extra,
 });
 
 let passed = 0;
@@ -47,8 +47,13 @@ test("the editor's order is never rearranged", () => {
 });
 
 test("a hidden episode stays hidden", () => {
+  const { episodes } = mergeSpotify([local("AAA", { visible: "Hidden" })], [spotify("AAA", "Fresh title")]);
+  assert.strictEqual(episodes[0].visible, "Hidden");
+});
+
+test("an episode hidden under the old true/false keeps its setting", () => {
   const { episodes } = mergeSpotify([local("AAA", { visible: false })], [spotify("AAA", "Fresh title")]);
-  assert.strictEqual(episodes[0].visible, false);
+  assert.strictEqual(episodes[0].visible, false, "the sync must not rewrite it to Shown");
 });
 
 test("a rewritten title is not overwritten", () => {
@@ -166,11 +171,11 @@ test("a video id is written where the page expects it", () => {
   const { episodes } = merge([], parseYouTubeFeed(FEED), "youtube");
   assert.strictEqual(episodes[0].youtube, "dQw4w9WgXcQ");
   assert.strictEqual(episodes[0].spotify, "");
-  assert.strictEqual(episodes[0].visible, true);
+  assert.strictEqual(episodes[0].visible, "Shown");
 });
 
 test("an episode whose YouTube link was pasted by hand is not duplicated", () => {
-  const existing = [{ number: "", title: "Mine", description: "", meta: "", visible: true,
+  const existing = [{ number: "", title: "Mine", description: "", meta: "", visible: "Shown",
                       youtube: "https://youtu.be/dQw4w9WgXcQ", spotify: "" }];
   const { episodes, added } = merge(existing, parseYouTubeFeed(FEED), "youtube");
   assert.strictEqual(added, 1);                       // only the other one
@@ -187,7 +192,7 @@ test("re-syncing the feed is a no-op", () => {
 
 test("a spotify-keyed sync ignores youtube-only episodes, and vice versa", () => {
   const youtubeOnly = [{ number: "", title: "YT", description: "", meta: "",
-                         youtube: "dQw4w9WgXcQ", spotify: "", visible: true }];
+                         youtube: "dQw4w9WgXcQ", spotify: "", visible: "Shown" }];
   const { added } = mergeSpotify(youtubeOnly, [spotify("AAA", "A")]);
   assert.strictEqual(added, 1);
   assert.strictEqual(mergeSpotify(youtubeOnly, [spotify("AAA", "A")]).episodes.length, 2);
