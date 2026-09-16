@@ -1172,6 +1172,10 @@ content:
             label: Spotify link
             description: Paste anything Spotify's Share button gives you.
             type: string
+          - name: visible
+            label: Show this episode on the page
+            description: Untick to hide it without deleting it. The page shows the first 10 that are ticked.
+            type: boolean
       - name: ctaHeading
         label: Closing section — heading (optional)
         type: string

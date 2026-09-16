@@ -3,9 +3,20 @@ const path = require("path");
 
 const PAGES_DIR = path.join(__dirname, "..", "content", "pages");
 
+// How many episodes the podcast page shows. The editor can list every episode and hide
+// or reorder them freely; only this many of the shown ones reach the page, with a link
+// out to the full back catalogue underneath.
+const EPISODE_LIMIT = 10;
+
 // Trimmed so a field the editor "cleared" but left a stray space or newline in still
 // counts as empty — otherwise the page would drop its placeholder for a blank screen.
-const clean = (value) => (typeof value === "string" ? value.trim() : value || "");
+// Tick boxes are passed through as-is: an unticked one is `false`, which must not be
+// flattened to "" or an episode the editor hid would go on showing.
+const clean = (value) => {
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "boolean") return value;
+  return value || "";
+};
 
 // These files are written by the CMS, which has been seen to save an empty file when
 // every field is cleared. Treat anything unreadable as "not written yet" rather than
@@ -84,12 +95,16 @@ module.exports = () => {
       linksTitle: clean(raw.linksTitle),
       links: rows(raw.links, "label", ["label", "icon", "href"]),
       episodesTitle: clean(raw.episodesTitle),
-      episodes: rows(raw.episodes, "title", ["number", "title", "description", "meta", "youtube", "spotify"])
+      episodes: rows(raw.episodes, "title",
+        ["number", "title", "description", "meta", "youtube", "spotify", "visible"])
         .map((episode) => ({
           ...episode,
           youtube: youtubeId(episode.youtube),
           spotify: spotifyUrl(episode.spotify),
-        })),
+        }))
+        // An episode added before the tick box existed has no `visible` key, and should
+        // keep showing.
+        .filter((episode) => episode.visible !== false),
       productsTitle: clean(raw.productsTitle),
       products: rows(raw.products, "name", ["name", "price", "description", "image", "meta", "href"]),
       peopleTitle: clean(raw.peopleTitle),
@@ -105,6 +120,12 @@ module.exports = () => {
       ctaButtonIcon: clean(raw.ctaButtonIcon) || "calendar",
       ctaButtonHref: clean(raw.ctaButtonHref) || "/#contact",
     };
+
+    // The listen buttons double as the "everything else is over here" link when the
+    // episode list is capped.
+    page.primaryLink = page.links.find((link) => link.href) || null;
+    page.episodesTruncated = page.episodes.length > EPISODE_LIMIT;
+    page.episodes = page.episodes.slice(0, EPISODE_LIMIT);
 
     // The eyebrow alone is decoration, and a block's heading is just a label for rows
     // that may not exist — neither makes a page "written" on its own.

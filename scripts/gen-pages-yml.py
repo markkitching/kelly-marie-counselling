@@ -94,7 +94,9 @@ def build(slug, title):
             + sub("youtube", "YouTube link", "string",
                   description="Paste anything YouTube's Share button gives you. Adds a video the visitor can play here.")
             + sub("spotify", "Spotify link", "string",
-                  description="Paste anything Spotify's Share button gives you."))
+                  description="Paste anything Spotify's Share button gives you.")
+            + sub("visible", "Show this episode on the page", "boolean",
+                  description="Untick to hide it without deleting it. The page shows the first 10 that are ticked."))
 
     if "products" in blocks:
         body += f("productsTitle", "Products — section heading (optional)", "string")

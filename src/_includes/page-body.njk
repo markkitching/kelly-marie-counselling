@@ -216,6 +216,14 @@
       </article>
       {% endfor %}
     </div>
+
+    {% if pageContent.episodesTruncated %}
+    <p class="text-center text-sm text-gray-500 mt-10">
+      Showing the latest {{ pageContent.episodes | length }} episodes.{% if pageContent.primaryLink %}
+      <a href="{{ pageContent.primaryLink.href }}" target="_blank" rel="noopener"
+        class="text-forest font-medium hover:text-sage transition-colors">Browse them all</a>.{% endif %}
+    </p>
+    {% endif %}
   </div>
 </section>
 {%- set blockIndex = blockIndex + 1 -%}

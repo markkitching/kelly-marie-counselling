@@ -125,7 +125,7 @@ combination is in use.
 | **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
 | **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
-| **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link* | Podcast |
+| **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link, show/hide* | Podcast |
 | **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
@@ -186,8 +186,22 @@ Each episode row has:
 | Title | Required — a row with no title isn't rendered |
 | Description | Optional |
 | Duration / date | Optional free text |
+| Show this episode | Tick box — untick to hide without deleting |
 | YouTube link | Paste anything YouTube's Share button gives you |
 | Spotify link | Paste anything Spotify's Share button gives you |
+
+**Choosing which episodes appear, and in what order.** Drag the rows to reorder them —
+that order is what the page uses, so newest-first is just a matter of dragging. Untick
+*Show this episode* to take one off the page while keeping it in the list.
+
+**The page shows the first 10 ticked episodes** (`EPISODE_LIMIT` in `src/_data/pages.js`).
+Beyond that, a line appears under the grid linking out to the full back catalogue, so a
+long-running show doesn't turn the page into an endless scroll. Every episode can stay
+in the CMS regardless — the limit only affects what's rendered.
+
+> An episode row saved before the tick box existed has no `visible` value, and is
+> treated as shown. `clean()` passes booleans through untouched for the same reason —
+> were `false` flattened to `""`, an unticked episode would go on showing.
 
 **The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
 watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so
