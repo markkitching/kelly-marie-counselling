@@ -52,8 +52,16 @@ def compare_fields(entries):
     return ok
 
 
-def simulate_save(entries):
-    """Rewrite each file with only what the form knows, exactly as the CMS would."""
+def simulate_save(entries, drop_empty):
+    """Rewrite each file with only what the form knows, as the CMS would.
+
+    Pages CMS has been observed to leave empty fields out of the file altogether rather
+    than writing "", so both shapes are worth testing: `drop_empty` covers what it
+    actually does, and the other covers a version that writes every key.
+    """
+    def keep(value):
+        return not (drop_empty and value in ("", [], None))
+
     for entry in entries:
         path = ROOT / entry["path"]
         data = json.loads(path.read_text(), object_pairs_hook=collections.OrderedDict)
@@ -62,12 +70,18 @@ def simulate_save(entries):
             name = field["name"]
             if field.get("list"):
                 subs = [s["name"] for s in field["fields"]]
-                out[name] = [
-                    collections.OrderedDict((s, row.get(s, "")) for s in subs)
+                rows_out = [
+                    collections.OrderedDict(
+                        (s, row[s]) for s in subs if s in row and keep(row[s])
+                    )
                     for row in (data.get(name) or [])
                 ]
+                if keep(rows_out):
+                    out[name] = rows_out
             else:
-                out[name] = data.get(name, "")
+                value = data.get(name, "")
+                if keep(value):
+                    out[name] = value
         path.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
 
 
@@ -89,21 +103,25 @@ def main():
 
     print("2. a save leaves the built site unchanged")
     build()
+    same = True
     with tempfile.TemporaryDirectory() as tmp:
         before = pathlib.Path(tmp) / "before"
         shutil.copytree(SITE, before)
-
         originals = {ROOT / e["path"]: (ROOT / e["path"]).read_text() for e in entries}
-        try:
-            simulate_save(entries)
-            build()
-            same = identical(before, SITE)
-        finally:
-            for path, text in originals.items():
-                path.write_text(text)
-            build()
 
-    print("   pass\n" if same else "   FAIL — a save changes the rendered site\n")
+        for drop_empty in (True, False):
+            label = "omitting empty fields" if drop_empty else "writing every field"
+            try:
+                simulate_save(entries, drop_empty)
+                build()
+                ok = identical(before, SITE)
+            finally:
+                for path, text in originals.items():
+                    path.write_text(text)
+                build()
+            print(f"   {label}: {'pass' if ok else 'FAIL'}")
+            same = same and ok
+    print()
 
     if fields_ok and same:
         print("PASS — the CMS cannot drop a stored field")
