@@ -60,5 +60,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/content/pages/podcast.json
-          git commit -m "Sync podcast episodes from Spotify"
+          git commit -m "Sync podcast episodes"
           git push
