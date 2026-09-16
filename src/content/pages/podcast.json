@@ -3,7 +3,6 @@
   "heading": "The Kelly Marie Podcast",
   "intro": "Honest conversations about mental health — at work, at home, and in the messy middle. Listen on Spotify, or watch on YouTube.",
   "body": "Not a clinical lecture series, and not a wellness show that tells you to drink more water — conversations with people who think seriously about mental health, and with people who have simply lived through something hard and have something useful to say about it.\n\nEach episode is built around one question worth twenty minutes of your attention. No jargon, no pretending there are easy answers, and nothing that mistakes optimism for support.\n\nIf there is something you would want covered, or someone I should be talking to, I would genuinely like to hear it.",
-  "image": "",
   "linksTitle": "Where to Listen",
   "links": [
     {
@@ -20,45 +19,14 @@
   "episodesTitle": "Episodes",
   "episodes": [
     {
-      "number": "01",
-      "title": "Why Nobody Asks for Help Until It's Urgent",
-      "description": "What actually stops people reaching out — and why \"just ask for help\" is advice that ignores how shame works.",
-      "meta": "",
-      "youtube": "",
-      "spotify": "",
-      "visible": true
-    },
-    {
-      "number": "02",
-      "title": "The Conversation Your Manager Is Dreading",
-      "description": "Both sides of the workplace mental health conversation: what employees wish was said, and why the person meant to say it freezes.",
-      "meta": "",
-      "youtube": "",
-      "spotify": "",
-      "visible": true
-    },
-    {
-      "number": "03",
-      "title": "Grief Doesn't Have Stages",
-      "description": "On loss that refuses to follow a tidy arc, and the quiet pressure to be visibly recovered by now.",
-      "meta": "",
-      "youtube": "",
-      "spotify": "",
-      "visible": true
-    },
-    {
       "number": "04",
       "title": "What Therapy Is Actually Like",
       "description": "A plain description of what happens in the room, for anyone put off by not knowing what they would be walking into.",
-      "meta": "",
-      "youtube": "",
-      "spotify": "",
       "visible": true
     }
   ],
   "ctaHeading": "Suggest a Topic",
   "ctaText": "Something you would want an honest conversation about, or someone I should be talking to? Send it over — listener suggestions shape what gets recorded.",
   "ctaButtonLabel": "Send a Suggestion",
-  "ctaButtonIcon": "mic",
-  "ctaButtonHref": ""
+  "ctaButtonIcon": "mic"
 }
