@@ -19,9 +19,22 @@ const readJson = (file) => {
   }
 };
 
-// Editable content for the standalone pages, keyed by slug. A page with nothing filled
-// in falls back to the "coming soon" placeholder in holding.njk, so pages can be
-// written one at a time.
+// One repeatable block — a card, an episode, a person. `keys` is the shape we render,
+// so an unexpected field in the file is ignored rather than leaking into the page.
+// Rows missing `required` are dropped: adding a row in the CMS and leaving it blank
+// should show nothing, not an empty card.
+const rows = (raw, required, keys) =>
+  (Array.isArray(raw) ? raw : [])
+    .map((row) => {
+      const out = {};
+      for (const key of keys) out[key] = clean((row || {})[key]);
+      return out;
+    })
+    .filter((row) => row[required]);
+
+// Editable content for the standalone pages, keyed by slug. Every block is optional, so
+// a page shows only what's been filled in, and a page with nothing at all falls back to
+// the "coming soon" placeholder in holding.njk.
 //
 // Read fresh each time rather than require()d, so `eleventy --serve` picks up edits.
 module.exports = () => {
@@ -31,17 +44,64 @@ module.exports = () => {
     if (!file.endsWith(".json")) continue;
 
     const raw = readJson(path.join(PAGES_DIR, file));
+    const checklist = raw.checklist || {};
+    const cta = raw.cta || {};
+
     const page = {
+      // Heading band + opening text
       eyebrow: clean(raw.eyebrow),
       heading: clean(raw.heading),
       intro: clean(raw.intro),
       body: clean(raw.body),
       image: clean(raw.image),
+
+      // Optional blocks, rendered in a fixed order by page-body.njk. Each carries an
+      // optional heading of its own; left blank, the block simply has no heading.
+      cardsTitle: clean(raw.cardsTitle),
+      cards: rows(raw.cards, "title", ["icon", "title", "description", "meta"]),
+      checklist: {
+        title: clean(checklist.title),
+        items: rows(checklist.items, "text", ["text"]),
+      },
+      linksTitle: clean(raw.linksTitle),
+      links: rows(raw.links, "label", ["label", "icon", "href"]),
+      episodesTitle: clean(raw.episodesTitle),
+      episodes: rows(raw.episodes, "title", ["number", "title", "description", "meta", "href"]),
+      productsTitle: clean(raw.productsTitle),
+      products: rows(raw.products, "name", ["name", "price", "description", "image", "meta", "href"]),
+      peopleTitle: clean(raw.peopleTitle),
+      people: rows(raw.people, "name", ["name", "role", "credentials", "bio", "image"]),
+      faqsTitle: clean(raw.faqsTitle),
+      faqs: rows(raw.faqs, "question", ["question", "answer"]),
+      quote: clean(raw.quote),
+      quoteAuthor: clean(raw.quoteAuthor),
+      cta: {
+        heading: clean(cta.heading),
+        text: clean(cta.text),
+        buttonLabel: clean(cta.buttonLabel),
+        // These two always resolve to something, so neither counts towards hasContent.
+        buttonIcon: clean(cta.buttonIcon) || "calendar",
+        buttonHref: clean(cta.buttonHref) || "/#contact",
+      },
     };
 
-    // The eyebrow alone is decoration, so it doesn't by itself make a page "written".
+    // The eyebrow alone is decoration, and the checklist's title is just a label for
+    // items that may not exist — neither makes a page "written" on its own.
     page.hasContent = Boolean(
-      page.heading || page.intro || page.body || page.image
+      page.heading ||
+        page.intro ||
+        page.body ||
+        page.image ||
+        page.quote ||
+        page.cta.heading ||
+        page.cta.text ||
+        page.cards.length ||
+        page.checklist.items.length ||
+        page.links.length ||
+        page.episodes.length ||
+        page.products.length ||
+        page.people.length ||
+        page.faqs.length
     );
 
     pages[path.basename(file, ".json")] = page;

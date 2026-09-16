@@ -1,0 +1,339 @@
+{#
+  One standalone page, assembled from whichever blocks the editor has filled in.
+
+  Every block is optional and independent, so a page shows only what's been written —
+  and a page with nothing at all never reaches here, because holding.njk falls back to
+  the "coming soon" placeholder instead.
+
+  Blocks render in a fixed order (below) and their backgrounds alternate automatically,
+  so the page keeps its light/dark rhythm whichever ones happen to be in use.
+
+  Expects: pageContent (from pages.js), page_item (from newPages.json).
+#}
+{%- set blockIndex = 0 -%}
+
+{#- Each block can carry its own heading, or none — the divider comes with it. -#}
+{%- macro blockHeading(title) -%}
+{% if title %}
+    <h2 class="font-serif text-forest text-3xl text-center">{{ title }}</h2>
+    <div class="divider mt-4 mb-12 mx-auto"></div>
+{% endif %}
+{%- endmacro -%}
+
+<!-- ══════════════════════════ HEADING BAND ══════════════════════════ -->
+<section class="bg-stone py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {% if pageContent.eyebrow %}
+    <div class="flex items-center justify-center gap-2 mb-6">
+      <span class="w-px h-5 bg-sage"></span>
+      <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ pageContent.eyebrow }}</span>
+      <span class="w-px h-5 bg-sage"></span>
+    </div>
+    {% endif %}
+
+    <h1 class="font-serif text-forest text-4xl lg:text-5xl leading-tight">
+      {{ pageContent.heading or page_item.title }}
+    </h1>
+
+    <div class="divider mt-6 mb-8 mx-auto"></div>
+
+    {% if pageContent.intro %}
+    <p class="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">{{ pageContent.intro }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if pageContent.body or pageContent.image %}
+<!-- ══════════════════════════ MAIN TEXT (+ optional photo) ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="{% if pageContent.body and pageContent.image %}grid md:grid-cols-2 gap-12 items-start{% elif pageContent.image %}max-w-3xl mx-auto{% else %}max-w-3xl mx-auto{% endif %}">
+
+      {% if pageContent.body %}
+      <div class="text-gray-600 leading-relaxed space-y-4">
+        {{ pageContent.body | nl2br | safe }}
+      </div>
+      {% endif %}
+
+      {% if pageContent.image %}
+      <div class="relative">
+        <div class="rounded-lg overflow-hidden">
+          <!-- Capped so a tall portrait photo can't tower over a short block of text. -->
+          <img src="{{ pageContent.image }}" alt="" class="w-full max-h-[520px] object-cover" />
+        </div>
+        <div class="absolute -bottom-5 -right-5 w-24 h-24 rounded bg-sage/10 -z-10"></div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.cards | length %}
+<!-- ══════════════════════════ CARDS ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.cardsTitle) }}
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for card in pageContent.cards %}
+      <div class="service-card bg-white rounded-lg p-6 border-t-4 border-sage border border-gray-100">
+        {% if card.icon %}
+        <div class="w-10 h-10 bg-stone rounded flex items-center justify-center mb-4">
+          <i data-lucide="{{ card.icon }}" class="w-5 h-5 text-forest"></i>
+        </div>
+        {% endif %}
+        <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
+        {% if card.description %}
+        <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description }}</p>
+        {% endif %}
+        {% if card.meta %}
+        <p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.checklist.items | length %}
+<!-- ══════════════════════════ CHECKLIST ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.checklist.title) }}
+
+    <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-4 max-w-3xl mx-auto">
+      {% for item in pageContent.checklist.items %}
+      <li class="flex items-start gap-3">
+        <span class="w-5 h-5 rounded-full bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <i data-lucide="check" class="w-3 h-3 text-forest"></i>
+        </span>
+        <span class="text-gray-600 leading-relaxed">{{ item.text }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.links | length %}
+<!-- ══════════════════════════ WHERE TO LISTEN / EXTERNAL LINKS ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.linksTitle) }}
+    <div class="flex flex-wrap justify-center gap-3">
+      {% for link in pageContent.links %}
+        {% if link.href %}
+        <a href="{{ link.href }}" target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded px-5 py-3 text-sm font-medium text-forest hover:border-sage hover:shadow-sm transition-all">
+          {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4 text-sage"></i>{% endif %}
+          {{ link.label }}
+        </a>
+        {% else %}
+        <!-- No address yet: shown as a placeholder so the row is ready the moment a link exists. -->
+        <span class="inline-flex items-center gap-2 bg-white/60 border border-dashed border-gray-300 rounded px-5 py-3 text-sm font-medium text-gray-400">
+          {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4"></i>{% endif %}
+          {{ link.label }}
+          <span class="text-[10px] uppercase tracking-wide bg-gray-100 text-gray-500 rounded px-1.5 py-0.5">Soon</span>
+        </span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.episodes | length %}
+<!-- ══════════════════════════ EPISODES ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.episodesTitle) }}
+    <div class="max-w-3xl mx-auto space-y-4">
+      {% for episode in pageContent.episodes %}
+      <article class="service-card bg-white rounded-lg border border-gray-100 border-l-4 border-l-sage p-6 flex flex-col sm:flex-row gap-5">
+        {% if episode.number %}
+        <div class="flex-shrink-0">
+          <div class="w-14 h-14 bg-stone rounded flex flex-col items-center justify-center leading-none">
+            <span class="text-[9px] uppercase tracking-wider text-sage font-semibold">Ep</span>
+            <span class="font-serif text-forest text-xl">{{ episode.number }}</span>
+          </div>
+        </div>
+        {% endif %}
+        <div class="flex-1">
+          <h3 class="font-serif text-forest text-xl mb-2">{{ episode.title }}</h3>
+          {% if episode.description %}
+          <p class="text-gray-600 text-sm leading-relaxed mb-3">{{ episode.description }}</p>
+          {% endif %}
+          <div class="flex flex-wrap items-center gap-4">
+            {% if episode.meta %}
+            <span class="text-xs text-sage font-semibold uppercase tracking-wide">{{ episode.meta }}</span>
+            {% endif %}
+            {% if episode.href %}
+            <a href="{{ episode.href }}" target="_blank" rel="noopener"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-forest hover:text-sage transition-colors">
+              <i data-lucide="play-circle" class="w-4 h-4"></i> Listen
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.products | length %}
+<!-- ══════════════════════════ PRODUCTS ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.productsTitle) }}
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for product in pageContent.products %}
+      <div class="service-card bg-white rounded-lg border border-gray-100 overflow-hidden flex flex-col">
+        <div class="aspect-square overflow-hidden photo-placeholder flex items-center justify-center">
+          {% if product.image %}
+          <img src="{{ product.image }}" alt="{{ product.name }}" class="w-full h-full object-cover" />
+          {% else %}
+          <i data-lucide="image" class="w-10 h-10 text-sage/40"></i>
+          {% endif %}
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="font-serif text-forest text-lg mb-1">{{ product.name }}</h3>
+          {% if product.description %}
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ product.description }}</p>
+          {% endif %}
+          <div class="mt-auto">
+            {% if product.price %}
+            <p class="font-semibold text-forest mb-3">{{ product.price }}</p>
+            {% elif product.meta %}
+            <p class="text-xs text-sage font-semibold uppercase tracking-wide mb-3">{{ product.meta }}</p>
+            {% endif %}
+            {% if product.href %}
+            <a href="{{ product.href }}" target="_blank" rel="noopener"
+              class="inline-flex w-full items-center justify-center gap-2 bg-forest text-white text-sm font-medium px-4 py-2.5 rounded hover:bg-sage transition-colors">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i> Buy
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.people | length %}
+<!-- ══════════════════════════ PEOPLE ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.peopleTitle) }}
+    <div class="grid sm:grid-cols-2 {% if pageContent.people | length > 2 %}lg:grid-cols-3{% else %}max-w-3xl mx-auto{% endif %} gap-8">
+      {% for person in pageContent.people %}
+      <div class="bg-white rounded-lg border border-gray-100 overflow-hidden flex flex-col">
+        <div class="aspect-[4/5] overflow-hidden photo-placeholder flex items-center justify-center">
+          {% if person.image %}
+          <img src="{{ person.image }}" alt="{{ person.name }}" class="w-full h-full object-cover object-top" />
+          {% else %}
+          <i data-lucide="user" class="w-12 h-12 text-sage/40"></i>
+          {% endif %}
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="font-serif text-forest text-xl">{{ person.name }}</h3>
+          {% if person.role %}
+          <p class="text-sage text-sm font-semibold uppercase tracking-wide mt-1">{{ person.role }}</p>
+          {% endif %}
+          {% if person.credentials %}
+          <p class="text-xs text-gray-500 mt-2">{{ person.credentials }}</p>
+          {% endif %}
+          {% if person.bio %}
+          <p class="text-gray-600 text-sm leading-relaxed mt-4">{{ person.bio }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+{% if pageContent.quote %}
+<!-- ══════════════════════════ QUOTE (always the dark band) ══════════════════════════ -->
+<section class="bg-forest py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <blockquote class="font-serif italic text-white/80 text-2xl max-w-2xl mx-auto leading-relaxed">
+      {{ pageContent.quote }}
+    </blockquote>
+    {% if pageContent.quoteAuthor %}
+    <cite class="text-sage text-sm mt-4 block not-italic">{{ pageContent.quoteAuthor }}</cite>
+    {% endif %}
+  </div>
+</section>
+{#- The dark band resets the rhythm, so whatever follows starts light again. -#}
+{%- set blockIndex = 0 -%}
+{% endif %}
+
+{% if pageContent.faqs | length %}
+<!-- ══════════════════════════ FAQs ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ blockHeading(pageContent.faqsTitle or "Common questions") }}
+
+    <div class="max-w-3xl mx-auto divide-y divide-gray-200 border-t border-b border-gray-200">
+      {% for faq in pageContent.faqs %}
+      <details class="faq group">
+        <summary class="flex items-center justify-between gap-4 cursor-pointer py-5 list-none">
+          <span class="font-medium text-forest">{{ faq.question }}</span>
+          <i data-lucide="plus" class="faq-icon w-4 h-4 text-sage flex-shrink-0"></i>
+        </summary>
+        {% if faq.answer %}
+        <div class="text-gray-600 text-sm leading-relaxed pb-5 pr-8">{{ faq.answer | nl2br | safe }}</div>
+        {% endif %}
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- set blockIndex = blockIndex + 1 -%}
+{% endif %}
+
+<!-- ══════════════════════════ CLOSING CALL TO ACTION ══════════════════════════ -->
+{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {% if pageContent.cta.heading %}
+    <h2 class="font-serif text-forest text-3xl mb-4">{{ pageContent.cta.heading }}</h2>
+    {% endif %}
+    {% if pageContent.cta.text %}
+    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.cta.text }}</p>
+    {% endif %}
+
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="{{ pageContent.cta.buttonHref }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+        <i data-lucide="{{ pageContent.cta.buttonIcon }}" class="w-4 h-4"></i>
+        {{ pageContent.cta.buttonLabel or content.hero.primaryButton }}
+      </a>
+      <a href="/" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        Back to home
+      </a>
+    </div>
+  </div>
+</section>

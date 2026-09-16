@@ -78,6 +78,14 @@
       #nav-menu:not(.hidden) { animation: none; }
       .nav-burger-bars span { transition: none; }
     }
+    /* FAQ accordion — the plus turns into a cross when open */
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::marker { content: ""; }
+    .faq summary:hover span { color: {{ colors.accent }}; }
+    .faq-icon { transition: transform 0.2s ease; }
+    .faq[open] .faq-icon { transform: rotate(45deg); }
+    @media (prefers-reduced-motion: reduce) { .faq-icon { transition: none; } }
+
     .divider { width: 48px; height: 3px; background: {{ colors.accent }}; }
   </style>
 </head>

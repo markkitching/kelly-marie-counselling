@@ -44,7 +44,9 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Six new menu items + holding pages** — Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓
 - [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
-- [ ] **Spec the six new pages** — real content for Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team
+- [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
+- [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
+- [ ] **Add the new page blocks to `.pages.yml`** — required before this content goes live
 
 ---
 
@@ -60,6 +62,7 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/content/pages/` | Editable content for the six standalone pages, one file each. |
 | `src/_data/pages.js` | Loads those files, keyed by slug. |
 | `src/holding.njk` | Builds each page — real content when filled in, "coming soon" placeholder when not. |
+| `src/_includes/page-body.njk` | Renders the optional content blocks that make up a page. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
@@ -107,26 +110,69 @@ Stored in `src/content/menu.json` as:
 ### ✅ 2. Page content — editable
 
 Each of the six pages has its own editor entry (**Page: Wellbeing**, **Page: Podcast**
-and so on) with a simple set of fields:
+and so on). A page is assembled from **optional blocks** — fill in the ones that suit
+the page and leave the rest empty. Blocks render in the fixed order below, and their
+backgrounds alternate light/dark automatically, so the page keeps its rhythm whichever
+combination is in use.
 
-| Field | Notes |
+| Block | Fields | Used by |
+|---|---|---|
+| **Heading band** | Small heading, Page title, Intro paragraph | every page |
+| **Main text** | Main text, Photo (optional, sits alongside) | every page |
+| **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
+| **Checklist** | Section heading + rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
+| **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
+| **Episodes** | Section heading + rows of *number, title, description, meta, link* | Podcast |
+| **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
+| **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
+| **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
+| **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
+| **Closing CTA** | Heading, text, button label, button icon, button link | every page |
+
+Blocks look after themselves:
+
+- **A blank row renders nothing.** Adding a card and leaving it empty shows no card,
+  rather than an empty box.
+- **A missing link degrades gracefully.** A listen link with no address shows as a
+  greyed "Soon" chip, so the row is ready the moment a real URL exists.
+- **Fewer than three people** get a narrower grid, so a two-person team doesn't sit in
+  a three-column row with a hole in it.
+- **The placeholder is still the fallback.** Empty the whole page and it returns to its
+  "coming soon" holding screen, so pages can be built one at a time.
+
+Content lives in `src/content/pages/<slug>.json`, loaded by `src/_data/pages.js` and
+rendered by `src/_includes/page-body.njk`.
+
+> ⚠️ **Fixed order.** Blocks always appear in the order above; the editor can't reorder
+> them. That was a deliberate simplification — reorderable blocks need a polymorphic
+> list in the CMS, which is a much larger change. Worth revisiting only if a page
+> genuinely needs a different order.
+
+### ⚠️ 2a. `.pages.yml` must be updated before this content goes live
+
+The new block fields **are not yet in the CMS schema**. Until they are:
+
+- the editor can't see or change any of the new content, and
+- **saving one of these pages in Pages CMS would strip every field the form doesn't
+  know about**, wiping the block content.
+
+So `.pages.yml` needs its six `Page:` entries extended with the fields in the table
+above before this reaches `main`. Field types needed are all ones already proven in
+this repo — `string`, `text`, `image`, and `object` with `list: true`.
+
+### Draft content: what needs checking
+
+The draft copy was written to show the design working. These points are placeholders
+or assumptions and need Kelly's sign-off before publishing:
+
+| Page | Needs confirming |
 |---|---|
-| Small heading | Optional label above the title |
-| Page title | Falls back to the menu name if left blank |
-| Intro paragraph | Shown slightly larger |
-| Main text | Press Enter for new lines |
-| Photo | Optional — sits beside the text, height-capped so a tall portrait can't tower over short copy |
-
-> **The placeholder is the fallback.** Leave *Intro* and *Main text* both empty and the
-> page keeps its "coming soon" holding screen. So pages can be filled in one at a time,
-> and an unfinished one never looks broken.
-
-Content lives in `src/content/pages/<slug>.json`, loaded by `src/_data/pages.js`.
-
-**If these pages outgrow simple text**, the next step is a reusable section builder
-(text block / cards / image+text) so each page can be assembled from blocks — the
-"Custom sections" TODO. Worth doing once we know what Podcast, Merchandise and Meet the
-Team actually need, since those three are quite different in shape from the service pages.
+| Podcast | The show name *"Making It a Priority"* is a suggestion. Episode titles are proposed topics, not recorded episodes. Spotify / Apple / YouTube / RSS links are empty placeholders. |
+| Merchandise | The four products are illustrative. No prices are quoted — each shows "Coming soon" instead. |
+| Meet the Team | The second card is an unnamed "Associate Practitioner — joining soon" placeholder. Delete it if the practice isn't recruiting. Kelly's card has no portrait: the photo currently in *About* is a landscape, not a headshot. |
+| Counselling | The fees FAQ says fees are confirmed at consultation rather than quoting a figure. |
+| Training & Coaching | The sectors named in the FAQ ("media and manufacturing") come from the existing Workplace Therapy copy. |
+| All pages | No photos are set. Each page's Main text block can take one. |
 
 ### 3. Also worth adding at the same time
 
@@ -178,9 +224,10 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 ├── package.json            ← Eleventy dependency + build scripts
 ├── src/
 │   ├── index.njk           ← Homepage (HTML + Tailwind, with {{ placeholders }})
-│   ├── holding.njk         ← Generates the six "coming soon" pages (one per newPages entry)
+│   ├── holding.njk         ← Generates the six standalone pages (one per newPages entry)
 │   ├── _includes/
 │   │   ├── site-header.njk ← Shared <head> + sticky nav
+│   │   ├── page-body.njk   ← Optional content blocks for the standalone pages
 │   │   └── site-footer.njk ← Shared footer + page scripts
 │   ├── content/            ← ALL editable text (one file per section — what the CMS edits)
 │   │   ├── hero.json  about.json  services.json  …

@@ -1,7 +1,97 @@
 {
-  "eyebrow": "",
-  "heading": "",
-  "intro": "",
-  "body": "",
-  "image": ""
+  "eyebrow": "Clinical Services",
+  "heading": "Counselling & Psychotherapy",
+  "intro": "A confidential, consistent space to understand what is happening and why — and to do something about it. Weekly sessions in Leeds or online, for adults facing anything from a specific difficulty to a long-standing pattern.",
+  "body": "Therapy works through relationship. What makes it different from talking to a friend is the consistency, the boundaries, and the fact that the whole hour belongs to you — there is no need to manage my feelings about what you say, or to keep the conversation fair.\n\nMy practice is grounded in psychodynamic theory: the understanding that present difficulties are shaped by earlier experience and by patterns operating below conscious awareness. Alongside that I work integratively and in a trauma-informed way, which in practice means the pace and the direction are yours.\n\nSome people arrive with something specific — a bereavement, a diagnosis, a decision they can't make. Others come knowing only that something isn't right. Both are perfectly good reasons to begin.\n\nSessions are 50 minutes and usually weekly, at the same time each week. How long we work together is something we review openly together, rather than decide at the outset.",
+  "image": "",
+  "cards": [
+    {
+      "icon": "user",
+      "title": "Individual Therapy",
+      "description": "Weekly one-to-one psychotherapy for adults, in person in Leeds or on a private video platform. This is the core of my practice.",
+      "meta": "50 minutes · Weekly"
+    },
+    {
+      "icon": "target",
+      "title": "Short-Term Focused Work",
+      "description": "An agreed, shorter piece of work around a specific difficulty or decision, with clear goals set at the start and reviewed as we go.",
+      "meta": "Typically 6–12 sessions"
+    },
+    {
+      "icon": "infinity",
+      "title": "Open-Ended Therapy",
+      "description": "Longer-term work for patterns that have been in place a long time — reviewed together at regular intervals rather than running on indefinitely.",
+      "meta": "Ongoing · Reviewed regularly"
+    }
+  ],
+  "checklist": {
+    "title": "What People Bring to Therapy",
+    "items": [
+      {
+        "text": "Anxiety, worry and panic"
+      },
+      {
+        "text": "Low mood and depression"
+      },
+      {
+        "text": "Bereavement, loss and grief"
+      },
+      {
+        "text": "Trauma and its after-effects"
+      },
+      {
+        "text": "Relationship and family difficulties"
+      },
+      {
+        "text": "Work stress and burnout"
+      },
+      {
+        "text": "Self-esteem and self-criticism"
+      },
+      {
+        "text": "Significant life transitions"
+      }
+    ]
+  },
+  "links": [],
+  "episodes": [],
+  "products": [],
+  "people": [],
+  "quote": "\"The curious paradox is that when I accept myself just as I am, then I can change.\"",
+  "quoteAuthor": "— Carl Rogers",
+  "faqs": [
+    {
+      "question": "How long will I need to come?",
+      "answer": "There is no standard answer, and I would be wary of anyone who gives you one at a first meeting. Some people find a focused piece of work over a couple of months is enough; others value a longer relationship. We agree an initial period, review it together, and you are free to stop whenever you choose."
+    },
+    {
+      "question": "What happens in a first session?",
+      "answer": "Mostly listening. You will have the chance to describe what has brought you, and I will ask questions to understand the wider picture. We will also cover the practical side — times, fees, cancellations and confidentiality — and agree whether to go ahead."
+    },
+    {
+      "question": "Is it confidential?",
+      "answer": "Yes. What you bring stays between us, with the limited exceptions every ethical therapist works within: a risk of serious harm to you or to someone else, or a legal requirement. Like all BACP-registered therapists I discuss my work in clinical supervision, where clients are never identified."
+    },
+    {
+      "question": "Do you work online or in person?",
+      "answer": "Both. In person in Leeds, or by private video or telephone. Online work is as effective as face-to-face for most people, and it removes the travel."
+    },
+    {
+      "question": "What does it cost?",
+      "answer": "Fees are confirmed during the free initial consultation, so you know exactly where you stand before committing to anything."
+    },
+    {
+      "question": "What if I'm not sure therapy is right for me?",
+      "answer": "That is exactly what the free 20-minute consultation is for. It is a conversation, not an assessment, and there is no obligation at the end of it."
+    }
+  ],
+  "cta": {
+    "heading": "Take the First Step",
+    "text": "Enquiries are answered personally and in confidence. A name and a sentence about what has prompted you to get in touch is enough to begin with.",
+    "buttonLabel": "",
+    "buttonIcon": "",
+    "buttonHref": ""
+  },
+  "cardsTitle": "Ways of Working",
+  "faqsTitle": ""
 }
