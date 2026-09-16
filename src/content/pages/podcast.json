@@ -6,11 +6,22 @@
   "image": "",
   "cardsTitle": "",
   "cards": [],
-  "checklist": { "title": "", "items": [] },
+  "checklist": {
+    "title": "",
+    "items": []
+  },
   "linksTitle": "Where to Listen",
   "links": [
-    { "label": "Listen on Spotify", "icon": "music", "href": "" },
-    { "label": "Watch on YouTube", "icon": "video", "href": "" }
+    {
+      "label": "Listen on Spotify",
+      "icon": "music",
+      "href": "https://open.spotify.com/show/033TZ1QVIUJCQZ6TJ2XBYH"
+    },
+    {
+      "label": "Watch on YouTube",
+      "icon": "video",
+      "href": "https://www.youtube.com/@TheKellyMariePodcast"
+    }
   ],
   "episodesTitle": "Episodes",
   "episodes": [
