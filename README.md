@@ -47,7 +47,8 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
-- [ ] **Pull podcast episodes automatically** — YouTube RSS at build time + a scheduled rebuild (see below)
+- [x] **Podcast episodes pull automatically from Spotify** — daily, with order and edits preserved ✓
+- [ ] **Add the two Spotify secrets** — the sync can't run until `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` exist
 
 ---
 
@@ -66,6 +67,8 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/_includes/page-body.njk` | Renders the optional content blocks that make up a page. |
 | `scripts/gen-pages-yml.py` | Regenerates the six `Page:` entries in `.pages.yml` from one block map. |
 | `scripts/check-pages-yml.py` | Verifies a CMS save can't drop any stored field. |
+| `scripts/sync-spotify-episodes.js` | Pulls recent episodes from Spotify into the podcast page. |
+| `scripts/test-sync-merge.js` | Proves the sync can't undo the editor's order, edits or hidden episodes. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
@@ -151,29 +154,57 @@ rendered by `src/_includes/page-body.njk`.
 > list in the CMS, which is a much larger change. Worth revisiting only if a page
 > genuinely needs a different order.
 
-### Pulling podcast episodes automatically — options
+### Podcast episodes sync automatically from Spotify
 
-Episodes are entered by hand today. If that becomes a chore, the routes are:
+A scheduled job pulls the show's 30 most recent episodes into
+`src/content/pages/podcast.json`, where they behave like any other episode: reorder them
+by dragging, untick one to hide it, edit any wording. The page then renders the first 10
+ticked.
 
-| Source | Auth | Gives you |
-|---|---|---|
-| YouTube RSS — `feeds/videos.xml?channel_id=UC…` | none | Last ~15 videos: id, title, description, date |
-| YouTube Data API v3 | API key | Full history. Use `playlistItems.list` (1 unit) not `search.list` (100) |
-| Spotify Web API — `/v1/shows/{id}/episodes` | client id + secret | Episodes with per-episode Spotify links |
-| The show's own RSS feed (Spotify for Creators) | none | The canonical audio feed |
+```bash
+npm run test:sync                                  # the merge rules
+npm run sync:podcast                               # needs the two secrets below
+node scripts/sync-spotify-episodes.js --dry-run    # show what would change
+node scripts/sync-spotify-episodes.js --fixture f.json   # test with a saved response
+```
 
-Two constraints shape the answer. **Client-side fetching is out** — neither YouTube's
-feed nor Spotify's API sends permissive CORS headers, so it would need a Worker as a
-proxy. And **a build-time fetch is a snapshot**, because Eleventy only runs on push; to
-refresh it you need a Cloudflare Pages *Deploy Hook* called on a schedule, e.g. by a
-GitHub Actions cron.
+**Setup (one time).** Create an app at <https://developer.spotify.com/dashboard>, then
+add its two values as repository secrets under *Settings → Secrets and variables →
+Actions*:
 
-The argument for staying manual is editorial, not technical: YouTube titles and
-descriptions are written for YouTube, and the channel carries shorts, trailers and clips
-that don't belong on a therapy website. If it is automated, the shape to aim for is a
-hybrid — populate from the feed, but let the CMS override a title or description and
-hide an episode. Whatever is built must fail safe: a hard timeout, and on any error fall
-back to the stored list, so an outage at YouTube can never break the build.
+| Secret | Where from |
+|---|---|
+| `SPOTIFY_CLIENT_ID` | the Spotify app's dashboard |
+| `SPOTIFY_CLIENT_SECRET` | same page, behind *View client secret* |
+
+`.github/workflows/sync-podcast.yml` then runs daily at 06:00 UTC, and on demand from
+the Actions tab. It commits only when something changed, which triggers the usual
+Cloudflare deploy. Optional overrides: `SPOTIFY_SHOW_ID`, `SPOTIFY_MARKET` (default
+`GB`), `SPOTIFY_EPISODE_LIMIT` (default 30, Spotify's own maximum is 50).
+
+**What the sync will and won't do.** These rules exist so an automated job can never
+quietly undo an afternoon's editing, and each one is covered by `npm run test:sync`:
+
+| | |
+|---|---|
+| Order | Never rearranged. Existing episodes stay where they were put; new ones go on top, newest first |
+| Your edits | A field with something in it is never overwritten. Rewrite a title or description for the website and it stays. Clear it and the next sync refills it from Spotify |
+| Hidden episodes | Stay hidden |
+| YouTube links | Added by hand, and preserved — Spotify knows nothing about them |
+| Deletions | Never. An episode that vanishes from Spotify stays in the file until someone removes it |
+| Failure | Writes nothing and exits non-zero. An outage at Spotify cannot empty the page |
+
+Episodes are matched on their Spotify id, so re-syncing the same episodes is a genuine
+no-op — the job commits nothing and no deploy is triggered.
+
+> **The description is trimmed to 240 characters** on a word boundary. Podcast
+> descriptions tend to carry sponsor copy and link dumps that would wreck a card. Rewrite
+> any of them and the sync will leave your version alone.
+
+> **Identity comes from the Spotify link.** An episode added by hand with no Spotify link
+> is invisible to the sync and left completely alone — which is how the original
+> placeholder topics survive untouched, and why they drop off the page once thirty real
+> episodes sit above them.
 
 ### Podcast episodes — how adding one will work
 

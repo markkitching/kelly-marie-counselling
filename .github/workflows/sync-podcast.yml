@@ -1,0 +1,58 @@
+name: Sync podcast episodes
+
+# Runs daily, and on demand from the Actions tab. Each run pulls the show's recent
+# episodes from Spotify into src/content/pages/podcast.json and commits only if
+# something actually changed — which then triggers the usual Cloudflare deploy.
+#
+# Needs two repository secrets, from https://developer.spotify.com/dashboard:
+#   SPOTIFY_CLIENT_ID
+#   SPOTIFY_CLIENT_SECRET
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"   # 06:00 UTC daily
+
+permissions:
+  contents: write
+
+# Never let two syncs race each other onto main.
+concurrency:
+  group: sync-podcast
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check the merge rules still hold
+        run: node scripts/test-sync-merge.js
+
+      - name: Pull episodes from Spotify
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+        run: node scripts/sync-spotify-episodes.js
+
+      - name: Confirm the site still builds
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- src/content/pages/podcast.json; then
+            echo "No new episodes — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/pages/podcast.json
+          git commit -m "Sync podcast episodes from Spotify"
+          git push

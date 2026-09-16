@@ -2,10 +2,12 @@
   "name": "kelly-marie-counselling",
   "version": "1.0.0",
   "private": true,
-  "description": "Website for Kelly Marie Counselling — built with Eleventy, edited via Pages CMS.",
+  "description": "Website for Kelly Marie Counselling \u2014 built with Eleventy, edited via Pages CMS.",
   "scripts": {
     "build": "eleventy",
-    "dev": "eleventy --serve"
+    "dev": "eleventy --serve",
+    "sync:podcast": "node scripts/sync-spotify-episodes.js",
+    "test:sync": "node scripts/test-sync-merge.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1"
