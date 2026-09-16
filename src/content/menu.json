@@ -14,27 +14,27 @@
     },
     {
       "item": "wellbeing",
-      "visible": false
+      "visible": true
     },
     {
       "item": "counselling",
-      "visible": false
+      "visible": true
     },
     {
       "item": "training-coaching",
-      "visible": false
+      "visible": true
     },
     {
       "item": "podcast",
-      "visible": false
+      "visible": true
     },
     {
       "item": "merchandise",
-      "visible": false
+      "visible": true
     },
     {
       "item": "meet-the-team",
-      "visible": false
+      "visible": true
     },
     {
       "item": "contact",
