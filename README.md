@@ -48,7 +48,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
 - [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
-- [ ] **Add `YOUTUBE_CHANNEL_ID`** — the sync can't run until that repository variable exists
+- [ ] **Run the podcast sync once** — Actions → Sync podcast episodes → Run workflow
 
 ---
 
@@ -167,26 +167,28 @@ to show a playable still rather than just a link out.
 
 | Source | Setup | Reach |
 |---|---|---|
-| `youtube-rss` *(default)* | nothing but the channel id | the 15 most recent videos |
+| `youtube-rss` *(default)* | nothing at all | the 15 most recent videos |
 | `youtube-api` | a Google API key | the full back catalogue |
 | `spotify` | client id + secret | the show's episodes — kept working, but see above |
 
-**Setup.** Add the channel id as a repository *variable* under *Settings → Secrets and
-variables → Actions → Variables*:
+**Setup: none.** The show's handle is committed in the sync script, and the `UC…` id
+YouTube's feed actually wants is looked up from the channel page at run time. A channel
+id isn't secret, so nothing belongs in repository settings. To point the sync at a
+different channel, set a `YOUTUBE_CHANNEL` repository variable to its handle or id.
 
-| Name | Where from |
-|---|---|
-| `YOUTUBE_CHANNEL_ID` | YouTube Studio → Settings → Channel → Advanced. It is the `UC…` form — the `@handle` will not work |
-
-That is enough for the default. For more than 15 episodes, create an API key at
+For more than the feed's 15 episodes, create an API key at
 <https://console.cloud.google.com/apis/credentials> with **YouTube Data API v3** enabled,
 add it as the secret `YOUTUBE_API_KEY`, and set the variable `EPISODE_SOURCE` to
 `youtube-api`. It costs one quota unit per call against a free daily allowance of 10,000
 — the script uses `playlistItems.list` rather than `search.list`, which would cost 100.
 
+> **If the lookup ever fails** — YouTube changes its page, or serves a consent page — the
+> sync stops with the reason and writes nothing. Setting `YOUTUBE_CHANNEL` to the `UC…`
+> id (YouTube Studio → Settings → Channel → Advanced) skips the lookup entirely.
+
 ```bash
 npm run test:sync                                       # the merge rules — 23 checks
-npm run sync:podcast                                    # needs YOUTUBE_CHANNEL_ID
+npm run sync:podcast                                    # no configuration needed
 node scripts/sync-podcast-episodes.js --dry-run         # show what would change
 node scripts/sync-podcast-episodes.js --fixture f.xml   # test against a saved feed
 node scripts/sync-podcast-episodes.js --source youtube-api

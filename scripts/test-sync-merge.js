@@ -6,7 +6,8 @@
  * hidden episodes, and any title or description they rewrote for the website.
  */
 const assert = require("assert");
-const { merge, shape, shorten, formatDate, formatDuration, parseYouTubeFeed, unescapeXml, youtubeId } = require("./sync-podcast-episodes.js");
+const { merge, shape, shorten, formatDate, formatDuration, parseYouTubeFeed, unescapeXml, youtubeId,
+        extractChannelId, channelUrlFor } = require("./sync-podcast-episodes.js");
 
 const spotify = (id, name, extra = {}) => shape({
   id,
@@ -199,6 +200,32 @@ test("youtubeId matches what pages.js accepts", () => {
     assert.strictEqual(youtubeId(form), "dQw4w9WgXcQ", form);
   }
   assert.strictEqual(youtubeId("not a link"), "");
+});
+
+console.log("\nresolving a handle to a channel id\n");
+
+const ID = "UCabcdefghijklmnopqrstuv";
+
+test("the id is found however YouTube happens to publish it", () => {
+  const shapes = [
+    `<script>var ytInitialData = {"externalId":"${ID}","title":"x"};</script>`,
+    `<script>{"channelId":"${ID}"}</script>`,
+    `<link rel="canonical" href="https://www.youtube.com/channel/${ID}">`,
+    `<meta itemprop="identifier" content="${ID}">`,
+  ];
+  for (const html of shapes) assert.strictEqual(extractChannelId(html), ID, html.slice(0, 40));
+});
+
+test("a page with no channel id gives nothing back rather than a wrong guess", () => {
+  assert.strictEqual(extractChannelId("<html><body>consent required</body></html>"), "");
+  assert.strictEqual(extractChannelId(""), "");
+  assert.strictEqual(extractChannelId("UCtooshort"), "");
+});
+
+test("a handle becomes the right channel URL", () => {
+  assert.strictEqual(channelUrlFor("@TheKellyMariePodcast"), "https://www.youtube.com/@TheKellyMariePodcast");
+  assert.strictEqual(channelUrlFor("TheKellyMariePodcast"), "https://www.youtube.com/@TheKellyMariePodcast");
+  assert.strictEqual(channelUrlFor("https://www.youtube.com/channel/" + ID), "https://www.youtube.com/channel/" + ID);
 });
 
 console.log(`\n${passed} checks passed${process.exitCode ? " — WITH FAILURES" : ""}`);

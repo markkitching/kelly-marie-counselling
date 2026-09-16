@@ -4,12 +4,13 @@ name: Sync podcast episodes
 # episodes into src/content/pages/podcast.json and commits only if something actually
 # changed — which then triggers the usual Cloudflare deploy.
 #
-# Needs one repository variable:
-#   YOUTUBE_CHANNEL_ID   the UC… id from YouTube Studio > Settings > Channel > Advanced
+# Needs no configuration. The channel handle is committed in the sync script and the
+# UC… id is looked up from it; a channel id isn't secret, so nothing lives in repository
+# settings. To point it at a different channel, set the YOUTUBE_CHANNEL variable.
 #
 # The default source is the channel's public Atom feed, which needs no credentials but
 # carries only the 15 most recent videos. For the full back catalogue, add a
-# YOUTUBE_API_KEY secret and set EPISODE_SOURCE to youtube-api below.
+# YOUTUBE_API_KEY secret and set the EPISODE_SOURCE variable to youtube-api.
 
 on:
   workflow_dispatch:
@@ -40,7 +41,7 @@ jobs:
       - name: Pull episodes
         env:
           EPISODE_SOURCE: ${{ vars.EPISODE_SOURCE || 'youtube-rss' }}
-          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+          YOUTUBE_CHANNEL: ${{ vars.YOUTUBE_CHANNEL }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           EPISODE_SYNC_LIMIT: ${{ vars.EPISODE_SYNC_LIMIT || '30' }}
         run: node scripts/sync-podcast-episodes.js

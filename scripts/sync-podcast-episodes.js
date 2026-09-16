@@ -31,7 +31,8 @@
  *   node scripts/sync-podcast-episodes.js --fixture path/to/response.xml
  *
  * Environment:
- *   YOUTUBE_CHANNEL_ID   UC… — YouTube Studio > Settings > Channel > Advanced
+ *   YOUTUBE_CHANNEL      @handle or UC… id. Defaults to the show's handle, so normally
+ *                        nothing needs setting at all.
  *   YOUTUBE_API_KEY      only for --source youtube-api
  *   SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET   only for --source spotify
  *   (optional) SPOTIFY_SHOW_ID, SPOTIFY_MARKET, EPISODE_SYNC_LIMIT
@@ -40,7 +41,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "";
+// The handle is enough — the UC… id is looked up from the channel page. A channel id
+// isn't secret, so it lives here rather than in repository settings.
+const CHANNEL = process.env.YOUTUBE_CHANNEL_ID || process.env.YOUTUBE_CHANNEL || "@TheKellyMariePodcast";
 const SHOW_ID = process.env.SPOTIFY_SHOW_ID || "033TZ1QVIUJCQZ6TJ2XBYH";
 const MARKET = process.env.SPOTIFY_MARKET || "GB";
 const LIMIT = Math.min(Number(process.env.EPISODE_SYNC_LIMIT || 30), 50);
@@ -160,6 +163,51 @@ function unescapeXml(text) {
     });
 }
 
+// YouTube's feed and API both want the UC… id, but people have handles. The id is
+// published several ways in the channel page's HTML; any one of them will do.
+const CHANNEL_ID_PATTERNS = [
+  /"externalId"\s*:\s*"(UC[A-Za-z0-9_-]{22})"/,
+  /"channelId"\s*:\s*"(UC[A-Za-z0-9_-]{22})"/,
+  /<link[^>]+rel="canonical"[^>]+href="[^"]*\/channel\/(UC[A-Za-z0-9_-]{22})"/,
+  /<meta[^>]+itemprop="identifier"[^>]+content="(UC[A-Za-z0-9_-]{22})"/,
+];
+
+function extractChannelId(html) {
+  for (const pattern of CHANNEL_ID_PATTERNS) {
+    const found = String(html || "").match(pattern);
+    if (found) return found[1];
+  }
+  return "";
+}
+
+function channelUrlFor(channel) {
+  const value = String(channel || "").trim();
+  if (/^https?:\/\//.test(value)) return value;
+  if (value.startsWith("@")) return `https://www.youtube.com/${value}`;
+  return `https://www.youtube.com/@${value}`;
+}
+
+async function resolveChannelId(channel = CHANNEL) {
+  const value = String(channel || "").trim();
+  if (/^UC[A-Za-z0-9_-]{22}$/.test(value)) return value;       // already an id
+  if (!value) throw new Error("No channel set. Put the @handle or UC… id in YOUTUBE_CHANNEL.");
+
+  const url = channelUrlFor(value);
+  const response = await fetch(url, {
+    // Without a browser-ish agent YouTube sometimes serves a consent interstitial.
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; kelly-marie-site-sync/1.0)", "Accept-Language": "en-GB,en" },
+  });
+  if (!response.ok) {
+    throw new Error(`Could not open ${url} (${response.status}). Set YOUTUBE_CHANNEL to the UC… id directly.`);
+  }
+  const id = extractChannelId(await response.text());
+  if (!id) {
+    throw new Error(`Opened ${url} but found no channel id in it. Set YOUTUBE_CHANNEL to the UC… id directly — YouTube Studio > Settings > Channel > Advanced.`);
+  }
+  console.log(`resolved ${value} -> ${id}`);
+  return id;
+}
+
 function shapeYouTube({ id, title, description, published }) {
   return {
     id,
@@ -187,13 +235,11 @@ function parseYouTubeFeed(xml) {
 }
 
 async function fetchYouTubeFeed() {
-  if (!CHANNEL_ID) {
-    throw new Error("YOUTUBE_CHANNEL_ID must be set (the UC… id from YouTube Studio > Settings > Channel > Advanced).");
-  }
-  const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(CHANNEL_ID)}`;
+  const channelId = await resolveChannelId();
+  const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`;
   const response = await fetch(url);
   if (response.status === 404) {
-    throw new Error(`YouTube has no feed for channel ${CHANNEL_ID}. That id must be the UC… form, not the @handle.`);
+    throw new Error(`YouTube has no feed for channel ${channelId}.`);
   }
   if (!response.ok) throw new Error(`YouTube returned ${response.status} for the channel feed.`);
   return parseYouTubeFeed(await response.text());
@@ -204,13 +250,13 @@ async function fetchYouTubeFeed() {
 async function fetchYouTubeApi() {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) throw new Error("YOUTUBE_API_KEY must be set for --source youtube-api.");
-  if (!CHANNEL_ID) throw new Error("YOUTUBE_CHANNEL_ID must be set.");
+  const channelId = await resolveChannelId();
 
-  const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${encodeURIComponent(CHANNEL_ID)}&key=${key}`;
+  const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${encodeURIComponent(channelId)}&key=${key}`;
   const channelResponse = await fetch(channelUrl);
   if (!channelResponse.ok) throw new Error(`YouTube returned ${channelResponse.status} looking up the channel. Check YOUTUBE_API_KEY and that the YouTube Data API v3 is enabled.`);
   const channel = (await channelResponse.json()).items?.[0];
-  if (!channel) throw new Error(`YouTube knows no channel ${CHANNEL_ID}.`);
+  if (!channel) throw new Error(`YouTube knows no channel ${channelId}.`);
 
   const uploads = channel.contentDetails.relatedPlaylists.uploads;
   const episodes = [];
@@ -325,6 +371,7 @@ async function main() {
 
 // Exported so the merge rules can be tested without touching the network.
 module.exports = { merge, shape, shapeYouTube, parseYouTubeFeed, unescapeXml,
+                   extractChannelId, channelUrlFor,
                    spotifyId, youtubeId, shorten, formatDate, formatDuration };
 
 if (require.main === module) {
