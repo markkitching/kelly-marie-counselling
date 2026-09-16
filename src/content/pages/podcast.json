@@ -4,12 +4,6 @@
   "intro": "Honest conversations about mental health — at work, at home, and in the messy middle. Listen on Spotify, or watch on YouTube.",
   "body": "Not a clinical lecture series, and not a wellness show that tells you to drink more water — conversations with people who think seriously about mental health, and with people who have simply lived through something hard and have something useful to say about it.\n\nEach episode is built around one question worth twenty minutes of your attention. No jargon, no pretending there are easy answers, and nothing that mistakes optimism for support.\n\nIf there is something you would want covered, or someone I should be talking to, I would genuinely like to hear it.",
   "image": "",
-  "cardsTitle": "",
-  "cards": [],
-  "checklist": {
-    "title": "",
-    "items": []
-  },
   "linksTitle": "Where to Listen",
   "links": [
     {
@@ -58,19 +52,9 @@
       "spotify": ""
     }
   ],
-  "productsTitle": "",
-  "products": [],
-  "peopleTitle": "",
-  "people": [],
-  "quote": "",
-  "quoteAuthor": "",
-  "faqsTitle": "",
-  "faqs": [],
-  "cta": {
-    "heading": "Suggest a Topic",
-    "text": "Something you would want an honest conversation about, or someone I should be talking to? Send it over — listener suggestions shape what gets recorded.",
-    "buttonLabel": "Send a Suggestion",
-    "buttonIcon": "mic",
-    "buttonHref": ""
-  }
+  "ctaHeading": "Suggest a Topic",
+  "ctaText": "Something you would want an honest conversation about, or someone I should be talking to? Send it over — listener suggestions shape what gets recorded.",
+  "ctaButtonLabel": "Send a Suggestion",
+  "ctaButtonIcon": "mic",
+  "ctaButtonHref": ""
 }

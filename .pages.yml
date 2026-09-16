@@ -525,8 +525,10 @@ content:
         type: string
   - name: page-wellbeing
     label: 'Page: Wellbeing'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/wellbeing.json
     format: json
@@ -544,12 +546,167 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: cardsTitle
+        label: Cards — section heading (optional)
+        type: string
+      - name: cards
+        label: Cards
+        description: A row of cards. Drag to reorder. A card with no title is not shown.
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - heart-handshake
+                - users
+                - megaphone
+                - user
+                - target
+                - infinity
+                - presentation
+                - briefcase
+                - message-circle
+                - brain
+                - shield
+                - clock
+                - layers
+                - monitor
+                - calendar
+                - mail
+                - award
+                - map-pin
+                - check
+                - leaf
+                - book-open
+                - mic
+                - music
+                - video
+                - headphones
+                - shopping-bag
+                - image
+                - activity
+                - compass
+                - sun
+                - graduation-cap
+                - handshake
+                - lightbulb
+                - sparkles
+                - phone
+                - quote
+                - gift
+                - package
+                - shirt
+                - coffee
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Small label underneath (optional)
+            type: string
+      - name: checklistTitle
+        label: Checklist — section heading (optional)
+        type: string
+      - name: checklistItems
+        label: Checklist items
+        description: Shown as a two-column ticked list. An item with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: text
+            label: Text
+            type: string
+      - name: quote
+        label: Quote (optional — shown on the dark band)
+        type: text
+      - name: quoteAuthor
+        label: Quote — who said it
+        type: string
+      - name: faqsTitle
+        label: Questions — section heading (leave blank for "Common questions")
+        type: string
+      - name: faqs
+        label: Common questions
+        description: Shown as an accordion. A question with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: question
+            label: Question
+            type: string
+          - name: answer
+            label: Answer
+            type: text
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string
   - name: page-counselling
     label: 'Page: Counselling'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/counselling.json
     format: json
@@ -567,12 +724,167 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: cardsTitle
+        label: Cards — section heading (optional)
+        type: string
+      - name: cards
+        label: Cards
+        description: A row of cards. Drag to reorder. A card with no title is not shown.
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - heart-handshake
+                - users
+                - megaphone
+                - user
+                - target
+                - infinity
+                - presentation
+                - briefcase
+                - message-circle
+                - brain
+                - shield
+                - clock
+                - layers
+                - monitor
+                - calendar
+                - mail
+                - award
+                - map-pin
+                - check
+                - leaf
+                - book-open
+                - mic
+                - music
+                - video
+                - headphones
+                - shopping-bag
+                - image
+                - activity
+                - compass
+                - sun
+                - graduation-cap
+                - handshake
+                - lightbulb
+                - sparkles
+                - phone
+                - quote
+                - gift
+                - package
+                - shirt
+                - coffee
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Small label underneath (optional)
+            type: string
+      - name: checklistTitle
+        label: Checklist — section heading (optional)
+        type: string
+      - name: checklistItems
+        label: Checklist items
+        description: Shown as a two-column ticked list. An item with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: text
+            label: Text
+            type: string
+      - name: quote
+        label: Quote (optional — shown on the dark band)
+        type: text
+      - name: quoteAuthor
+        label: Quote — who said it
+        type: string
+      - name: faqsTitle
+        label: Questions — section heading (leave blank for "Common questions")
+        type: string
+      - name: faqs
+        label: Common questions
+        description: Shown as an accordion. A question with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: question
+            label: Question
+            type: string
+          - name: answer
+            label: Answer
+            type: text
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string
   - name: page-training-coaching
     label: 'Page: Training & Coaching'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/training-coaching.json
     format: json
@@ -590,12 +902,167 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: cardsTitle
+        label: Cards — section heading (optional)
+        type: string
+      - name: cards
+        label: Cards
+        description: A row of cards. Drag to reorder. A card with no title is not shown.
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - heart-handshake
+                - users
+                - megaphone
+                - user
+                - target
+                - infinity
+                - presentation
+                - briefcase
+                - message-circle
+                - brain
+                - shield
+                - clock
+                - layers
+                - monitor
+                - calendar
+                - mail
+                - award
+                - map-pin
+                - check
+                - leaf
+                - book-open
+                - mic
+                - music
+                - video
+                - headphones
+                - shopping-bag
+                - image
+                - activity
+                - compass
+                - sun
+                - graduation-cap
+                - handshake
+                - lightbulb
+                - sparkles
+                - phone
+                - quote
+                - gift
+                - package
+                - shirt
+                - coffee
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Small label underneath (optional)
+            type: string
+      - name: checklistTitle
+        label: Checklist — section heading (optional)
+        type: string
+      - name: checklistItems
+        label: Checklist items
+        description: Shown as a two-column ticked list. An item with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: text
+            label: Text
+            type: string
+      - name: quote
+        label: Quote (optional — shown on the dark band)
+        type: text
+      - name: quoteAuthor
+        label: Quote — who said it
+        type: string
+      - name: faqsTitle
+        label: Questions — section heading (leave blank for "Common questions")
+        type: string
+      - name: faqs
+        label: Common questions
+        description: Shown as an accordion. A question with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: question
+            label: Question
+            type: string
+          - name: answer
+            label: Answer
+            type: text
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string
   - name: page-podcast
     label: 'Page: Podcast'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/podcast.json
     format: json
@@ -613,12 +1080,161 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: linksTitle
+        label: Listen links — section heading (optional)
+        type: string
+      - name: links
+        label: Listen links
+        description: Buttons linking out. Leave the address empty and the button shows as a greyed "Soon".
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Button text
+            type: string
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - heart-handshake
+                - users
+                - megaphone
+                - user
+                - target
+                - infinity
+                - presentation
+                - briefcase
+                - message-circle
+                - brain
+                - shield
+                - clock
+                - layers
+                - monitor
+                - calendar
+                - mail
+                - award
+                - map-pin
+                - check
+                - leaf
+                - book-open
+                - mic
+                - music
+                - video
+                - headphones
+                - shopping-bag
+                - image
+                - activity
+                - compass
+                - sun
+                - graduation-cap
+                - handshake
+                - lightbulb
+                - sparkles
+                - phone
+                - quote
+                - gift
+                - package
+                - shirt
+                - coffee
+          - name: href
+            label: Address
+            description: Full https:// address
+            type: string
+      - name: episodesTitle
+        label: Episodes — section heading (optional)
+        type: string
+      - name: episodes
+        label: Episodes
+        description: Drag to reorder — newest first is usual. An episode with no title is not shown.
+        type: object
+        list: true
+        fields:
+          - name: number
+            label: Episode number (optional)
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Duration or date (optional)
+            type: string
+          - name: youtube
+            label: YouTube link
+            description: Paste anything YouTube's Share button gives you. Adds a video the visitor can play here.
+            type: string
+          - name: spotify
+            label: Spotify link
+            description: Paste anything Spotify's Share button gives you.
+            type: string
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string
   - name: page-merchandise
     label: 'Page: Merchandise'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/merchandise.json
     format: json
@@ -636,12 +1252,100 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: productsTitle
+        label: Products — section heading (optional)
+        type: string
+      - name: products
+        label: Products
+        description: A product with no name is not shown.
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: image
+            label: Photo
+            type: image
+          - name: price
+            label: Price (optional)
+            description: e.g. "£14.00". Leave empty to show the label below instead.
+            type: string
+          - name: meta
+            label: Label shown when there is no price
+            description: e.g. "Coming soon"
+            type: string
+          - name: href
+            label: Buy link (optional)
+            type: string
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string
   - name: page-meet-the-team
     label: 'Page: Meet the Team'
-    description: Fill these in to replace the "coming soon" placeholder on this page. Leave Intro and Main text both empty
-      and the placeholder stays. This page's menu link is under Main menu.
+    description: >-
+      Every section below is optional — fill in what suits this page and leave the rest
+      empty. Clear the whole page and it goes back to its "coming soon" screen.
+      This page's menu link is under Main menu.
     type: file
     path: src/content/pages/meet-the-team.json
     format: json
@@ -659,5 +1363,101 @@ content:
         label: Main text (press Enter for new lines)
         type: text
       - name: image
-        label: Photo (optional — sits beside the text)
+        label: Photo (optional — sits beside the main text)
         type: image
+      - name: peopleTitle
+        label: People — section heading (optional)
+        type: string
+      - name: people
+        label: People
+        description: A person with no name is not shown.
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+          - name: role
+            label: Role
+            type: string
+          - name: credentials
+            label: Credentials (optional)
+            type: string
+          - name: bio
+            label: Short biography
+            type: text
+          - name: image
+            label: Photo
+            type: image
+      - name: faqsTitle
+        label: Questions — section heading (leave blank for "Common questions")
+        type: string
+      - name: faqs
+        label: Common questions
+        description: Shown as an accordion. A question with no text is not shown.
+        type: object
+        list: true
+        fields:
+          - name: question
+            label: Question
+            type: string
+          - name: answer
+            label: Answer
+            type: text
+      - name: ctaHeading
+        label: Closing section — heading (optional)
+        type: string
+      - name: ctaText
+        label: Closing section — text (optional)
+        type: text
+      - name: ctaButtonLabel
+        label: Closing button text (blank uses "Request a Consultation")
+        type: string
+      - name: ctaButtonIcon
+        label: Closing button icon
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
+      - name: ctaButtonHref
+        label: Closing button link (blank goes to the contact form)
+        type: string

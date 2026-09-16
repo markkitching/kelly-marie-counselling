@@ -101,15 +101,15 @@
 {%- set blockIndex = blockIndex + 1 -%}
 {% endif %}
 
-{% if pageContent.checklist.items | length %}
+{% if pageContent.checklistItems | length %}
 <!-- ══════════════════════════ CHECKLIST ══════════════════════════ -->
 {%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
 <section class="{{ bg }} py-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    {{ blockHeading(pageContent.checklist.title) }}
+    {{ blockHeading(pageContent.checklistTitle) }}
 
     <ul class="grid sm:grid-cols-2 gap-x-10 gap-y-4 max-w-3xl mx-auto">
-      {% for item in pageContent.checklist.items %}
+      {% for item in pageContent.checklistItems %}
       <li class="flex items-start gap-3">
         <span class="w-5 h-5 rounded-full bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
           <i data-lucide="check" class="w-3 h-3 text-forest"></i>
@@ -345,17 +345,17 @@
 {%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
 <section class="{{ bg }} py-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    {% if pageContent.cta.heading %}
-    <h2 class="font-serif text-forest text-3xl mb-4">{{ pageContent.cta.heading }}</h2>
+    {% if pageContent.ctaHeading %}
+    <h2 class="font-serif text-forest text-3xl mb-4">{{ pageContent.ctaHeading }}</h2>
     {% endif %}
-    {% if pageContent.cta.text %}
-    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.cta.text }}</p>
+    {% if pageContent.ctaText %}
+    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.ctaText }}</p>
     {% endif %}
 
     <div class="flex flex-wrap gap-4 justify-center">
-      <a href="{{ pageContent.cta.buttonHref }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
-        <i data-lucide="{{ pageContent.cta.buttonIcon }}" class="w-4 h-4"></i>
-        {{ pageContent.cta.buttonLabel or content.hero.primaryButton }}
+      <a href="{{ pageContent.ctaButtonHref }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+        <i data-lucide="{{ pageContent.ctaButtonIcon }}" class="w-4 h-4"></i>
+        {{ pageContent.ctaButtonLabel or content.hero.primaryButton }}
       </a>
       <a href="/" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
         <i data-lucide="arrow-left" class="w-4 h-4"></i>

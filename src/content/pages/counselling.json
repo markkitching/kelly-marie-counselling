@@ -4,6 +4,7 @@
   "intro": "A confidential, consistent space to understand what is happening and why — and to do something about it. Weekly sessions in Leeds or online, for adults facing anything from a specific difficulty to a long-standing pattern.",
   "body": "Therapy works through relationship. What makes it different from talking to a friend is the consistency, the boundaries, and the fact that the whole hour belongs to you — there is no need to manage my feelings about what you say, or to keep the conversation fair.\n\nMy practice is grounded in psychodynamic theory: the understanding that present difficulties are shaped by earlier experience and by patterns operating below conscious awareness. Alongside that I work integratively and in a trauma-informed way, which in practice means the pace and the direction are yours.\n\nSome people arrive with something specific — a bereavement, a diagnosis, a decision they can't make. Others come knowing only that something isn't right. Both are perfectly good reasons to begin.\n\nSessions are 50 minutes and usually weekly, at the same time each week. How long we work together is something we review openly together, rather than decide at the outset.",
   "image": "",
+  "cardsTitle": "Ways of Working",
   "cards": [
     {
       "icon": "user",
@@ -24,41 +25,36 @@
       "meta": "Ongoing · Reviewed regularly"
     }
   ],
-  "checklist": {
-    "title": "What People Bring to Therapy",
-    "items": [
-      {
-        "text": "Anxiety, worry and panic"
-      },
-      {
-        "text": "Low mood and depression"
-      },
-      {
-        "text": "Bereavement, loss and grief"
-      },
-      {
-        "text": "Trauma and its after-effects"
-      },
-      {
-        "text": "Relationship and family difficulties"
-      },
-      {
-        "text": "Work stress and burnout"
-      },
-      {
-        "text": "Self-esteem and self-criticism"
-      },
-      {
-        "text": "Significant life transitions"
-      }
-    ]
-  },
-  "links": [],
-  "episodes": [],
-  "products": [],
-  "people": [],
+  "checklistTitle": "What People Bring to Therapy",
+  "checklistItems": [
+    {
+      "text": "Anxiety, worry and panic"
+    },
+    {
+      "text": "Low mood and depression"
+    },
+    {
+      "text": "Bereavement, loss and grief"
+    },
+    {
+      "text": "Trauma and its after-effects"
+    },
+    {
+      "text": "Relationship and family difficulties"
+    },
+    {
+      "text": "Work stress and burnout"
+    },
+    {
+      "text": "Self-esteem and self-criticism"
+    },
+    {
+      "text": "Significant life transitions"
+    }
+  ],
   "quote": "\"The curious paradox is that when I accept myself just as I am, then I can change.\"",
   "quoteAuthor": "— Carl Rogers",
+  "faqsTitle": "",
   "faqs": [
     {
       "question": "How long will I need to come?",
@@ -85,13 +81,9 @@
       "answer": "That is exactly what the free 20-minute consultation is for. It is a conversation, not an assessment, and there is no obligation at the end of it."
     }
   ],
-  "cta": {
-    "heading": "Take the First Step",
-    "text": "Enquiries are answered personally and in confidence. A name and a sentence about what has prompted you to get in touch is enough to begin with.",
-    "buttonLabel": "",
-    "buttonIcon": "",
-    "buttonHref": ""
-  },
-  "cardsTitle": "Ways of Working",
-  "faqsTitle": ""
+  "ctaHeading": "Take the First Step",
+  "ctaText": "Enquiries are answered personally and in confidence. A name and a sentence about what has prompted you to get in touch is enough to begin with.",
+  "ctaButtonLabel": "",
+  "ctaButtonIcon": "",
+  "ctaButtonHref": ""
 }

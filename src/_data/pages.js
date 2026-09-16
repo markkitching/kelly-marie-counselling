@@ -66,8 +66,6 @@ module.exports = () => {
     if (!file.endsWith(".json")) continue;
 
     const raw = readJson(path.join(PAGES_DIR, file));
-    const checklist = raw.checklist || {};
-    const cta = raw.cta || {};
 
     const page = {
       // Heading band + opening text
@@ -81,10 +79,8 @@ module.exports = () => {
       // optional heading of its own; left blank, the block simply has no heading.
       cardsTitle: clean(raw.cardsTitle),
       cards: rows(raw.cards, "title", ["icon", "title", "description", "meta"]),
-      checklist: {
-        title: clean(checklist.title),
-        items: rows(checklist.items, "text", ["text"]),
-      },
+      checklistTitle: clean(raw.checklistTitle),
+      checklistItems: rows(raw.checklistItems, "text", ["text"]),
       linksTitle: clean(raw.linksTitle),
       links: rows(raw.links, "label", ["label", "icon", "href"]),
       episodesTitle: clean(raw.episodesTitle),
@@ -102,28 +98,26 @@ module.exports = () => {
       faqs: rows(raw.faqs, "question", ["question", "answer"]),
       quote: clean(raw.quote),
       quoteAuthor: clean(raw.quoteAuthor),
-      cta: {
-        heading: clean(cta.heading),
-        text: clean(cta.text),
-        buttonLabel: clean(cta.buttonLabel),
-        // These two always resolve to something, so neither counts towards hasContent.
-        buttonIcon: clean(cta.buttonIcon) || "calendar",
-        buttonHref: clean(cta.buttonHref) || "/#contact",
-      },
+      ctaHeading: clean(raw.ctaHeading),
+      ctaText: clean(raw.ctaText),
+      ctaButtonLabel: clean(raw.ctaButtonLabel),
+      // These two always resolve to something, so neither counts towards hasContent.
+      ctaButtonIcon: clean(raw.ctaButtonIcon) || "calendar",
+      ctaButtonHref: clean(raw.ctaButtonHref) || "/#contact",
     };
 
-    // The eyebrow alone is decoration, and the checklist's title is just a label for
-    // items that may not exist — neither makes a page "written" on its own.
+    // The eyebrow alone is decoration, and a block's heading is just a label for rows
+    // that may not exist — neither makes a page "written" on its own.
     page.hasContent = Boolean(
       page.heading ||
         page.intro ||
         page.body ||
         page.image ||
         page.quote ||
-        page.cta.heading ||
-        page.cta.text ||
+        page.ctaHeading ||
+        page.ctaText ||
         page.cards.length ||
-        page.checklist.items.length ||
+        page.checklistItems.length ||
         page.links.length ||
         page.episodes.length ||
         page.products.length ||

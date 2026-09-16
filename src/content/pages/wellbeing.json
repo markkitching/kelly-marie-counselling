@@ -4,6 +4,7 @@
   "intro": "Wellbeing isn't the absence of difficulty — it's having the understanding, the habits and the support to meet difficulty well. Alongside clinical therapy, I work with individuals, groups and organisations on the foundations that keep mental health steady.",
   "body": "Most people come to therapy at the point where something has become hard to carry. Wellbeing work sits earlier than that. It is preventative rather than remedial: building self-awareness, learning to recognise your own early warning signs, and putting sustainable habits in place before a difficult period becomes a crisis.\n\nThat doesn't make it lightweight. The same psychodynamic and trauma-informed thinking that underpins my clinical practice shapes this work too — it is simply applied to everyday life rather than to a presenting difficulty.\n\nWellbeing sessions are not a substitute for therapy, and I will say so plainly if what you describe would be better served by clinical support. Where that is the case, we can talk about counselling instead.",
   "image": "",
+  "cardsTitle": "How This Work Happens",
   "cards": [
     {
       "icon": "heart-handshake",
@@ -24,41 +25,36 @@
       "meta": "Scoped to the organisation"
     }
   ],
-  "checklist": {
-    "title": "What We Might Work On",
-    "items": [
-      {
-        "text": "Recognising your own early warning signs"
-      },
-      {
-        "text": "Stress, pressure and overwhelm"
-      },
-      {
-        "text": "Boundaries at work and at home"
-      },
-      {
-        "text": "Sleep, routine and rest"
-      },
-      {
-        "text": "Confidence and self-esteem"
-      },
-      {
-        "text": "Managing change and uncertainty"
-      },
-      {
-        "text": "Burnout, and recovering from it"
-      },
-      {
-        "text": "Building a support network"
-      }
-    ]
-  },
-  "links": [],
-  "episodes": [],
-  "products": [],
-  "people": [],
+  "checklistTitle": "What We Might Work On",
+  "checklistItems": [
+    {
+      "text": "Recognising your own early warning signs"
+    },
+    {
+      "text": "Stress, pressure and overwhelm"
+    },
+    {
+      "text": "Boundaries at work and at home"
+    },
+    {
+      "text": "Sleep, routine and rest"
+    },
+    {
+      "text": "Confidence and self-esteem"
+    },
+    {
+      "text": "Managing change and uncertainty"
+    },
+    {
+      "text": "Burnout, and recovering from it"
+    },
+    {
+      "text": "Building a support network"
+    }
+  ],
   "quote": "\"You can't stop the waves, but you can learn to surf.\"",
   "quoteAuthor": "— Jon Kabat-Zinn",
+  "faqsTitle": "",
   "faqs": [
     {
       "question": "Is this the same as counselling?",
@@ -77,13 +73,9 @@
       "answer": "Yes. Both one-to-one sessions and group workshops can run on private video platforms, which for many people makes them far easier to fit around work."
     }
   ],
-  "cta": {
-    "heading": "Not Sure Where to Start?",
-    "text": "A free 20-minute conversation costs nothing and commits you to nothing. We can talk through what you're looking for, and whether wellbeing work or therapy would suit you better.",
-    "buttonLabel": "",
-    "buttonIcon": "",
-    "buttonHref": ""
-  },
-  "cardsTitle": "How This Work Happens",
-  "faqsTitle": ""
+  "ctaHeading": "Not Sure Where to Start?",
+  "ctaText": "A free 20-minute conversation costs nothing and commits you to nothing. We can talk through what you're looking for, and whether wellbeing work or therapy would suit you better.",
+  "ctaButtonLabel": "",
+  "ctaButtonIcon": "",
+  "ctaButtonHref": ""
 }

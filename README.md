@@ -46,7 +46,8 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
-- [ ] **Add the new page blocks to `.pages.yml`** — required before this content goes live
+- [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
+- [ ] **Pull podcast episodes automatically** — YouTube RSS at build time + a scheduled rebuild (see below)
 
 ---
 
@@ -63,6 +64,8 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/_data/pages.js` | Loads those files, keyed by slug. |
 | `src/holding.njk` | Builds each page — real content when filled in, "coming soon" placeholder when not. |
 | `src/_includes/page-body.njk` | Renders the optional content blocks that make up a page. |
+| `scripts/gen-pages-yml.py` | Regenerates the six `Page:` entries in `.pages.yml` from one block map. |
+| `scripts/check-pages-yml.py` | Verifies a CMS save can't drop any stored field. |
 | `src/_includes/site-header.njk` | Shared `<head>` + sticky nav. |
 | `src/_includes/site-footer.njk` | Shared footer + page scripts. |
 
@@ -120,14 +123,14 @@ combination is in use.
 | **Heading band** | Small heading, Page title, Intro paragraph | every page |
 | **Main text** | Main text, Photo (optional, sits alongside) | every page |
 | **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
-| **Checklist** | Section heading + rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
+| **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
 | **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link* | Podcast |
 | **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
 | **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
-| **Closing CTA** | Heading, text, button label, button icon, button link | every page |
+| **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref` | every page |
 
 Blocks look after themselves:
 
@@ -147,6 +150,94 @@ rendered by `src/_includes/page-body.njk`.
 > them. That was a deliberate simplification — reorderable blocks need a polymorphic
 > list in the CMS, which is a much larger change. Worth revisiting only if a page
 > genuinely needs a different order.
+
+### Pulling podcast episodes automatically — options
+
+Episodes are entered by hand today. If that becomes a chore, the routes are:
+
+| Source | Auth | Gives you |
+|---|---|---|
+| YouTube RSS — `feeds/videos.xml?channel_id=UC…` | none | Last ~15 videos: id, title, description, date |
+| YouTube Data API v3 | API key | Full history. Use `playlistItems.list` (1 unit) not `search.list` (100) |
+| Spotify Web API — `/v1/shows/{id}/episodes` | client id + secret | Episodes with per-episode Spotify links |
+| The show's own RSS feed (Spotify for Creators) | none | The canonical audio feed |
+
+Two constraints shape the answer. **Client-side fetching is out** — neither YouTube's
+feed nor Spotify's API sends permissive CORS headers, so it would need a Worker as a
+proxy. And **a build-time fetch is a snapshot**, because Eleventy only runs on push; to
+refresh it you need a Cloudflare Pages *Deploy Hook* called on a schedule, e.g. by a
+GitHub Actions cron.
+
+The argument for staying manual is editorial, not technical: YouTube titles and
+descriptions are written for YouTube, and the channel carries shorts, trailers and clips
+that don't belong on a therapy website. If it is automated, the shape to aim for is a
+hybrid — populate from the feed, but let the CMS override a title or description and
+hide an episode. Whatever is built must fail safe: a hard timeout, and on any error fall
+back to the stored list, so an outage at YouTube can never break the build.
+
+### Podcast episodes — how adding one will work
+
+Pages CMS can't browse YouTube or Spotify, so an episode is added by **pasting a link**.
+Each episode row has:
+
+| Field | Notes |
+|---|---|
+| Episode number | Optional, shown as a small label |
+| Title | Required — a row with no title isn't rendered |
+| Description | Optional |
+| Duration / date | Optional free text |
+| YouTube link | Paste anything YouTube's Share button gives you |
+| Spotify link | Paste anything Spotify's Share button gives you |
+
+**The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
+watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so
+whatever gets pasted, it works. Spotify accepts `open.spotify.com` links, `spotify.link`
+short links and `spotify:episode:…` URIs; anything that isn't a Spotify address is
+ignored rather than rendered as a link that goes somewhere unexpected.
+
+What each combination produces:
+
+| Episode has | Card shows |
+|---|---|
+| A YouTube link | The video still, which becomes the player when clicked, plus both listen links |
+| Spotify only | An "Audio episode" panel and a *Listen on Spotify* link |
+| Neither | A "Not published yet" placeholder — so a planned episode can be listed before it exists |
+
+Every card keeps a media area of the same size, so cards sitting side by side line up
+whichever combination they use.
+
+> **Nothing is requested from YouTube until someone presses play.** The card shows a
+> still image, and only on click does the player load — from `youtube-nocookie.com`.
+> For a counselling site, where a visitor reading the page shouldn't be handed to
+> Google's tracking, that's worth the small amount of extra code.
+
+### 2a. Each page's form shows only the blocks that page uses
+
+`.pages.yml` gives every page its own tailored form, so *Page: Merchandise* has no
+Checklist section and *Page: Counselling* has no Products section. The block map that
+decides this lives in `scripts/gen-pages-yml.py`, which regenerates all six entries —
+edit the map and re-run it rather than hand-editing 900 lines of YAML.
+
+Field names in the form match the JSON keys exactly. That matters more than it sounds:
+Pages CMS writes back only what its schema knows about, so a key with no matching field
+would be **silently deleted** the first time the editor saves. The generator and a
+round-trip check guard against that — see *Checking the CMS schema* below.
+
+Every field is a `string`, `text`, `image`, `select`, or an `object` with `list: true`.
+There is no nesting beyond one level, which is why `checklistTitle`/`checklistItems` and
+the `ctaHeading`/`ctaText`/`ctaButton…` fields are flat rather than nested objects.
+
+### Checking the CMS schema
+
+After changing `.pages.yml` or the page JSON, confirm a save can't lose anything:
+
+```bash
+python3 scripts/check-pages-yml.py     # every stored key has a matching form field
+```
+
+It parses the YAML, compares each form against its JSON file (including the sub-fields
+of every list block), then simulates a save — writing each file back with only the keys
+the form knows — and confirms the built site is byte-for-byte unchanged.
 
 ### Podcast episodes — how adding one will work
 
