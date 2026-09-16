@@ -187,7 +187,10 @@ content:
       - name: badges
         label: Credential badges
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
         fields:
           - name: icon
             label: Icon
@@ -250,7 +253,10 @@ content:
       - name: cards
         label: Service cards
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -329,7 +335,10 @@ content:
       - name: cards
         label: Cards (optional — leave empty for text only)
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -398,7 +407,10 @@ content:
       - name: items
         label: Approach cards
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -470,7 +482,10 @@ content:
       - name: steps
         label: Steps
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: title
             label: Step title
@@ -555,7 +570,10 @@ content:
         label: Cards
         description: A row of cards. Drag to reorder. A card with no title is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -618,7 +636,10 @@ content:
         label: Checklist items
         description: Shown as a two-column ticked list. An item with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{text}'
         fields:
           - name: text
             label: Text
@@ -636,7 +657,10 @@ content:
         label: Common questions
         description: Shown as an accordion. A question with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{question}'
         fields:
           - name: question
             label: Question
@@ -733,7 +757,10 @@ content:
         label: Cards
         description: A row of cards. Drag to reorder. A card with no title is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -796,7 +823,10 @@ content:
         label: Checklist items
         description: Shown as a two-column ticked list. An item with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{text}'
         fields:
           - name: text
             label: Text
@@ -814,7 +844,10 @@ content:
         label: Common questions
         description: Shown as an accordion. A question with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{question}'
         fields:
           - name: question
             label: Question
@@ -911,7 +944,10 @@ content:
         label: Cards
         description: A row of cards. Drag to reorder. A card with no title is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: icon
             label: Icon
@@ -974,7 +1010,10 @@ content:
         label: Checklist items
         description: Shown as a two-column ticked list. An item with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{text}'
         fields:
           - name: text
             label: Text
@@ -992,7 +1031,10 @@ content:
         label: Common questions
         description: Shown as an accordion. A question with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{question}'
         fields:
           - name: question
             label: Question
@@ -1089,7 +1131,10 @@ content:
         label: Listen links
         description: Buttons linking out. Leave the address empty and the button shows as a greyed "Soon".
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
         fields:
           - name: label
             label: Button text
@@ -1150,7 +1195,10 @@ content:
         label: Episodes
         description: Drag to reorder — newest first is usual. An episode with no title is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
         fields:
           - name: number
             label: Episode number (optional)
@@ -1265,7 +1313,10 @@ content:
         label: Products
         description: A product with no name is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{name}'
         fields:
           - name: name
             label: Name
@@ -1376,7 +1427,10 @@ content:
         label: People
         description: A person with no name is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{name}'
         fields:
           - name: name
             label: Name
@@ -1400,7 +1454,10 @@ content:
         label: Common questions
         description: Shown as an accordion. A question with no text is not shown.
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{question}'
         fields:
           - name: question
             label: Question

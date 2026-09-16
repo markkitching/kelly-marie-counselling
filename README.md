@@ -135,6 +135,26 @@ combination is in use.
 | **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
 | **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref` | every page |
 
+**Rows collapse to one line.** Every repeatable list — episodes, cards, FAQs, people,
+products — shows each row as a single draggable line carrying its title, so reordering
+thirty episodes is dragging thirty lines rather than scrolling thirty open forms. Click a
+line to open it. Configured per list in `.pages.yml`:
+
+```yaml
+type: object
+list:
+  collapsible:
+    collapsed: true
+    summary: '{title}'      # any field on the row; {index} also works
+```
+
+The one exception is **Main menu**, whose rows stay open: they are two fields, and one is
+the *Show in menu* tick box that makes the list worth having. Collapsing would hide it.
+
+> Keep the summary token pointing at a field that actually exists on the row — a token
+> that doesn't resolve renders as empty, giving you a list of blank lines to drag. The
+> check below catches that.
+
 Blocks look after themselves:
 
 - **A blank row renders nothing.** Adding a card and leaving it empty shows no card,

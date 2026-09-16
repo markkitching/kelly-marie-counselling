@@ -29,10 +29,20 @@ def icon_field(indent):
     return (f"{pad}- name: icon\n{pad}  label: Icon\n{pad}  type: select\n"
             f"{pad}  options:\n{pad}    values:\n{vals}\n")
 
-def listblock(name, label, description, subfields, indent=6):
+def listblock(name, label, description, subfields, *, summary, indent=6):
+    """A repeatable block.
+
+    Rows collapse to a single line showing `summary`, so a long list stays draggable
+    rather than becoming a wall of open forms. `{field}` resolves against the row.
+    """
     pad = " " * indent
     out = (f"{pad}- name: {name}\n{pad}  label: {label}\n{pad}  description: {description}\n"
-           f"{pad}  type: object\n{pad}  list: true\n{pad}  fields:\n")
+           f"{pad}  type: object\n"
+           f"{pad}  list:\n"
+           f"{pad}    collapsible:\n"
+           f"{pad}      collapsed: true\n"
+           f"{pad}      summary: '{summary}'\n"
+           f"{pad}  fields:\n")
     return out + subfields
 
 def sub(name, label, ftype, indent=6, description=None):
@@ -68,20 +78,20 @@ def build(slug, title):
             "A row of cards. Drag to reorder. A card with no title is not shown.",
             icon_field(10) + sub("title", "Title", "string")
             + sub("description", "Description", "text")
-            + sub("meta", "Small label underneath (optional)", "string"))
+            + sub("meta", "Small label underneath (optional)", "string"), summary="{title}")
 
     if "checklist" in blocks:
         body += f("checklistTitle", "Checklist — section heading (optional)", "string")
         body += listblock("checklistItems", "Checklist items",
             "Shown as a two-column ticked list. An item with no text is not shown.",
-            sub("text", "Text", "string"))
+            sub("text", "Text", "string"), summary="{text}")
 
     if "links" in blocks:
         body += f("linksTitle", "Listen links — section heading (optional)", "string")
         body += listblock("links", "Listen links",
             'Buttons linking out. Leave the address empty and the button shows as a greyed "Soon".',
             sub("label", "Button text", "string") + icon_field(10)
-            + sub("href", "Address", "string", description="Full https:// address"))
+            + sub("href", "Address", "string", description="Full https:// address"), summary="{label}")
 
     if "episodes" in blocks:
         body += f("episodesTitle", "Episodes — section heading (optional)", "string")
@@ -96,7 +106,7 @@ def build(slug, title):
             + sub("spotify", "Spotify link", "string",
                   description="Paste anything Spotify's Share button gives you.")
             + sub("visible", "Show this episode on the page", "boolean",
-                  description="Untick to hide it without deleting it. The page shows the first 10 that are ticked."))
+                  description="Untick to hide it without deleting it. The page shows the first 10 that are ticked."), summary="{title}")
 
     if "products" in blocks:
         body += f("productsTitle", "Products — section heading (optional)", "string")
@@ -107,7 +117,7 @@ def build(slug, title):
             + sub("image", "Photo", "image")
             + sub("price", "Price (optional)", "string", description='e.g. "£14.00". Leave empty to show the label below instead.')
             + sub("meta", "Label shown when there is no price", "string", description='e.g. "Coming soon"')
-            + sub("href", "Buy link (optional)", "string"))
+            + sub("href", "Buy link (optional)", "string"), summary="{name}")
 
     if "people" in blocks:
         body += f("peopleTitle", "People — section heading (optional)", "string")
@@ -117,7 +127,7 @@ def build(slug, title):
             + sub("role", "Role", "string")
             + sub("credentials", "Credentials (optional)", "string")
             + sub("bio", "Short biography", "text")
-            + sub("image", "Photo", "image"))
+            + sub("image", "Photo", "image"), summary="{name}")
 
     if "quote" in blocks:
         body += f("quote", "Quote (optional — shown on the dark band)", "text")
@@ -127,7 +137,7 @@ def build(slug, title):
         body += f("faqsTitle", 'Questions — section heading (leave blank for "Common questions")', "string")
         body += listblock("faqs", "Common questions",
             "Shown as an accordion. A question with no text is not shown.",
-            sub("question", "Question", "string") + sub("answer", "Answer", "text"))
+            sub("question", "Question", "string") + sub("answer", "Answer", "text"), summary="{question}")
 
     body += f("ctaHeading", "Closing section — heading (optional)", "string")
     body += f("ctaText", "Closing section — text (optional)", "text")

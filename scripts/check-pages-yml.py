@@ -10,7 +10,7 @@ presses Save. This checks two things:
 
 Run after changing .pages.yml or any file in src/content/pages/.
 """
-import collections, filecmp, json, pathlib, shutil, subprocess, sys, tempfile
+import collections, filecmp, json, pathlib, re, shutil, subprocess, sys, tempfile
 
 import yaml
 
@@ -26,6 +26,23 @@ def build():
 
 def page_entries(cfg):
     return [e for e in cfg["content"] if e["name"].startswith("page-")]
+
+
+def check_summaries(cfg):
+    """A collapsed row shows `summary`; a token naming no field renders as an empty line."""
+    ok = True
+    for entry in cfg["content"]:
+        for field in entry.get("fields", []):
+            options = field.get("list")
+            if field.get("type") != "object" or not isinstance(options, dict):
+                continue
+            summary = options.get("collapsible", {}).get("summary", "")
+            names = {sub["name"] for sub in field["fields"]}
+            for token in re.findall(r"{(\w+)}", summary):
+                if token != "index" and token not in names:
+                    print(f"  {entry['name']}.{field['name']}: summary uses {{{token}}}, which is not a field on the row")
+                    ok = False
+    return ok
 
 
 def compare_fields(entries):
@@ -97,6 +114,10 @@ def main():
     entries = page_entries(cfg)
     print(f"{len(entries)} page forms in .pages.yml\n")
 
+    print("0. every collapsed list summarises itself with a field it actually has")
+    summaries_ok = check_summaries(cfg)
+    print("   pass\n" if summaries_ok else "   FAIL\n")
+
     print("1. every stored key has a matching form field")
     fields_ok = compare_fields(entries)
     print("   pass\n" if fields_ok else "   FAIL\n")
@@ -123,7 +144,7 @@ def main():
             same = same and ok
     print()
 
-    if fields_ok and same:
+    if summaries_ok and fields_ok and same:
         print("PASS — the CMS cannot drop a stored field")
         return 0
     print("FAILED")
