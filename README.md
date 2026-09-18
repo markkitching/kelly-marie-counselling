@@ -46,6 +46,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
+- [ ] **Rewrite the Counselling page** — it ships as a copy of the homepage; duplicate text competes with it in search
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
 - [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
 - [ ] **Run the podcast sync once** — Actions → Sync podcast episodes → Run workflow
@@ -64,7 +65,11 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/content/pages/` | Editable content for the six standalone pages, one file each. |
 | `src/_data/pages.js` | Loads those files, keyed by slug. |
 | `src/holding.njk` | Builds each page — real content when filled in, "coming soon" placeholder when not. |
+| `src/_includes/page-sections.njk` | The seven sections the homepage is built from, rendered from whichever content object is passed in. |
 | `src/_includes/page-body.njk` | Renders the optional content blocks that make up a page. |
+| `src/counselling.njk` | The Counselling page — the homepage's sections, its own content. |
+| `src/_data/counsellingPage.js` | Loads `src/content/counselling/`. |
+| `src/_data/holdingPages.js` | `newPages.json` minus any page with a template of its own. |
 | `scripts/gen-pages-yml.py` | Regenerates the six `Page:` entries in `.pages.yml` from one block map. |
 | `scripts/check-pages-yml.py` | Verifies a CMS save can't drop any stored field. |
 | `scripts/sync-podcast-episodes.js` | Pulls recent episodes from YouTube (or Spotify) into the podcast page. |
@@ -298,6 +303,37 @@ whichever combination they use.
 > For a counselling site, where a visitor reading the page shouldn't be handed to
 > Google's tracking, that's worth the small amount of extra code.
 
+### The Counselling page is the homepage's design with its own words
+
+Counselling is the one standalone page not built from blocks. It renders the same seven
+sections as the homepage — hero, About, Services, Workplace, Approach, Process, Contact
+— from its own copy of the content in `src/content/counselling/`.
+
+```
+src/_includes/page-sections.njk   the seven sections, rendered from `sections`
+  ├── src/index.njk               sections = content              (src/content/*.json)
+  └── src/counselling.njk         sections = counsellingPage      (src/content/counselling/*.json)
+```
+
+One template, two sets of words. A change to the design reaches both; a change to the
+text reaches only one. `content.site` stays global inside that include, because the
+contact form posts to a single endpoint wherever it appears.
+
+In the editor this is seven more entries — **Counselling: Top section (hero)**,
+**Counselling: About Kelly**, and so on — each with exactly the fields of its homepage
+counterpart. Those forms are *copied from the homepage's* by `scripts/gen-pages-yml.py`
+rather than written out again, so adding a field to the homepage's About form puts the
+same field on the Counselling one the next time the generator runs.
+
+> ⚠️ **Two identical pages is bad for search.** The Counselling page ships as a
+> word-for-word copy, which is a starting point, not a destination: Google treats
+> duplicate content as a reason to rank one of them lower. Edit the Counselling text to
+> be about counselling specifically, and it stops competing with the homepage.
+
+> **A page with its own template must be listed in `src/_data/holdingPages.js`.** It
+> stays in `newPages.json` so it keeps its menu entry, but `holding.njk` has to skip it
+> — two templates writing `/counselling/` is a build error.
+
 ### 2a. Each page's form shows only the blocks that page uses
 
 `.pages.yml` gives every page its own tailored form, so *Page: Merchandise* has no
@@ -381,6 +417,7 @@ or assumptions and need Kelly's sign-off before publishing:
 
 | Page | Needs confirming |
 |---|---|
+| Counselling | Currently a word-for-word copy of the homepage — needs rewriting to be about counselling, both for readers and for search |
 | Podcast | Named *The Kelly Marie Podcast*. The show's Spotify and YouTube addresses are still needed, and the four listed episodes are placeholder topics to be replaced with real ones. |
 | Merchandise | The four products are illustrative. No prices are quoted — each shows "Coming soon" instead. |
 | Meet the Team | The second card is an unnamed "Associate Practitioner — joining soon" placeholder. Delete it if the practice isn't recruiting. Kelly's card has no portrait: the photo currently in *About* is a landscape, not a headshot. |

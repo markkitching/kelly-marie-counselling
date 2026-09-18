@@ -1,0 +1,451 @@
+{#
+  The seven sections the homepage is built from, rendered from whichever content object
+  is passed in as `sections`. The homepage passes the site-wide `content`; the
+  Counselling page passes its own, so the two share a design and nothing else.
+
+  `content.site` stays global on purpose — the contact form posts to one endpoint
+  wherever it appears.
+#}
+
+
+  <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+  <section id="home" class="bg-stone min-h-[calc(100vh-72px)] flex items-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Text -->
+      <div class="order-2 md:order-1">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="w-px h-5 bg-sage"></span>
+          <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.hero.eyebrow }}</span>
+        </div>
+        <h1 class="font-serif text-forest text-5xl lg:text-6xl leading-tight mb-4">
+          {{ sections.hero.headingLead }}<br><em>{{ sections.hero.headingEmphasis }}</em>
+        </h1>
+        <div class="divider mb-6"></div>
+        <p class="text-gray-600 text-lg leading-relaxed mb-4">
+          {{ sections.hero.paragraph1 }}
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-8">
+          {{ sections.hero.paragraph2 }}
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            {{ sections.hero.primaryButton }}
+          </a>
+          <a href="#services" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
+            {{ sections.hero.secondaryButton }}
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo slot -->
+      <div class="order-1 md:order-2 flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <div class="absolute -top-4 -right-4 w-full h-full rounded-lg bg-sage/10 -z-10"></div>
+          <div class="aspect-[3/4] rounded-lg overflow-hidden bg-sage/10 photo-placeholder flex items-center justify-center relative">
+            <img
+              src="{{ sections.hero.image }}"
+              alt="Kelly Marie — Leeds Psychotherapist"
+              class="w-full h-full object-cover object-top"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            />
+            <div class="hidden flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center absolute inset-0">
+              <i data-lucide="user" class="w-16 h-16"></i>
+              <p class="text-sm font-medium">Add a hero photo in the editor</p>
+            </div>
+          </div>
+          <!-- Badge -->
+          <div class="absolute -bottom-4 -left-4 bg-white rounded shadow-lg px-4 py-3 flex items-center gap-2 border border-gray-100">
+            <span class="w-8 h-8 bg-sage/15 rounded flex items-center justify-center">
+              <i data-lucide="award" class="w-4 h-4 text-forest"></i>
+            </span>
+            <div class="leading-tight">
+              <div class="text-xs text-gray-500">Accredited</div>
+              <div class="text-sm font-semibold text-forest">BACP Member</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ ABOUT KELLY ═══════════════════════════════════════════════ -->
+  <section id="about" class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <!-- Photo slot -->
+        <div class="relative">
+          <div class="aspect-square rounded-lg overflow-hidden photo-placeholder flex items-center justify-center">
+            <img
+              src="{{ sections.about.image }}"
+              alt="Kelly Marie in her therapy room"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+            />
+            <div class="hidden w-full h-full flex-col items-center justify-center gap-3 text-sage/60 p-8 text-center">
+              <i data-lucide="image" class="w-12 h-12"></i>
+              <p class="text-sm font-medium">Add an about photo in the editor</p>
+            </div>
+          </div>
+          <div class="hidden sm:block absolute -bottom-6 -right-6 w-32 h-32 rounded bg-sage/10 -z-10"></div>
+          <div class="hidden sm:block absolute -top-6 -left-6 w-20 h-20 rounded bg-forest/10 -z-10"></div>
+        </div>
+
+        <!-- Text -->
+        <div>
+          <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.about.eyebrow }}</span>
+          <h2 class="font-serif text-forest text-4xl mt-2 mb-4">{{ sections.about.headingLead }} <em>{{ sections.about.headingEmphasis }}</em></h2>
+          <div class="divider mb-6"></div>
+
+          <p class="text-gray-600 leading-relaxed mb-4">
+            {{ sections.about.paragraph1 }}
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            {{ sections.about.paragraph2 }}
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-8">
+            {{ sections.about.paragraph3 }}
+          </p>
+
+          <!-- Credential badges -->
+          <div class="flex flex-wrap gap-3">
+            {% for badge in sections.about.badges %}
+            <div class="flex items-center gap-2 bg-stone border border-gray-200 px-4 py-2.5 rounded">
+              <i data-lucide="{{ badge.icon }}" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-medium text-forest">{{ badge.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SERVICES ═══════════════════════════════════════════════ -->
+  <section id="services" class="bg-stone py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-16">
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.services.eyebrow }}</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.services.heading }}</h2>
+        <div class="divider mt-4 mb-4"></div>
+        <p class="text-gray-600 max-w-xl leading-relaxed">
+          {{ sections.services.intro }}
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for card in sections.services.cards %}
+        <div class="service-card bg-white rounded-lg p-6 border-t-4 border-sage border border-gray-100">
+          <div class="w-10 h-10 bg-stone rounded flex items-center justify-center mb-4">
+            <i data-lucide="{{ card.icon }}" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            {{ card.description }}
+          </p>
+          <p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ WORKPLACE WELLNESS ═══════════════════════════════════════════════ -->
+  <section id="workplace" class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-12">
+        {% if sections.workplace.eyebrow %}<span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.workplace.eyebrow }}</span>{% endif %}
+        <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.workplace.heading }}</h2>
+        <div class="divider mt-4 mb-4"></div>
+      </div>
+
+      {% if sections.workplace.image %}
+      {%- set imageBlock -%}
+        <div class="flex justify-center">
+          <div class="relative w-full max-w-md">
+            <div class="absolute -top-4 -right-4 w-full h-full rounded-lg bg-sage/10 -z-10"></div>
+            <div class="aspect-[4/3] rounded-lg overflow-hidden photo-placeholder relative">
+              <img
+                src="{{ sections.workplace.image }}"
+                alt="{{ sections.workplace.heading }}"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      {%- endset -%}
+      {%- set textBlock -%}
+        <div class="text-gray-600 leading-relaxed">
+          {{ sections.workplace.body | nl2br | safe }}
+        </div>
+      {%- endset -%}
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        {% if sections.workplace.imageSide == "left" %}
+          {{ imageBlock | safe }}{{ textBlock | safe }}
+        {% else %}
+          {{ textBlock | safe }}{{ imageBlock | safe }}
+        {% endif %}
+      </div>
+      {% else %}
+      <!-- No image: text spans the full width -->
+      <div class="max-w-3xl text-gray-600 leading-relaxed">
+        {{ sections.workplace.body | nl2br | safe }}
+      </div>
+      {% endif %}
+
+      <!-- Optional cards -->
+      {% if sections.workplace.cards | length %}
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+        {% for card in sections.workplace.cards %}
+        <div class="service-card bg-white rounded-lg p-6 border-t-4 border-sage border border-gray-100">
+          <div class="w-10 h-10 bg-stone rounded flex items-center justify-center mb-4">
+            <i data-lucide="{{ card.icon }}" class="w-5 h-5 text-forest"></i>
+          </div>
+          <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description }}</p>
+          {% if card.meta %}<p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ THERAPEUTIC APPROACH ═══════════════════════════════════════════════ -->
+  <section id="approach" class="bg-forest py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-16">
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.approach.eyebrow }}</span>
+        <h2 class="font-serif text-white text-4xl mt-2">{{ sections.approach.heading }}</h2>
+        <div class="divider mt-4 mb-4" style="background: {{ colors.accent }};"></div>
+        <p class="text-white/60 max-w-xl leading-relaxed">
+          {{ sections.approach.intro }}
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for item in sections.approach.items %}
+        <div class="bg-white/5 rounded-lg p-8 border border-white/10">
+          <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center mb-6">
+            <i data-lucide="{{ item.icon }}" class="w-6 h-6 text-sage"></i>
+          </div>
+          <h3 class="font-serif text-white text-xl mb-3">{{ item.title }}</h3>
+          <p class="text-white/60 text-sm leading-relaxed">
+            {{ item.description }}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Quote -->
+      <div class="mt-16 pt-12 border-t border-white/10 text-center">
+        <blockquote class="font-serif italic text-white/70 text-xl max-w-2xl mx-auto leading-relaxed">
+          {{ sections.approach.quote }}
+        </blockquote>
+        <cite class="text-sage text-sm mt-3 block not-italic">{{ sections.approach.quoteAuthor }}</cite>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ THE PROCESS ═══════════════════════════════════════════════ -->
+  <section id="process" class="bg-stone py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-16">
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.process.eyebrow }}</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.process.heading }}</h2>
+        <div class="divider mt-4 mb-4"></div>
+        <p class="text-gray-600 max-w-xl leading-relaxed">
+          {{ sections.process.intro }}
+        </p>
+      </div>
+
+      <!-- Steps — desktop: horizontal -->
+      <div class="hidden md:flex items-start gap-0">
+        {% for step in sections.process.steps %}
+        {% if not loop.first %}<div class="step-connector mt-7"></div>{% endif %}
+        <div class="flex-1 text-center px-4">
+          <div class="w-14 h-14 bg-forest text-white rounded flex items-center justify-center mx-auto mb-4 font-serif text-xl font-semibold shadow-md">{{ loop.index }}</div>
+          <h3 class="font-serif text-forest text-lg mb-2">{{ step.title }}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">{{ step.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Steps — mobile: vertical -->
+      <div class="md:hidden space-y-8">
+        {% for step in sections.process.steps %}
+        <div class="flex gap-5 items-start">
+          <div class="w-12 h-12 bg-forest text-white rounded flex items-center justify-center flex-shrink-0 font-serif text-lg font-semibold shadow-md">{{ loop.index }}</div>
+          <div>
+            <h3 class="font-serif text-forest text-lg mb-1">{{ step.title }}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{{ step.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ CONTACT ═══════════════════════════════════════════════ -->
+  <section id="contact" class="bg-white py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-16">
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">{{ sections.contact.eyebrow }}</span>
+        <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.contact.heading }}</h2>
+        <div class="divider mt-4 mb-4"></div>
+        <p class="text-gray-600 max-w-xl leading-relaxed">
+          {{ sections.contact.intro }}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+
+        <!-- Contact info -->
+        <div>
+          <div class="space-y-6 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-stone border border-gray-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="mail" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-forest mb-0.5">Email</div>
+                <a href="mailto:{{ sections.contact.email }}" class="text-gray-600 hover:text-forest transition-colors">{{ sections.contact.email }}</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-stone border border-gray-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="map-pin" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-forest mb-0.5">Location</div>
+                <p class="text-gray-600">{{ sections.contact.locationLine1 }}<br><span class="text-sm text-gray-500">{{ sections.contact.locationLine2 }}</span></p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-stone border border-gray-200 rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="clock" class="w-5 h-5 text-forest"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-forest mb-0.5">Availability</div>
+                <p class="text-gray-600">{{ sections.contact.availability }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confidentiality note -->
+          <div class="bg-stone rounded-lg p-6 border border-gray-200">
+            <div class="flex items-center gap-2 mb-2">
+              <i data-lucide="shield" class="w-4 h-4 text-sage"></i>
+              <span class="text-sm font-semibold text-forest">{{ sections.contact.confidentialityTitle }}</span>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              {{ sections.contact.confidentialityText }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Formspree form -->
+        <form
+          id="contact-form"
+          action="{{ content.site.formspreeEndpoint }}"
+          method="POST"
+          class="bg-white rounded-lg border border-gray-200 shadow-sm p-8 space-y-5"
+        >
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-semibold text-forest mb-1.5">Full Name <span class="text-sage">*</span></label>
+              <input type="text" id="name" name="name" required
+                class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+                placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-semibold text-forest mb-1.5">Email Address <span class="text-sage">*</span></label>
+              <input type="email" id="email" name="email" required
+                class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+                placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div>
+            <label for="phone" class="block text-sm font-semibold text-forest mb-1.5">Phone <span class="text-gray-400 font-normal">(optional)</span></label>
+            <input type="tel" id="phone" name="phone"
+              class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors"
+              placeholder="07700 000 000" />
+          </div>
+
+          <div>
+            <label for="service" class="block text-sm font-semibold text-forest mb-1.5">Service of Interest</label>
+            <select id="service" name="service"
+              class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors">
+              <option value="">Select a service (optional)</option>
+              {% for card in sections.services.cards %}
+              <option>{{ card.title }}</option>
+              {% endfor %}
+              <option>Not sure yet</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold text-forest mb-1.5">Message <span class="text-sage">*</span></label>
+            <textarea id="message" name="message" rows="5" required
+              class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors resize-none"
+              placeholder="Briefly describe what has prompted you to seek support, or simply introduce yourself."></textarea>
+          </div>
+
+          <div>
+            <label for="heard" class="block text-sm font-semibold text-forest mb-1.5">How did you hear about me?</label>
+            <select id="heard" name="heard_about"
+              class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors">
+              <option value="">Please select (optional)</option>
+              <option>Google / web search</option>
+              <option>Psychology Today</option>
+              <option>BACP directory</option>
+              <option>Word of mouth / referral</option>
+              <option>Social media</option>
+              <option>GP / healthcare professional</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <!-- Consent checkbox -->
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" name="consent" required
+              class="mt-0.5 w-4 h-4 accent-forest rounded flex-shrink-0" />
+            <span class="text-xs text-gray-500 leading-relaxed">
+              I consent to Kelly Marie Counselling storing my details to respond to my enquiry. Your information will never be shared with third parties and will be held in line with GDPR.
+            </span>
+          </label>
+
+          <button type="submit" id="submit-btn"
+            class="w-full bg-forest text-white font-medium py-3.5 rounded hover:bg-sage transition-colors flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            Submit Enquiry
+          </button>
+
+          <!-- Status messages -->
+          <div id="form-success" class="hidden text-center py-3 px-4 bg-sage/10 border border-sage/20 rounded">
+            <p class="text-forest text-sm font-semibold">Enquiry received — thank you.</p>
+            <p class="text-gray-600 text-xs mt-1">I will be in touch within one working day.</p>
+          </div>
+          <div id="form-error" class="hidden text-center py-3 px-4 bg-red-50 border border-red-100 rounded">
+            <p class="text-red-700 text-sm font-semibold">Submission failed.</p>
+            <p class="text-gray-600 text-xs mt-1">Please try again or email me directly.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>

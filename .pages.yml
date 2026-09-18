@@ -725,193 +725,6 @@ content:
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
         type: string
-  - name: page-counselling
-    label: 'Page: Counselling'
-    description: >-
-      Every section below is optional — fill in what suits this page and leave the rest
-      empty. Clear the whole page and it goes back to its "coming soon" screen.
-      This page's menu link is under Main menu.
-    type: file
-    path: src/content/pages/counselling.json
-    format: json
-    fields:
-      - name: eyebrow
-        label: Small heading above the title (optional)
-        type: string
-      - name: heading
-        label: Page title (leave blank to use "Counselling")
-        type: string
-      - name: intro
-        label: Intro paragraph (shown slightly larger)
-        type: text
-      - name: body
-        label: Main text (press Enter for new lines)
-        type: text
-      - name: image
-        label: Photo (optional — sits beside the main text)
-        type: image
-      - name: cardsTitle
-        label: Cards — section heading (optional)
-        type: string
-      - name: cards
-        label: Cards
-        description: A row of cards. Drag to reorder. A card with no title is not shown.
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: '{title}'
-        fields:
-          - name: icon
-            label: Icon
-            type: select
-            options:
-              values:
-                - heart-handshake
-                - users
-                - megaphone
-                - user
-                - target
-                - infinity
-                - presentation
-                - briefcase
-                - message-circle
-                - brain
-                - shield
-                - clock
-                - layers
-                - monitor
-                - calendar
-                - mail
-                - award
-                - map-pin
-                - check
-                - leaf
-                - book-open
-                - mic
-                - music
-                - video
-                - headphones
-                - shopping-bag
-                - image
-                - activity
-                - compass
-                - sun
-                - graduation-cap
-                - handshake
-                - lightbulb
-                - sparkles
-                - phone
-                - quote
-                - gift
-                - package
-                - shirt
-                - coffee
-          - name: title
-            label: Title
-            type: string
-          - name: description
-            label: Description
-            type: text
-          - name: meta
-            label: Small label underneath (optional)
-            type: string
-      - name: checklistTitle
-        label: Checklist — section heading (optional)
-        type: string
-      - name: checklistItems
-        label: Checklist items
-        description: Shown as a two-column ticked list. An item with no text is not shown.
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: '{text}'
-        fields:
-          - name: text
-            label: Text
-            type: string
-      - name: quote
-        label: Quote (optional — shown on the dark band)
-        type: text
-      - name: quoteAuthor
-        label: Quote — who said it
-        type: string
-      - name: faqsTitle
-        label: Questions — section heading (leave blank for "Common questions")
-        type: string
-      - name: faqs
-        label: Common questions
-        description: Shown as an accordion. A question with no text is not shown.
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-            summary: '{question}'
-        fields:
-          - name: question
-            label: Question
-            type: string
-          - name: answer
-            label: Answer
-            type: text
-      - name: ctaHeading
-        label: Closing section — heading (optional)
-        type: string
-      - name: ctaText
-        label: Closing section — text (optional)
-        type: text
-      - name: ctaButtonLabel
-        label: Closing button text (blank uses "Request a Consultation")
-        type: string
-      - name: ctaButtonIcon
-        label: Closing button icon
-        type: select
-        options:
-          values:
-            - heart-handshake
-            - users
-            - megaphone
-            - user
-            - target
-            - infinity
-            - presentation
-            - briefcase
-            - message-circle
-            - brain
-            - shield
-            - clock
-            - layers
-            - monitor
-            - calendar
-            - mail
-            - award
-            - map-pin
-            - check
-            - leaf
-            - book-open
-            - mic
-            - music
-            - video
-            - headphones
-            - shopping-bag
-            - image
-            - activity
-            - compass
-            - sun
-            - graduation-cap
-            - handshake
-            - lightbulb
-            - sparkles
-            - phone
-            - quote
-            - gift
-            - package
-            - shirt
-            - coffee
-      - name: ctaButtonHref
-        label: Closing button link (blank goes to the contact form)
-        type: string
   - name: page-training-coaching
     label: 'Page: Training & Coaching'
     description: >-
@@ -1526,3 +1339,402 @@ content:
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
         type: string
+  - name: counselling-hero
+    label: 'Counselling: Top section (hero)'
+    type: file
+    path: src/content/counselling/hero.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above title
+        type: string
+      - name: headingLead
+        label: Main heading — first line
+        type: string
+      - name: headingEmphasis
+        label: Main heading — italic second line
+        type: string
+      - name: paragraph1
+        label: Intro paragraph 1
+        type: text
+      - name: paragraph2
+        label: Intro paragraph 2
+        type: text
+      - name: primaryButton
+        label: Main button text
+        type: string
+      - name: secondaryButton
+        label: Secondary button text
+        type: string
+      - name: image
+        label: Hero photo
+        type: image
+  - name: counselling-about
+    label: 'Counselling: About Kelly'
+    type: file
+    path: src/content/counselling/about.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: headingLead
+        label: Heading — first part
+        type: string
+      - name: headingEmphasis
+        label: Heading — italic part
+        type: string
+      - name: paragraph1
+        label: Paragraph 1
+        type: text
+      - name: paragraph2
+        label: Paragraph 2
+        type: text
+      - name: paragraph3
+        label: Paragraph 3
+        type: text
+      - name: image
+        label: About photo
+        type: image
+      - name: badges
+        label: Credential badges
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: label
+            label: Text
+            type: string
+  - name: counselling-services
+    label: 'Counselling: Services'
+    type: file
+    path: src/content/counselling/services.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: cards
+        label: Service cards
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Footer line (duration / format)
+            type: string
+  - name: counselling-workplace
+    label: 'Counselling: Workplace Wellness'
+    type: file
+    path: src/content/counselling/workplace.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above title (optional)
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: body
+        label: Body text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Image (optional — leave empty for full-width text)
+        type: image
+      - name: imageSide
+        label: Which side should the image go?
+        type: select
+        options:
+          values:
+            - left
+            - right
+      - name: cards
+        label: Cards (optional — leave empty for text only)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Footer line (optional)
+            type: string
+  - name: counselling-approach
+    label: 'Counselling: Therapeutic approach'
+    type: file
+    path: src/content/counselling/approach.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: items
+        label: Approach cards
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+      - name: quote
+        label: Closing quote
+        type: text
+      - name: quoteAuthor
+        label: Quote author
+        type: string
+  - name: counselling-process
+    label: 'Counselling: The process'
+    type: file
+    path: src/content/counselling/process.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: steps
+        label: Steps
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: title
+            label: Step title
+            type: string
+          - name: description
+            label: Step description
+            type: text
+  - name: counselling-contact
+    label: 'Counselling: Contact'
+    type: file
+    path: src/content/counselling/contact.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: email
+        label: Email address
+        type: string
+      - name: locationLine1
+        label: Location — line 1
+        type: string
+      - name: locationLine2
+        label: Location — line 2
+        type: string
+      - name: availability
+        label: Availability message
+        type: text
+      - name: confidentialityTitle
+        label: Confidentiality box — title
+        type: string
+      - name: confidentialityText
+        label: Confidentiality box — text
+        type: text

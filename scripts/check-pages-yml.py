@@ -25,7 +25,17 @@ def build():
 
 
 def page_entries(cfg):
-    return [e for e in cfg["content"] if e["name"].startswith("page-")]
+    """Every form that edits a JSON file — not just the standalone pages.
+
+    Anything the CMS can save is somewhere it can also silently drop a field, so the
+    whole sidebar is checked rather than a chosen subset.
+    """
+    return [
+        entry for entry in cfg["content"]
+        if entry.get("type") == "file"
+        and entry.get("format") == "json"
+        and (ROOT / entry["path"]).exists()
+    ]
 
 
 def check_summaries(cfg):
@@ -112,7 +122,7 @@ def identical(left, right):
 def main():
     cfg = yaml.safe_load((ROOT / ".pages.yml").read_text())
     entries = page_entries(cfg)
-    print(f"{len(entries)} page forms in .pages.yml\n")
+    print(f"{len(entries)} forms edit JSON in .pages.yml\n")
 
     print("0. every collapsed list summarises itself with a field it actually has")
     summaries_ok = check_summaries(cfg)

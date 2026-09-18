@@ -9,9 +9,12 @@ ICONS = ["heart-handshake","users","megaphone","user","target","infinity","prese
          "lightbulb","sparkles","phone","quote","gift","package","shirt","coffee"]
 
 PAGES = json.loads((ROOT / "src/_data/newPages.json").read_text())
+# The Counselling page is built from the homepage's seven sections rather than from
+# blocks, so it gets no entry here — its forms are copied from the homepage ones below.
+SECTION_PAGES = {"counselling"}
+
 BLOCKS = {
     "wellbeing":         ["cards", "checklist", "quote", "faqs"],
-    "counselling":       ["cards", "checklist", "quote", "faqs"],
     "training-coaching": ["cards", "checklist", "quote", "faqs"],
     "podcast":           ["links", "episodes"],
     "merchandise":       ["products"],
@@ -151,11 +154,40 @@ def build(slug, title):
     body += f("ctaButtonHref", 'Closing button link (blank goes to the contact form)', "string")
     return body
 
-entries = "".join(build(p["slug"], p["title"]) for p in PAGES)
+SECTION_LABELS = {
+    "hero": "Top section (hero)", "about": "About Kelly", "services": "Services",
+    "workplace": "Workplace Wellness", "approach": "Therapeutic approach",
+    "process": "The process", "contact": "Contact",
+}
 
-yml = (ROOT / ".pages.yml").read_text()
+
+def copied_sections(yml, slug, title):
+    """The homepage's section forms, re-pointed at another page's copy of the content.
+
+    Copied from the live text rather than redefined, so a field added to the homepage's
+    About form appears on the Counselling one the next time this runs.
+    """
+    out = []
+    for name, label in SECTION_LABELS.items():
+        start = yml.index(f"  - name: {name}\n")
+        after = yml.find("\n  - name: ", start + 1)
+        block = yml[start:after + 1] if after != -1 else yml[start:]
+
+        block = block.replace(f"  - name: {name}\n", f"  - name: {slug}-{name}\n", 1)
+        block = re.sub(r"^    label: .*$", f"    label: '{title}: {label}'", block, count=1, flags=re.M)
+        block = re.sub(r"^    path: src/content/.*$", f"    path: src/content/{slug}/{name}.json",
+                       block, count=1, flags=re.M)
+        out.append(block)
+    return "".join(out)
+
+
+yml_before = (ROOT / ".pages.yml").read_text()
+entries = "".join(build(p["slug"], p["title"]) for p in PAGES if p["slug"] not in SECTION_PAGES)
+entries += copied_sections(yml_before, "counselling", "Counselling")
+
+yml = yml_before
 start = yml.index("  - name: page-wellbeing")
 assert yml[start:].rstrip().endswith("type: image") or True
 new = yml[:start] + entries
 (ROOT / ".pages.yml").write_text(new)
-print(f"rewrote {len(PAGES)} page entries — .pages.yml is now {len(new.splitlines())} lines")
+print(f"rewrote {len(PAGES) - len(SECTION_PAGES)} block pages + {len(SECTION_LABELS)} counselling sections — .pages.yml is now {len(new.splitlines())} lines")
