@@ -2,15 +2,15 @@
   "items": [
     {
       "item": "about",
-      "visible": true
+      "visible": false
     },
     {
       "item": "services",
-      "visible": true
+      "visible": false
     },
     {
       "item": "approach",
-      "visible": true
+      "visible": false
     },
     {
       "item": "wellbeing",
