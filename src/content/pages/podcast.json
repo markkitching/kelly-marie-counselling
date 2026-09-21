@@ -2,7 +2,6 @@
   "eyebrow": "Podcast",
   "heading": "The Kelly Marie Podcast",
   "intro": "Making conversations about mental health open, informative and accessible whenever you need. Listen or watch now on Spotify & Youtube.",
-  "linksTitle": "Where to Listen",
   "links": [
     {
       "label": "Listen on Spotify",
@@ -42,6 +41,5 @@
   "ctaHeading": "Suggestion Box",
   "ctaText": "Is there something you'd like us to cover? Or an expert you'd like to see us chat to? \nLet us know! ",
   "ctaButtonLabel": "Send a Suggestion",
-  "ctaButtonIcon": "mail",
-  "ctaBackLabel": ""
+  "ctaButtonIcon": "mail"
 }
