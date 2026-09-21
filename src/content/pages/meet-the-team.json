@@ -19,9 +19,5 @@
       "image": "/images/WhatsApp Image 2026-09-16 at 20.50.31.jpeg"
     }
   ],
-  "ctaHeading": "Interested in Joining the Practice?",
-  "ctaText": "I am always glad to hear from BACP-registered therapists whose approach might fit here, particularly those with experience of workplace or group work. Equally, if you are looking for support rather than a role, the door is open.",
-  "ctaButtonLabel": "Get in Touch",
-  "ctaButtonIcon": "mail",
-  "ctaBackLabel": "Back to home"
+  "ctaButtonIcon": "mail"
 }
