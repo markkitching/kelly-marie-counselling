@@ -70,6 +70,7 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/counselling.njk` | The Counselling page — the homepage's sections, its own content. |
 | `src/_data/counsellingPage.js` | Loads `src/content/counselling/`. |
 | `src/_data/holdingPages.js` | `newPages.json` minus any page with a template of its own. |
+| `src/404.njk` | "Page not found" — Cloudflare Pages serves `_site/404.html` (with a 404 status) for any address that doesn't exist. Lists every page in `newPages.json`. Not in the CMS. |
 | `scripts/gen-pages-yml.py` | Generates the whole of `.pages.yml` from the two source files. |
 | `scripts/base-forms.yml` | The site-wide editor forms. |
 | `scripts/section-forms.yml` | The section forms, stamped out per page. |
@@ -605,6 +606,7 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 ├── src/
 │   ├── index.njk           ← Homepage (HTML + Tailwind, with {{ placeholders }})
 │   ├── holding.njk         ← Generates the six standalone pages (one per newPages entry)
+│   ├── 404.njk             ← "Page not found" page (served by Cloudflare for unknown URLs)
 │   ├── _includes/
 │   │   ├── site-header.njk ← Shared <head> + sticky nav
 │   │   ├── page-body.njk   ← Optional content blocks for the standalone pages

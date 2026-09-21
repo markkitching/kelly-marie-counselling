@@ -1,0 +1,69 @@
+---
+permalink: "/404.html"
+pageTitle: "Page not found"
+noindex: true
+---
+{#- Cloudflare Pages serves this file, with a real 404 status, for any address that
+    doesn't exist. Without it, Pages treats the site as a single-page app and answers
+    every unknown address (robots.txt included) with the homepage and a 200.
+
+    It can be served at any depth (/old/page/here), so every link and asset must be
+    root-relative. The page list comes from newPages.json, so a new page appears here
+    without touching this file. -#}
+{%- set pageIcons = {
+  "wellbeing": "leaf",
+  "counselling": "heart-handshake",
+  "training-coaching": "presentation",
+  "podcast": "mic",
+  "merchandise": "shopping-bag",
+  "meet-the-team": "users"
+} -%}
+{% include "site-header.njk" %}
+
+  <!-- ═══════════════════════════════════════════════ PAGE NOT FOUND ═══════════════════════════════════════════════ -->
+  <section class="bg-stone min-h-[calc(100vh-72px)] flex items-center">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span class="w-px h-5 bg-sage"></span>
+        <span class="text-sage text-sm font-semibold uppercase tracking-widest">Page not found</span>
+        <span class="w-px h-5 bg-sage"></span>
+      </div>
+
+      <h1 class="font-serif text-forest text-4xl lg:text-5xl leading-tight mb-6">
+        This page <em>can't be found</em>
+      </h1>
+
+      <div class="divider mb-8 mx-auto"></div>
+
+      <p class="text-gray-600 text-lg leading-relaxed mb-10">
+        The link may be out of date, or the address may have been mistyped.
+        Here are some places to start instead.
+      </p>
+
+      <ul class="grid sm:grid-cols-2 gap-3 text-left mb-12">
+        {% for item in newPages %}
+        <li>
+          <a href="/{{ item.slug }}/" class="flex items-center gap-3 bg-white rounded px-4 py-3 border border-gray-200 hover:border-sage hover:text-forest transition-colors">
+            <i data-lucide="{{ pageIcons[item.slug] or 'arrow-right' }}" class="w-4 h-4 text-sage flex-shrink-0"></i>
+            <span class="text-gray-700">{{ item.title }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          Back to home
+        </a>
+        <a href="{{ links.contact }}" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          Get in touch
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+{% include "site-footer.njk" %}
