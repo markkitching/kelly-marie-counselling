@@ -40,6 +40,31 @@
     {% if pageContent.intro %}
     <p class="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">{{ pageContent.intro }}</p>
     {% endif %}
+    {% if pageContent.links | length %}
+    <div class="mt-8">
+      {% if pageContent.linksTitle %}
+      <p class="text-sage text-xs font-semibold uppercase tracking-widest mb-4">{{ pageContent.linksTitle }}</p>
+      {% endif %}
+      <div class="flex flex-wrap justify-center gap-3">
+        {% for link in pageContent.links %}
+          {% if link.href %}
+          <a href="{{ link.href }}" target="_blank" rel="noopener"
+            class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded px-5 py-3 text-sm font-medium text-forest hover:border-sage hover:shadow-sm transition-all">
+            {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4 text-sage"></i>{% endif %}
+            {{ link.label }}
+          </a>
+          {% else %}
+          <!-- No address yet: shown as a placeholder so the row is ready the moment a link exists. -->
+          <span class="inline-flex items-center gap-2 bg-white/60 border border-dashed border-gray-300 rounded px-5 py-3 text-sm font-medium text-gray-400">
+            {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4"></i>{% endif %}
+            {{ link.label }}
+            <span class="text-[10px] uppercase tracking-wide bg-gray-100 text-gray-500 rounded px-1.5 py-0.5">Soon</span>
+          </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </div>
 </section>
 
@@ -123,34 +148,6 @@
 {%- set blockIndex = blockIndex + 1 -%}
 {% endif %}
 
-{% if pageContent.links | length %}
-<!-- ══════════════════════════ WHERE TO LISTEN / EXTERNAL LINKS ══════════════════════════ -->
-{%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
-<section class="{{ bg }} py-16">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    {{ blockHeading(pageContent.linksTitle) }}
-    <div class="flex flex-wrap justify-center gap-3">
-      {% for link in pageContent.links %}
-        {% if link.href %}
-        <a href="{{ link.href }}" target="_blank" rel="noopener"
-          class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded px-5 py-3 text-sm font-medium text-forest hover:border-sage hover:shadow-sm transition-all">
-          {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4 text-sage"></i>{% endif %}
-          {{ link.label }}
-        </a>
-        {% else %}
-        <!-- No address yet: shown as a placeholder so the row is ready the moment a link exists. -->
-        <span class="inline-flex items-center gap-2 bg-white/60 border border-dashed border-gray-300 rounded px-5 py-3 text-sm font-medium text-gray-400">
-          {% if link.icon %}<i data-lucide="{{ link.icon }}" class="w-4 h-4"></i>{% endif %}
-          {{ link.label }}
-          <span class="text-[10px] uppercase tracking-wide bg-gray-100 text-gray-500 rounded px-1.5 py-0.5">Soon</span>
-        </span>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{%- set blockIndex = blockIndex + 1 -%}
-{% endif %}
 
 {% if pageContent.episodes | length %}
 <!-- ══════════════════════════ EPISODES ══════════════════════════ -->
