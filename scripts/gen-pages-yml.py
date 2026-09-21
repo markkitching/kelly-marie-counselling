@@ -196,4 +196,6 @@ start = yml.index("  - name: page-wellbeing")
 assert yml[start:].rstrip().endswith("type: image") or True
 new = yml[:start] + entries
 (ROOT / ".pages.yml").write_text(new)
-print(f"rewrote {len(PAGES) - len(SECTION_PAGES)} block pages + {len(SECTION_LABELS) - len(SECTIONS_OMITTED.get("counselling", set()))} counselling sections — .pages.yml is now {len(new.splitlines())} lines")
+section_count = len(SECTION_LABELS) - len(SECTIONS_OMITTED.get("counselling", set()))
+print(f"rewrote {len(PAGES) - len(SECTION_PAGES)} block pages + {section_count} counselling sections"
+      f" — .pages.yml is now {len(new.splitlines())} lines")

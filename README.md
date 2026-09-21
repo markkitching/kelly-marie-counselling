@@ -319,7 +319,17 @@ One template, two sets of words. A change to the design reaches both; a change t
 text reaches only one. `content.site` stays global inside that include, because the
 contact form posts to a single endpoint wherever it appears.
 
-In the editor this is seven more entries — **Counselling: Top section (hero)**,
+**The Counselling page has no enquiry form.** The contact section is wrapped in
+`{% if showContact != false %}` and `counselling.njk` turns it off, so the site has one
+enquiry form rather than two competing ones. That page's hero button points at
+`/#contact` — the homepage's form — because an in-page `#contact` jump would now land
+nowhere.
+
+A page that drops a section drops its editor form too: `SECTIONS_OMITTED` in
+`scripts/gen-pages-yml.py` keeps the forms and the rendered page from disagreeing,
+rather than leaving a form that edits text nobody will ever see.
+
+In the editor this is six more entries — **Counselling: Top section (hero)**,
 **Counselling: About Kelly**, and so on — each with exactly the fields of its homepage
 counterpart. Those forms are *copied from the homepage's* by `scripts/gen-pages-yml.py`
 rather than written out again, so adding a field to the homepage's About form puts the
