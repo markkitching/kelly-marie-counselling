@@ -138,7 +138,7 @@ combination is in use.
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
 | **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
-| **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref` | every page |
+| **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref`, `ctaBackLabel` | every page |
 
 **Rows collapse to one line.** Every repeatable list — episodes, cards, FAQs, people,
 products — shows each row as a single draggable line carrying its title, so reordering
@@ -342,8 +342,9 @@ sections ever come back.
 
 ### Buttons appear when they have a label
 
-The hero's two buttons and the header's are all drawn only when their label field has
-something in it. Clearing the label removes the button — there is no separate switch to
+Every button on the site is drawn only when its label field has something in it — the
+hero's two, the header's, and the back-to-home button at the foot of each standalone
+page. Clearing the label removes the button — there is no separate switch to
 find, and no button left pointing at a page that no longer wants it.
 
 | Button | Form | Fields |
@@ -351,6 +352,12 @@ find, and no button left pointing at a page that no longer wants it.
 | Hero, main | Top section (hero) | Main button text, **Main button icon**, and it goes to the enquiry form |
 | Hero, secondary | Top section (hero) | Secondary button text; goes to the Services section |
 | Header, top right | Header / logo | Button text, Button link |
+| Back to home | each **Page:** form | Back-to-home button text |
+
+> **A cleared field and a missing one have to mean the same thing.** Pages CMS leaves a
+> field out of the file when the editor empties it, so anything that defaults an absent
+> value to "show" would put the button back the moment someone cleared it. These fields
+> have no default for that reason: absent means no button.
 
 The icon list is a dropdown of names verified to exist in lucide. It is written once as
 `ICONS` in `scripts/gen-pages-yml.py` and expanded into the form wherever
