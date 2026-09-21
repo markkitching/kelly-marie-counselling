@@ -3,6 +3,9 @@ const path = require("path");
 
 const PAGES_DIR = path.join(__dirname, "..", "content", "pages");
 
+// Where a page's closing button goes when the editor hasn't set a link.
+const CONTACT_URL = require("./links.js")().contact;
+
 // How many episodes the podcast page shows. The editor can list every episode and hide
 // or reorder them freely; only this many of the shown ones reach the page, with a link
 // out to the full back catalogue underneath.
@@ -124,7 +127,7 @@ module.exports = () => {
       ctaButtonLabel: clean(raw.ctaButtonLabel),
       // These two always resolve to something, so neither counts towards hasContent.
       ctaButtonIcon: clean(raw.ctaButtonIcon) || "calendar",
-      ctaButtonHref: clean(raw.ctaButtonHref) || "/#contact",
+      ctaButtonHref: clean(raw.ctaButtonHref) || CONTACT_URL,
     };
 
     // The listen buttons double as the "everything else is over here" link when the

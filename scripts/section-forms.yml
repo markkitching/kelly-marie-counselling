@@ -116,7 +116,7 @@ sections:
             label: Text
             type: string
   - name: services
-    label: Services section
+    label: Enquiry form — service options
     type: file
     path: src/content/services.json
     format: json
@@ -374,7 +374,7 @@ sections:
             label: Step description
             type: text
   - name: contact
-    label: Contact section
+    label: Contact page
     type: file
     path: src/content/contact.json
     format: json

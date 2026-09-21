@@ -303,6 +303,54 @@ whichever combination they use.
 > For a counselling site, where a visitor reading the page shouldn't be handed to
 > Google's tracking, that's worth the small amount of extra code.
 
+### Where each page's sections come from
+
+`src/_includes/page-sections.njk` holds the seven sections, and every page states which
+of them it renders:
+
+| Page | Renders |
+|---|---|
+| `/` | `hero` |
+| `/contact/` | `contact` — the site's only enquiry form |
+| `/counselling/` | `hero`, `about`, `services`, `workplace`, `approach`, `process` |
+
+```njk
+{%- set sectionsShown = ["hero"] -%}
+```
+
+The editor forms follow the same lists. They live in `scripts/section-forms.yml` and are
+stamped out per page by `scripts/gen-pages-yml.py`, which keeps the forms and the pages
+in step: a page that doesn't render a section doesn't get a form for it, and a field
+added to a section's form reaches every page that shows it.
+
+> **`.pages.yml` is part hand-written, part generated.** Everything below the marker
+> comment is rewritten wholesale by the generator — edit the generator or
+> `section-forms.yml`, not those lines. The generator refuses to run if the marker has
+> gone, rather than guessing where to start.
+
+**Two forms outlive the sections they came from**, because something still renders them:
+
+| Form | Still needed by |
+|---|---|
+| *Contact page* | `/contact/`, and the footer's email address and location on every page |
+| *Enquiry form — service options* | the "Service of interest" dropdown, which lists the card titles |
+
+`src/content/{about,approach,process,workplace}.json` are now read by nothing — the
+Counselling page has its own copies. They are kept for the moment in case the homepage
+sections come back; git has them either way.
+
+### The header's button is editable
+
+**Header / logo** carries the button that sits top right on every page:
+
+| Field | Does |
+|---|---|
+| Button text (top right) | The label. **Leave it empty and the button disappears from every page** |
+| Button link | Where it goes. Blank falls back to the enquiry form |
+
+Its address, and every other link to the enquiry form, comes from `src/_data/links.js`,
+so moving that form again is a one-line change rather than a hunt through six templates.
+
 ### The Counselling page is the homepage's design with its own words
 
 Counselling is the one standalone page not built from blocks. It renders the same seven

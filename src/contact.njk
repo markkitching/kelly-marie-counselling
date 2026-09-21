@@ -1,0 +1,12 @@
+---
+permalink: "/contact/"
+pageTitle: "Contact"
+---
+{% include "site-header.njk" %}
+{%- set sections = content -%}
+{#- The enquiry form, and nothing else. It is the only one on the site. -#}
+{%- set sectionsShown = ["contact"] -%}
+{% include "page-sections.njk" %}
+
+
+{% include "site-footer.njk" %}

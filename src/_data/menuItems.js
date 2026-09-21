@@ -7,12 +7,17 @@ const path = require("path");
 //
 // Homepage sections scroll to an anchor; pages come from newPages.json so page
 // existence has a single source of truth.
+// Sections the Counselling page carries. The homepage is now just its top section, so
+// these scroll targets live there rather than on `/`.
 const SECTIONS = [
   { id: "about", label: "About", anchor: "about" },
   { id: "services", label: "Services", anchor: "services" },
   { id: "approach", label: "My Approach", anchor: "approach" },
-  { id: "contact", label: "Contact", anchor: "contact" },
 ];
+const SECTION_PAGE = "/counselling/";
+
+// Pages that aren't in newPages.json because they have no editable body of their own.
+const EXTRA_PAGES = [{ id: "contact", label: "Contact", href: "/contact/" }];
 
 module.exports = () => {
   const pages = JSON.parse(
@@ -24,7 +29,7 @@ module.exports = () => {
   for (const section of SECTIONS) {
     items[section.id] = {
       label: section.label,
-      href: `/#${section.anchor}`,
+      href: `${SECTION_PAGE}#${section.anchor}`,
       isSection: true,
     };
   }
@@ -35,6 +40,10 @@ module.exports = () => {
       href: `/${page.slug}/`,
       isSection: false,
     };
+  }
+
+  for (const page of EXTRA_PAGES) {
+    items[page.id] = { label: page.label, href: page.href, isSection: false };
   }
 
   return items;
