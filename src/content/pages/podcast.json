@@ -39,8 +39,8 @@
       "visible": "Shown"
     }
   ],
-  "ctaHeading": "Suggest a Topic",
-  "ctaText": "Something you would want an honest conversation about, or someone I should be talking to? Send it over — listener suggestions shape what gets recorded.",
+  "ctaHeading": "Suggestion Box",
+  "ctaText": "Is there something you'd like us to cover? Or an expert you'd like to see us chat to? \nLet us know ",
   "ctaButtonLabel": "Send a Suggestion",
   "ctaButtonIcon": "mic"
 }
