@@ -29,16 +29,22 @@
         <p class="text-gray-600 leading-relaxed mb-8">
           {{ sections.hero.paragraph2 }}
         </p>
-{%- if showHeroButtons != false %}
+{#- Each button is its own field: clear the label in the editor and the button goes.
+    Clear both and the row goes with them. -#}
+{%- if sections.hero.primaryButton or sections.hero.secondaryButton %}
         <div class="flex flex-wrap gap-4">
+          {%- if sections.hero.primaryButton %}
           <a href="{{ contactHref or links.contact }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
-            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <i data-lucide="{{ sections.hero.primaryButtonIcon or "calendar" }}" class="w-4 h-4"></i>
             {{ sections.hero.primaryButton }}
           </a>
-          <a href="#services" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
+          {%- endif %}
+          {%- if sections.hero.secondaryButton %}
+          <a href="{{ secondaryHref or links.services }}" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
             {{ sections.hero.secondaryButton }}
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
+          {%- endif %}
         </div>
 {%- endif %}
       </div>

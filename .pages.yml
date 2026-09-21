@@ -172,6 +172,52 @@ content:
       - name: primaryButton
         label: Main button text
         type: string
+      - name: primaryButtonIcon
+        label: Main button icon
+        description: The small symbol on the button.
+        type: select
+        options:
+          values:
+            - heart-handshake
+            - users
+            - megaphone
+            - user
+            - target
+            - infinity
+            - presentation
+            - briefcase
+            - message-circle
+            - brain
+            - shield
+            - clock
+            - layers
+            - monitor
+            - calendar
+            - mail
+            - award
+            - map-pin
+            - check
+            - leaf
+            - book-open
+            - mic
+            - music
+            - video
+            - headphones
+            - shopping-bag
+            - image
+            - activity
+            - compass
+            - sun
+            - graduation-cap
+            - handshake
+            - lightbulb
+            - sparkles
+            - phone
+            - quote
+            - gift
+            - package
+            - shirt
+            - coffee
       - name: secondaryButton
         label: Secondary button text
         type: string

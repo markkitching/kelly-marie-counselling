@@ -179,7 +179,7 @@ STANDALONE_FORMS = ["contact", "services"]
 
 # Individual fields a page doesn't render. The Counselling page's hero has no buttons,
 # so offering somewhere to type their labels would be offering to edit nothing.
-FIELDS_OMITTED = {"counselling": {"hero": {"primaryButton", "secondaryButton"}}}
+FIELDS_OMITTED = {"counselling": {"hero": {"primaryButton", "primaryButtonIcon", "secondaryButton"}}}
 
 
 def drop_fields(block, names):
@@ -202,6 +202,18 @@ def drop_fields(block, names):
 
 
 SECTION_FORMS = (ROOT / "scripts" / "section-forms.yml").read_text()
+
+
+ICON_PLACEHOLDER = "values: __ICON_VALUES__"
+
+
+def expand_icons(block):
+    for line in block.split("\n"):
+        if ICON_PLACEHOLDER in line:
+            pad = line[: line.index("values:")]
+            listing = "\n".join(f"{pad}  - {icon}" for icon in ICONS)
+            block = block.replace(line, f"{pad}values:\n{listing}", 1)
+    return block
 
 
 def section_block(name):
@@ -228,7 +240,7 @@ def section_forms(slug, title, shown, *, prefixed=True):
             block = re.sub(r"^    path: src/content/.*$", f"    path: src/content/{slug}/{name}.json",
                            block, count=1, flags=re.M)
         block = drop_fields(block, FIELDS_OMITTED.get(slug, {}).get(name, set()))
-        out.append(block)
+        out.append(expand_icons(block))
     return "".join(out)
 
 

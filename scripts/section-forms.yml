@@ -31,6 +31,12 @@ sections:
       - name: primaryButton
         label: Main button text
         type: string
+      - name: primaryButtonIcon
+        label: Main button icon
+        description: The small symbol on the button.
+        type: select
+        options:
+          values: __ICON_VALUES__
       - name: secondaryButton
         label: Secondary button text
         type: string

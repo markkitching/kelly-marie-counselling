@@ -3,4 +3,5 @@
 // again is a one-line change rather than a hunt through six templates.
 module.exports = () => ({
   contact: "/contact/",
+  services: "/counselling/#services",
 });

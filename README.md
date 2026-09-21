@@ -340,6 +340,24 @@ stopped rendering those sections and the Counselling page keeps its own copies, 
 nothing read them. Deleting them changed no rendered byte. Git has them if the homepage
 sections ever come back.
 
+### Buttons appear when they have a label
+
+The hero's two buttons and the header's are all drawn only when their label field has
+something in it. Clearing the label removes the button — there is no separate switch to
+find, and no button left pointing at a page that no longer wants it.
+
+| Button | Form | Fields |
+|---|---|---|
+| Hero, main | Top section (hero) | Main button text, **Main button icon**, and it goes to the enquiry form |
+| Hero, secondary | Top section (hero) | Secondary button text; goes to the Services section |
+| Header, top right | Header / logo | Button text, Button link |
+
+The icon list is a dropdown of names verified to exist in lucide. It is written once as
+`ICONS` in `scripts/gen-pages-yml.py` and expanded into the form wherever
+`section-forms.yml` says `values: __ICON_VALUES__`, so a form can never offer an icon
+that renders as a blank square — which is exactly what happened when lucide dropped its
+brand icons and `youtube` was still on offer.
+
 ### The header's button is editable
 
 **Header / logo** carries the button that sits top right on every page:
