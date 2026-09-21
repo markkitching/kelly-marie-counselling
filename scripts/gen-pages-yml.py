@@ -152,6 +152,7 @@ def build(slug, title):
     body += f("ctaButtonLabel", 'Closing button text (blank uses "Request a Consultation")', "string")
     body += icon_field(6).replace("- name: icon\n", "- name: ctaButtonIcon\n").replace("  label: Icon\n", "  label: Closing button icon\n")
     body += f("ctaButtonHref", 'Closing button link (blank goes to the contact form)', "string")
+    body += f("ctaBackLabel", "Back-to-home button text (blank removes the button)", "string")
     return body
 
 SECTION_LABELS = {

@@ -43,5 +43,6 @@
   "ctaText": "Send me a message and I will let you know as soon as the range is available — and tell me what you would like to see in it.",
   "ctaButtonLabel": "Get in Touch",
   "ctaButtonIcon": "mail",
-  "ctaButtonHref": ""
+  "ctaButtonHref": "",
+  "ctaBackLabel": "Back to home"
 }

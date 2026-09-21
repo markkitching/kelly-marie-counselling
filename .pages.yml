@@ -517,6 +517,9 @@ content:
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
         type: string
+      - name: ctaBackLabel
+        label: Back-to-home button text (blank removes the button)
+        type: string
   - name: page-training-coaching
     label: 'Page: Training & Coaching'
     description: >-
@@ -704,6 +707,9 @@ content:
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
         type: string
+      - name: ctaBackLabel
+        label: Back-to-home button text (blank removes the button)
+        type: string
   - name: page-podcast
     label: 'Page: Podcast'
     description: >-
@@ -890,6 +896,9 @@ content:
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
         type: string
+      - name: ctaBackLabel
+        label: Back-to-home button text (blank removes the button)
+        type: string
   - name: page-merchandise
     label: 'Page: Merchandise'
     description: >-
@@ -1003,6 +1012,9 @@ content:
             - coffee
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
+        type: string
+      - name: ctaBackLabel
+        label: Back-to-home button text (blank removes the button)
         type: string
   - name: page-meet-the-team
     label: 'Page: Meet the Team'
@@ -1130,6 +1142,9 @@ content:
             - coffee
       - name: ctaButtonHref
         label: Closing button link (blank goes to the contact form)
+        type: string
+      - name: ctaBackLabel
+        label: Back-to-home button text (blank removes the button)
         type: string
   - name: counselling-hero
     label: 'Counselling: Top section (hero)'

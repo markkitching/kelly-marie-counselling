@@ -77,5 +77,6 @@
   "ctaText": "A free 20-minute conversation costs nothing and commits you to nothing. We can talk through what you're looking for, and whether wellbeing work or therapy would suit you better.",
   "ctaButtonLabel": "",
   "ctaButtonIcon": "",
-  "ctaButtonHref": ""
+  "ctaButtonHref": "",
+  "ctaBackLabel": "Back to home"
 }

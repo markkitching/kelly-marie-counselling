@@ -77,5 +77,6 @@
   "ctaText": "Tell me who you would like me to work with, roughly how long you have, and what has prompted it. I will come back with a proposed outline and a quote — with no obligation.",
   "ctaButtonLabel": "Enquire About Training",
   "ctaButtonIcon": "mail",
-  "ctaButtonHref": ""
+  "ctaButtonHref": "",
+  "ctaBackLabel": "Back to home"
 }

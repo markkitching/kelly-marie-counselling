@@ -128,6 +128,9 @@ module.exports = () => {
       // These two always resolve to something, so neither counts towards hasContent.
       ctaButtonIcon: clean(raw.ctaButtonIcon) || "calendar",
       ctaButtonHref: clean(raw.ctaButtonHref) || CONTACT_URL,
+      // No default: the CMS drops a field the editor has emptied, so an absent value has
+      // to mean "no button" or clearing it would quietly put the button back.
+      ctaBackLabel: clean(raw.ctaBackLabel),
     };
 
     // The listen buttons double as the "everything else is over here" link when the

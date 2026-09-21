@@ -365,10 +365,12 @@
         <i data-lucide="{{ pageContent.ctaButtonIcon }}" class="w-4 h-4"></i>
         {{ pageContent.ctaButtonLabel or content.hero.primaryButton }}
       </a>
+      {%- if pageContent.ctaBackLabel %}
       <a href="/" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        Back to home
+        {{ pageContent.ctaBackLabel }}
       </a>
+      {%- endif %}
     </div>
   </div>
 </section>
