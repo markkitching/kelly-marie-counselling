@@ -141,7 +141,7 @@ combination is in use.
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
 | **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
-| **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref`, `ctaBackLabel` | every page |
+| **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref`, `ctaBackLabel` — all empty removes the section | optional |
 
 **Rows collapse to one line.** Every repeatable list — episodes, cards, FAQs, people,
 products — shows each row as a single draggable line carrying its title, so reordering
@@ -355,7 +355,12 @@ find, and no button left pointing at a page that no longer wants it.
 | Hero, main | Top section (hero) | Main button text, **Main button icon**, and it goes to the enquiry form |
 | Hero, secondary | Top section (hero) | Secondary button text; goes to the Services section |
 | Header, top right | Header / logo | Button text, **Button icon**, Button link |
+| Closing section, main | each **Page:** form | Closing button text, icon, link |
 | Back to home | each **Page:** form | Back-to-home button text |
+
+**The closing section goes too.** Empty its heading, text and both button labels and the
+whole band disappears — the page just ends with whatever came before it. That is how
+Meet the Team has no closing section.
 
 > **A cleared field and a missing one have to mean the same thing.** Pages CMS leaves a
 > field out of the file when the editor empties it, so anything that defaults an absent

@@ -348,6 +348,9 @@
 
 <!-- ══════════════════════════ CLOSING CALL TO ACTION ══════════════════════════ -->
 {%- set bg = "bg-white" if blockIndex % 2 == 0 else "bg-stone" -%}
+{#- The whole closing section is optional: empty its four fields and the page simply
+    ends with whatever came before. -#}
+{%- if pageContent.ctaHeading or pageContent.ctaText or pageContent.ctaButtonLabel or pageContent.ctaBackLabel %}
 <section class="{{ bg }} py-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     {% if pageContent.ctaHeading %}
@@ -357,11 +360,14 @@
     <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.ctaText | lines }}</p>
     {% endif %}
 
+    {%- if pageContent.ctaButtonLabel or pageContent.ctaBackLabel %}
     <div class="flex flex-wrap gap-4 justify-center">
+      {%- if pageContent.ctaButtonLabel %}
       <a href="{{ pageContent.ctaButtonHref }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
         <i data-lucide="{{ pageContent.ctaButtonIcon }}" class="w-4 h-4"></i>
-        {{ pageContent.ctaButtonLabel or content.hero.primaryButton }}
+        {{ pageContent.ctaButtonLabel }}
       </a>
+      {%- endif %}
       {%- if pageContent.ctaBackLabel %}
       <a href="/" class="inline-flex items-center gap-2 border border-forest text-forest font-medium px-6 py-3 rounded hover:bg-forest hover:text-white transition-colors">
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -369,5 +375,7 @@
       </a>
       {%- endif %}
     </div>
+    {%- endif %}
   </div>
 </section>
+{%- endif %}
