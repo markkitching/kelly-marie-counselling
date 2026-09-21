@@ -29,7 +29,7 @@
           {{ sections.hero.paragraph2 }}
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#contact" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
+          <a href="{{ contactHref or "#contact" }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
             <i data-lucide="calendar" class="w-4 h-4"></i>
             {{ sections.hero.primaryButton }}
           </a>
@@ -297,7 +297,7 @@
 
     </div>
   </section>
-
+{% if showContact != false %}
   <!-- ═══════════════════════════════════════════════ CONTACT ═══════════════════════════════════════════════ -->
   <section id="contact" class="bg-white py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -449,3 +449,4 @@
       </div>
     </div>
   </section>
+{%- endif %}

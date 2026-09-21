@@ -160,6 +160,10 @@ SECTION_LABELS = {
     "process": "The process", "contact": "Contact",
 }
 
+# Sections a page doesn't render, so it gets no form for them either. The Counselling
+# page has no enquiry form — its hero button goes to the homepage's.
+SECTIONS_OMITTED = {"counselling": {"contact"}}
+
 
 def copied_sections(yml, slug, title):
     """The homepage's section forms, re-pointed at another page's copy of the content.
@@ -169,6 +173,8 @@ def copied_sections(yml, slug, title):
     """
     out = []
     for name, label in SECTION_LABELS.items():
+        if name in SECTIONS_OMITTED.get(slug, set()):
+            continue
         start = yml.index(f"  - name: {name}\n")
         after = yml.find("\n  - name: ", start + 1)
         block = yml[start:after + 1] if after != -1 else yml[start:]
@@ -190,4 +196,4 @@ start = yml.index("  - name: page-wellbeing")
 assert yml[start:].rstrip().endswith("type: image") or True
 new = yml[:start] + entries
 (ROOT / ".pages.yml").write_text(new)
-print(f"rewrote {len(PAGES) - len(SECTION_PAGES)} block pages + {len(SECTION_LABELS)} counselling sections — .pages.yml is now {len(new.splitlines())} lines")
+print(f"rewrote {len(PAGES) - len(SECTION_PAGES)} block pages + {len(SECTION_LABELS) - len(SECTIONS_OMITTED.get("counselling", set()))} counselling sections — .pages.yml is now {len(new.splitlines())} lines")

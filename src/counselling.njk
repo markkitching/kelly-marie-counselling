@@ -4,6 +4,9 @@ pageTitle: "Counselling"
 ---
 {% include "site-header.njk" %}
 {%- set sections = counsellingPage -%}
+{#- No enquiry form on this page, so the hero's button goes to the homepage's. -#}
+{%- set showContact = false -%}
+{%- set contactHref = "/#contact" -%}
 {% include "page-sections.njk" %}
 
 
