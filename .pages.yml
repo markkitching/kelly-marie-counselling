@@ -1360,12 +1360,6 @@ content:
       - name: paragraph2
         label: Intro paragraph 2
         type: text
-      - name: primaryButton
-        label: Main button text
-        type: string
-      - name: secondaryButton
-        label: Secondary button text
-        type: string
       - name: image
         label: Hero photo
         type: image

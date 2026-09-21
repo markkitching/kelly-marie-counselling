@@ -325,9 +325,20 @@ enquiry form rather than two competing ones. That page's hero button points at
 `/#contact` — the homepage's form — because an in-page `#contact` jump would now land
 nowhere.
 
-A page that drops a section drops its editor form too: `SECTIONS_OMITTED` in
-`scripts/gen-pages-yml.py` keeps the forms and the rendered page from disagreeing,
-rather than leaving a form that edits text nobody will ever see.
+**Its hero has no buttons either.** The *Request a Consultation* / *View Services* pair
+is wrapped in `{% if showHeroButtons != false %}` and turned off there. The sticky
+header keeps its own *Request a Consultation* button, which appears on every page — so
+the page still offers a way through to the enquiry form.
+
+A page that drops something drops its editor fields too, so the forms and the rendered
+page can't disagree:
+
+| In `scripts/gen-pages-yml.py` | Drops |
+|---|---|
+| `SECTIONS_OMITTED` | a whole section, and its form |
+| `FIELDS_OMITTED` | named fields from a copied form — here the two hero button labels |
+
+Without that, the editor would be offered somewhere to type text that nothing renders.
 
 In the editor this is six more entries — **Counselling: Top section (hero)**,
 **Counselling: About Kelly**, and so on — each with exactly the fields of its homepage

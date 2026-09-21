@@ -164,6 +164,29 @@ SECTION_LABELS = {
 # page has no enquiry form — its hero button goes to the homepage's.
 SECTIONS_OMITTED = {"counselling": {"contact"}}
 
+# Individual fields a page doesn't render. The Counselling page's hero has no buttons,
+# so offering somewhere to type their labels would be offering to edit nothing.
+FIELDS_OMITTED = {"counselling": {"hero": {"primaryButton", "secondaryButton"}}}
+
+
+def drop_fields(block, names):
+    """Remove named top-level fields from a copied section form.
+
+    Field entries sit at six spaces; anything deeper belongs to a list's sub-fields and
+    is left alone.
+    """
+    if not names:
+        return block
+    kept, dropping = [], False
+    for line in block.split("\n"):
+        if line.startswith("      - name: "):
+            dropping = line[len("      - name: "):].strip() in names
+        elif dropping and line.strip() and not line.startswith("       "):
+            dropping = False          # back out to a shallower level
+        if not dropping:
+            kept.append(line)
+    return "\n".join(kept)
+
 
 def copied_sections(yml, slug, title):
     """The homepage's section forms, re-pointed at another page's copy of the content.
@@ -183,6 +206,7 @@ def copied_sections(yml, slug, title):
         block = re.sub(r"^    label: .*$", f"    label: '{title}: {label}'", block, count=1, flags=re.M)
         block = re.sub(r"^    path: src/content/.*$", f"    path: src/content/{slug}/{name}.json",
                        block, count=1, flags=re.M)
+        block = drop_fields(block, FIELDS_OMITTED.get(slug, {}).get(name, set()))
         out.append(block)
     return "".join(out)
 

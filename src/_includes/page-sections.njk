@@ -28,6 +28,7 @@
         <p class="text-gray-600 leading-relaxed mb-8">
           {{ sections.hero.paragraph2 }}
         </p>
+{%- if showHeroButtons != false %}
         <div class="flex flex-wrap gap-4">
           <a href="{{ contactHref or "#contact" }}" class="inline-flex items-center gap-2 bg-forest text-white font-medium px-6 py-3 rounded hover:bg-sage transition-colors">
             <i data-lucide="calendar" class="w-4 h-4"></i>
@@ -38,6 +39,7 @@
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         </div>
+{%- endif %}
       </div>
 
       <!-- Photo slot -->
