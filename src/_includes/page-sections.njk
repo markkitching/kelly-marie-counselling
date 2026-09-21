@@ -24,10 +24,10 @@
         </h1>
         <div class="divider mb-6"></div>
         <p class="text-gray-600 text-lg leading-relaxed mb-4">
-          {{ sections.hero.paragraph1 }}
+          {{ sections.hero.paragraph1 | lines }}
         </p>
         <p class="text-gray-600 leading-relaxed mb-8">
-          {{ sections.hero.paragraph2 }}
+          {{ sections.hero.paragraph2 | lines }}
         </p>
 {#- Each button is its own field: clear the label in the editor and the button goes.
     Clear both and the row goes with them. -#}
@@ -114,13 +114,13 @@
           <div class="divider mb-6"></div>
 
           <p class="text-gray-600 leading-relaxed mb-4">
-            {{ sections.about.paragraph1 }}
+            {{ sections.about.paragraph1 | lines }}
           </p>
           <p class="text-gray-600 leading-relaxed mb-4">
-            {{ sections.about.paragraph2 }}
+            {{ sections.about.paragraph2 | lines }}
           </p>
           <p class="text-gray-600 leading-relaxed mb-8">
-            {{ sections.about.paragraph3 }}
+            {{ sections.about.paragraph3 | lines }}
           </p>
 
           <!-- Credential badges -->
@@ -148,7 +148,7 @@
         <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.services.heading }}</h2>
         <div class="divider mt-4 mb-4"></div>
         <p class="text-gray-600 max-w-xl leading-relaxed">
-          {{ sections.services.intro }}
+          {{ sections.services.intro | lines }}
         </p>
       </div>
 
@@ -160,7 +160,7 @@
           </div>
           <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
           <p class="text-gray-600 text-sm leading-relaxed mb-4">
-            {{ card.description }}
+            {{ card.description | lines }}
           </p>
           <p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>
         </div>
@@ -198,7 +198,7 @@
       {%- endset -%}
       {%- set textBlock -%}
         <div class="text-gray-600 leading-relaxed">
-          {{ sections.workplace.body | nl2br | safe }}
+          {{ sections.workplace.body | lines }}
         </div>
       {%- endset -%}
       <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -211,7 +211,7 @@
       {% else %}
       <!-- No image: text spans the full width -->
       <div class="max-w-3xl text-gray-600 leading-relaxed">
-        {{ sections.workplace.body | nl2br | safe }}
+        {{ sections.workplace.body | lines }}
       </div>
       {% endif %}
 
@@ -224,7 +224,7 @@
             <i data-lucide="{{ card.icon }}" class="w-5 h-5 text-forest"></i>
           </div>
           <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description }}</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description | lines }}</p>
           {% if card.meta %}<p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>{% endif %}
         </div>
         {% endfor %}
@@ -245,7 +245,7 @@
         <h2 class="font-serif text-white text-4xl mt-2">{{ sections.approach.heading }}</h2>
         <div class="divider mt-4 mb-4" style="background: {{ colors.accent }};"></div>
         <p class="text-white/60 max-w-xl leading-relaxed">
-          {{ sections.approach.intro }}
+          {{ sections.approach.intro | lines }}
         </p>
       </div>
 
@@ -257,7 +257,7 @@
           </div>
           <h3 class="font-serif text-white text-xl mb-3">{{ item.title }}</h3>
           <p class="text-white/60 text-sm leading-relaxed">
-            {{ item.description }}
+            {{ item.description | lines }}
           </p>
         </div>
         {% endfor %}
@@ -266,7 +266,7 @@
       <!-- Quote -->
       <div class="mt-16 pt-12 border-t border-white/10 text-center">
         <blockquote class="font-serif italic text-white/70 text-xl max-w-2xl mx-auto leading-relaxed">
-          {{ sections.approach.quote }}
+          {{ sections.approach.quote | lines }}
         </blockquote>
         <cite class="text-sage text-sm mt-3 block not-italic">{{ sections.approach.quoteAuthor }}</cite>
       </div>
@@ -285,7 +285,7 @@
         <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.process.heading }}</h2>
         <div class="divider mt-4 mb-4"></div>
         <p class="text-gray-600 max-w-xl leading-relaxed">
-          {{ sections.process.intro }}
+          {{ sections.process.intro | lines }}
         </p>
       </div>
 
@@ -296,7 +296,7 @@
         <div class="flex-1 text-center px-4">
           <div class="w-14 h-14 bg-forest text-white rounded flex items-center justify-center mx-auto mb-4 font-serif text-xl font-semibold shadow-md">{{ loop.index }}</div>
           <h3 class="font-serif text-forest text-lg mb-2">{{ step.title }}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{{ step.description }}</p>
+          <p class="text-gray-600 text-sm leading-relaxed">{{ step.description | lines }}</p>
         </div>
         {% endfor %}
       </div>
@@ -308,7 +308,7 @@
           <div class="w-12 h-12 bg-forest text-white rounded flex items-center justify-center flex-shrink-0 font-serif text-lg font-semibold shadow-md">{{ loop.index }}</div>
           <div>
             <h3 class="font-serif text-forest text-lg mb-1">{{ step.title }}</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">{{ step.description }}</p>
+            <p class="text-gray-600 text-sm leading-relaxed">{{ step.description | lines }}</p>
           </div>
         </div>
         {% endfor %}
@@ -327,7 +327,7 @@
         <h2 class="font-serif text-forest text-4xl mt-2">{{ sections.contact.heading }}</h2>
         <div class="divider mt-4 mb-4"></div>
         <p class="text-gray-600 max-w-xl leading-relaxed">
-          {{ sections.contact.intro }}
+          {{ sections.contact.intro | lines }}
         </p>
       </div>
 
@@ -360,7 +360,7 @@
               </div>
               <div>
                 <div class="text-sm font-semibold text-forest mb-0.5">Availability</div>
-                <p class="text-gray-600">{{ sections.contact.availability }}</p>
+                <p class="text-gray-600">{{ sections.contact.availability | lines }}</p>
               </div>
             </div>
           </div>
@@ -372,7 +372,7 @@
               <span class="text-sm font-semibold text-forest">{{ sections.contact.confidentialityTitle }}</span>
             </div>
             <p class="text-gray-600 text-sm leading-relaxed">
-              {{ sections.contact.confidentialityText }}
+              {{ sections.contact.confidentialityText | lines }}
             </p>
           </div>
         </div>

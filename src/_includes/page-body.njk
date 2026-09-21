@@ -38,7 +38,7 @@
     <div class="divider mt-6 mb-8 mx-auto"></div>
 
     {% if pageContent.intro %}
-    <p class="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">{{ pageContent.intro }}</p>
+    <p class="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">{{ pageContent.intro | lines }}</p>
     {% endif %}
     {% if pageContent.links | length %}
     <div class="mt-8">
@@ -77,7 +77,7 @@
 
       {% if pageContent.body %}
       <div class="text-gray-600 leading-relaxed space-y-4">
-        {{ pageContent.body | nl2br | safe }}
+        {{ pageContent.body | lines }}
       </div>
       {% endif %}
 
@@ -113,7 +113,7 @@
         {% endif %}
         <h3 class="font-serif text-forest text-xl mb-2">{{ card.title }}</h3>
         {% if card.description %}
-        <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description }}</p>
+        <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ card.description | lines }}</p>
         {% endif %}
         {% if card.meta %}
         <p class="text-xs text-sage font-semibold uppercase tracking-wide">{{ card.meta }}</p>
@@ -189,7 +189,7 @@
           {% endif %}
           <h3 class="font-serif text-forest text-xl mt-1 mb-2">{{ episode.title }}</h3>
           {% if episode.description %}
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ episode.description }}</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ episode.description | lines }}</p>
           {% endif %}
 
           <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2">
@@ -245,7 +245,7 @@
         <div class="p-5 flex flex-col flex-1">
           <h3 class="font-serif text-forest text-lg mb-1">{{ product.name }}</h3>
           {% if product.description %}
-          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ product.description }}</p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ product.description | lines }}</p>
           {% endif %}
           <div class="mt-auto">
             {% if product.price %}
@@ -294,7 +294,7 @@
           <p class="text-xs text-gray-500 mt-2">{{ person.credentials }}</p>
           {% endif %}
           {% if person.bio %}
-          <p class="text-gray-600 text-sm leading-relaxed mt-4">{{ person.bio }}</p>
+          <p class="text-gray-600 text-sm leading-relaxed mt-4">{{ person.bio | lines }}</p>
           {% endif %}
         </div>
       </div>
@@ -310,7 +310,7 @@
 <section class="bg-forest py-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <blockquote class="font-serif italic text-white/80 text-2xl max-w-2xl mx-auto leading-relaxed">
-      {{ pageContent.quote }}
+      {{ pageContent.quote | lines }}
     </blockquote>
     {% if pageContent.quoteAuthor %}
     <cite class="text-sage text-sm mt-4 block not-italic">{{ pageContent.quoteAuthor }}</cite>
@@ -336,7 +336,7 @@
           <i data-lucide="plus" class="faq-icon w-4 h-4 text-sage flex-shrink-0"></i>
         </summary>
         {% if faq.answer %}
-        <div class="text-gray-600 text-sm leading-relaxed pb-5 pr-8">{{ faq.answer | nl2br | safe }}</div>
+        <div class="text-gray-600 text-sm leading-relaxed pb-5 pr-8">{{ faq.answer | lines }}</div>
         {% endif %}
       </details>
       {% endfor %}
@@ -354,7 +354,7 @@
     <h2 class="font-serif text-forest text-3xl mb-4">{{ pageContent.ctaHeading }}</h2>
     {% endif %}
     {% if pageContent.ctaText %}
-    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.ctaText }}</p>
+    <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">{{ pageContent.ctaText | lines }}</p>
     {% endif %}
 
     <div class="flex flex-wrap gap-4 justify-center">

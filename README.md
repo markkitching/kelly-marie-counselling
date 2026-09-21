@@ -467,6 +467,30 @@ python3 scripts/check-pages-yml.py   # prove a save can't lose anything
 The generator owns the whole file, which is what lets one icon list reach every form
 including the header's. Running it twice produces an identical file.
 
+### Line breaks typed in the editor show on the page
+
+Any multi-line field — intros, paragraphs, descriptions, bios, FAQ answers, quotes —
+keeps the line breaks the editor types. Press Enter twice for a gap between paragraphs.
+
+That is the `lines` filter in `.eleventy.js`, and every multi-line field goes through it.
+It does three things a bare `nl2br` doesn't:
+
+- **escapes first**, so an `&` or a `<` typed into a field shows as itself instead of
+  being read as markup;
+- **returns the result already marked safe**, so a call site is just `{{ value | lines }}`
+  — there is no `| safe` to forget, and forgetting it would print a literal `<br />`;
+- **trims first**, so a field saved with a trailing newline doesn't end in a dangling
+  break that is invisible in the editor and obvious on the page.
+
+The one multi-line field that deliberately does *not* use it is the search-engine
+description, which is an attribute value — a `<br />` there would be nonsense.
+
+> **Adding a `type: text` field?** Render it with `| lines`. This audit finds any that
+> were missed:
+> ```bash
+> grep -rn '{{' src --include=*.njk | grep -v '| lines'
+> ```
+
 ### Checking the CMS schema
 
 After changing `.pages.yml` or the page JSON, confirm a save can't lose anything:
