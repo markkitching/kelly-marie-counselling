@@ -70,7 +70,9 @@ photos are editable. If something doesn't look right, you can always change it b
 | `src/counselling.njk` | The Counselling page — the homepage's sections, its own content. |
 | `src/_data/counsellingPage.js` | Loads `src/content/counselling/`. |
 | `src/_data/holdingPages.js` | `newPages.json` minus any page with a template of its own. |
-| `scripts/gen-pages-yml.py` | Regenerates the six `Page:` entries in `.pages.yml` from one block map. |
+| `scripts/gen-pages-yml.py` | Generates the whole of `.pages.yml` from the two source files. |
+| `scripts/base-forms.yml` | The site-wide editor forms. |
+| `scripts/section-forms.yml` | The section forms, stamped out per page. |
 | `scripts/check-pages-yml.py` | Verifies a CMS save can't drop any stored field. |
 | `scripts/sync-podcast-episodes.js` | Pulls recent episodes from YouTube (or Spotify) into the podcast page. |
 | `scripts/test-sync-merge.js` | Proves the sync can't undo the editor's order, edits or hidden episodes. |
@@ -351,7 +353,7 @@ find, and no button left pointing at a page that no longer wants it.
 |---|---|---|
 | Hero, main | Top section (hero) | Main button text, **Main button icon**, and it goes to the enquiry form |
 | Hero, secondary | Top section (hero) | Secondary button text; goes to the Services section |
-| Header, top right | Header / logo | Button text, Button link |
+| Header, top right | Header / logo | Button text, **Button icon**, Button link |
 | Back to home | each **Page:** form | Back-to-home button text |
 
 > **A cleared field and a missing one have to mean the same thing.** Pages CMS leaves a
@@ -359,11 +361,11 @@ find, and no button left pointing at a page that no longer wants it.
 > value to "show" would put the button back the moment someone cleared it. These fields
 > have no default for that reason: absent means no button.
 
-The icon list is a dropdown of names verified to exist in lucide. It is written once as
-`ICONS` in `scripts/gen-pages-yml.py` and expanded into the form wherever
-`section-forms.yml` says `values: __ICON_VALUES__`, so a form can never offer an icon
-that renders as a blank square — which is exactly what happened when lucide dropped its
-brand icons and `youtube` was still on offer.
+Every icon dropdown is expanded from one list. `ICONS` in `scripts/gen-pages-yml.py` is
+written into the schema wherever a source file says `values: __ICON_VALUES__`, so a form
+can never offer an icon that renders as a blank square — which is exactly what happened
+when lucide dropped its brand icons and `youtube` was still on offer. The generator
+refuses to finish if a placeholder is left unexpanded.
 
 ### The header's button is editable
 
@@ -444,6 +446,25 @@ round-trip check guard against that — see *Checking the CMS schema* below.
 Every field is a `string`, `text`, `image`, `select`, or an `object` with `list: true`.
 There is no nesting beyond one level, which is why `checklistTitle`/`checklistItems` and
 the `ctaHeading`/`ctaText`/`ctaButton…` fields are flat rather than nested objects.
+
+### `.pages.yml` is generated — don't edit it
+
+```
+scripts/base-forms.yml      site-wide forms (Page settings, Header, Colours, Menu, Footer)
+scripts/section-forms.yml   the seven section forms
+        │
+        └── scripts/gen-pages-yml.py  ──>  .pages.yml
+```
+
+Edit a source file, then:
+
+```bash
+python3 scripts/gen-pages-yml.py     # rewrite .pages.yml
+python3 scripts/check-pages-yml.py   # prove a save can't lose anything
+```
+
+The generator owns the whole file, which is what lets one icon list reach every form
+including the header's. Running it twice produces an identical file.
 
 ### Checking the CMS schema
 

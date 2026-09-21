@@ -1,0 +1,161 @@
+# The site-wide editor forms, and the media settings.
+#
+# Generated into .pages.yml by scripts/gen-pages-yml.py, which appends the per-page
+# forms it stamps from section-forms.yml. Edit this file, not .pages.yml.
+#
+# `values: __ICON_VALUES__` is expanded to the one verified list of lucide icon names.
+media:
+  input: src/images
+  output: /images
+content:
+  - name: site
+    label: Page settings
+    type: file
+    path: src/content/site.json
+    format: json
+    fields:
+      - name: title
+        label: Browser tab title
+        type: string
+      - name: description
+        label: Search-engine description
+        type: text
+      - name: formspreeEndpoint
+        label: Contact form address (Formspree)
+        type: string
+  - name: header
+    label: Header / logo
+    type: file
+    path: src/content/header.json
+    format: json
+    fields:
+      - name: logoImage
+        label: Logo image (optional — overrides the icon below if set)
+        type: image
+      - name: logoIcon
+        label: Logo icon (used only if no logo image is set)
+        type: select
+        options:
+          values:
+            - leaf
+            - heart
+            - star
+            - award
+            - shield
+            - sun
+            - moon
+            - feather
+            - compass
+            - home
+            - anchor
+            - activity
+            - layers
+            - zap
+            - globe
+      - name: logoLine1
+        label: Logo — first line
+        type: string
+      - name: logoLine2
+        label: Logo — second line
+        type: string
+      - name: ctaLabel
+        label: Button text (top right)
+        description: Leave empty to remove the button from every page.
+        type: string
+      - name: ctaIcon
+        label: Button icon (top right)
+        description: The small symbol on the button.
+        type: select
+        options:
+          values: __ICON_VALUES__
+      - name: ctaHref
+        label: Button link
+        description: Where the button goes. Blank sends it to the enquiry form.
+        type: string
+  - name: theme
+    label: Colours / theme
+    type: file
+    path: src/content/theme.json
+    format: json
+    fields:
+      - name: palette
+        label: Colour scheme
+        type: select
+        options:
+          values:
+            - value: navy
+              label: Navy & blue
+            - value: forest
+              label: Forest green
+            - value: terracotta
+              label: Terracotta & clay
+            - value: plum
+              label: Plum & heather
+            - value: charcoal
+              label: Charcoal & gold
+      - name: customDark
+        label: 'Advanced — main dark colour (hex, leave blank to use the scheme above, e.g. #1c3553)'
+        type: string
+      - name: customAccent
+        label: Advanced — accent colour (hex, optional)
+        type: string
+      - name: customLight
+        label: Advanced — light background colour (hex, optional)
+        type: string
+      - name: customCream
+        label: Advanced — soft tint colour (hex, optional)
+        type: string
+  - name: menu
+    label: Main menu
+    type: file
+    path: src/content/menu.json
+    format: json
+    fields:
+      - name: items
+        label: Links
+        description: Drag the rows to change the order links appear in. Untick "Show in menu" to hide one without deleting
+          it — the page itself stays online, it just isn't linked. Link names and their destinations are fixed and can't be
+          edited here.
+        type: object
+        list: true
+        fields:
+          - name: item
+            label: Menu link
+            type: select
+            options:
+              values:
+                - value: about
+                  label: About
+                - value: services
+                  label: Services
+                - value: approach
+                  label: My Approach
+                - value: wellbeing
+                  label: Wellbeing
+                - value: counselling
+                  label: Counselling
+                - value: training-coaching
+                  label: Training & Coaching
+                - value: podcast
+                  label: Podcast
+                - value: merchandise
+                  label: Merchandise
+                - value: meet-the-team
+                  label: Meet the Team
+                - value: contact
+                  label: Contact
+          - name: visible
+            label: Show in menu
+            type: boolean
+  - name: footer
+    label: Footer
+    type: file
+    path: src/content/footer.json
+    format: json
+    fields:
+      - name: tagline
+        label: Tagline
+        type: text
+      - name: bacpNumber
+        label: BACP membership number
+        type: string
