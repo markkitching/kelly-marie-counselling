@@ -335,9 +335,10 @@ added to a section's form reaches every page that shows it.
 | *Contact page* | `/contact/`, and the footer's email address and location on every page |
 | *Enquiry form — service options* | the "Service of interest" dropdown, which lists the card titles |
 
-`src/content/{about,approach,process,workplace}.json` are now read by nothing — the
-Counselling page has its own copies. They are kept for the moment in case the homepage
-sections come back; git has them either way.
+`src/content/{about,approach,process,workplace}.json` have been deleted: the homepage
+stopped rendering those sections and the Counselling page keeps its own copies, so
+nothing read them. Deleting them changed no rendered byte. Git has them if the homepage
+sections ever come back.
 
 ### The header's button is editable
 
@@ -563,7 +564,8 @@ Because the site now uses a build step, set (Cloudflare → Workers & Pages → 
 │   │   ├── page-body.njk   ← Optional content blocks for the standalone pages
 │   │   └── site-footer.njk ← Shared footer + page scripts
 │   ├── content/            ← ALL editable text (one file per section — what the CMS edits)
-│   │   ├── hero.json  about.json  services.json  …
+│   │   ├── hero.json  contact.json  services.json  …
+│   │   ├── counselling/    ← the Counselling page's own copy of the sections
 │   │   └── pages/          ← Content for the six standalone pages
 │   ├── _data/
 │   │   ├── content.js      ← Merges src/content/*.json into one `content` object
