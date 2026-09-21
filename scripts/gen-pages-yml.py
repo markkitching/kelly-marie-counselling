@@ -164,6 +164,15 @@ SECTION_LABELS = {
 # page has no enquiry form — its hero button goes to the homepage's.
 SECTIONS_OMITTED = {"counselling": {"contact"}}
 
+# What each page actually renders, mirroring `sectionsShown` in the templates. The
+# homepage is its top section and nothing else; Contact keeps a form of its own because
+# the footer prints the email address and location on every page.
+SECTIONS_SHOWN = {
+    "index": ["hero"],
+    "counselling": ["hero", "about", "services", "workplace", "approach", "process"],
+}
+FOOTER_FORMS = ["contact"]
+
 # Individual fields a page doesn't render. The Counselling page's hero has no buttons,
 # so offering somewhere to type their labels would be offering to edit nothing.
 FIELDS_OMITTED = {"counselling": {"hero": {"primaryButton", "secondaryButton"}}}
@@ -188,32 +197,45 @@ def drop_fields(block, names):
     return "\n".join(kept)
 
 
-def copied_sections(yml, slug, title):
-    """The homepage's section forms, re-pointed at another page's copy of the content.
+SECTION_FORMS = (ROOT / "scripts" / "section-forms.yml").read_text()
 
-    Copied from the live text rather than redefined, so a field added to the homepage's
-    About form appears on the Counselling one the next time this runs.
+
+def section_block(name):
+    """One section's form, as written in scripts/section-forms.yml."""
+    start = SECTION_FORMS.index(f"  - name: {name}\n")
+    after = SECTION_FORMS.find("\n  - name: ", start + 1)
+    return SECTION_FORMS[start:after + 1] if after != -1 else SECTION_FORMS[start:] + "\n"
+
+
+def section_forms(slug, title, shown, *, prefixed=True):
+    """A form per section a page shows, re-pointed at that page's copy of the content.
+
+    Stamped from one definition rather than written out per page, so a field added to a
+    section's form reaches every page that shows it.
     """
     out = []
-    for name, label in SECTION_LABELS.items():
-        if name in SECTIONS_OMITTED.get(slug, set()):
-            continue
-        start = yml.index(f"  - name: {name}\n")
-        after = yml.find("\n  - name: ", start + 1)
-        block = yml[start:after + 1] if after != -1 else yml[start:]
+    for name in shown:
+        block = section_block(name)
+        label = SECTION_LABELS[name]
 
-        block = block.replace(f"  - name: {name}\n", f"  - name: {slug}-{name}\n", 1)
-        block = re.sub(r"^    label: .*$", f"    label: '{title}: {label}'", block, count=1, flags=re.M)
-        block = re.sub(r"^    path: src/content/.*$", f"    path: src/content/{slug}/{name}.json",
-                       block, count=1, flags=re.M)
+        if prefixed:
+            block = block.replace(f"  - name: {name}\n", f"  - name: {slug}-{name}\n", 1)
+            block = re.sub(r"^    label: .*$", f"    label: '{title}: {label}'", block, count=1, flags=re.M)
+            block = re.sub(r"^    path: src/content/.*$", f"    path: src/content/{slug}/{name}.json",
+                           block, count=1, flags=re.M)
         block = drop_fields(block, FIELDS_OMITTED.get(slug, {}).get(name, set()))
         out.append(block)
     return "".join(out)
 
 
 yml_before = (ROOT / ".pages.yml").read_text()
-entries = "".join(build(p["slug"], p["title"]) for p in PAGES if p["slug"] not in SECTION_PAGES)
-entries += copied_sections(yml_before, "counselling", "Counselling")
+
+# The homepage's own sections keep their plain names, so their paths and labels are
+# untouched; everything else is prefixed with its page.
+entries = section_forms("index", "", SECTIONS_SHOWN["index"], prefixed=False)
+entries += section_forms("footer", "", FOOTER_FORMS, prefixed=False)
+entries += "".join(build(p["slug"], p["title"]) for p in PAGES if p["slug"] not in SECTION_PAGES)
+entries += section_forms("counselling", "Counselling", SECTIONS_SHOWN["counselling"])
 
 yml = yml_before
 start = yml.index("  - name: page-wellbeing")

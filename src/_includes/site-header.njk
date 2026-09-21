@@ -156,10 +156,12 @@
 
         <!-- Right-hand controls -->
         <div class="flex items-center gap-3">
-          <a href="/#contact" class="hidden sm:inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded hover:bg-sage transition-colors whitespace-nowrap">
+          {%- if content.header.ctaLabel %}
+          <a href="{{ content.header.ctaHref or "/#contact" }}" class="hidden sm:inline-flex items-center gap-1.5 bg-forest text-white text-sm font-medium px-5 py-2 rounded hover:bg-sage transition-colors whitespace-nowrap">
             <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-            {{ content.hero.primaryButton }}
+            {{ content.header.ctaLabel }}
           </a>
+          {%- endif %}
 
           <button id="nav-toggle" class="nav-burger"
             aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu" aria-haspopup="true">
@@ -176,12 +178,14 @@
           <a href="{{ link.href }}" class="block px-4 py-2.5 text-sm text-gray-700 hover:text-forest hover:bg-stone transition-colors nav-link">{{ link.label }}</a>
           {% endfor %}
 
+          {%- if content.header.ctaLabel %}
           <div class="sm:hidden px-3 pt-3 pb-1 mt-1 border-t border-gray-100">
-            <a href="/#contact" class="flex w-full items-center justify-center gap-1.5 bg-forest text-white text-sm font-medium px-3 py-2.5 rounded nav-link">
+            <a href="{{ content.header.ctaHref or "/#contact" }}" class="flex w-full items-center justify-center gap-1.5 bg-forest text-white text-sm font-medium px-3 py-2.5 rounded nav-link">
               <i data-lucide="calendar" class="w-3.5 h-3.5 flex-shrink-0"></i>
-              {{ content.hero.primaryButton }}
+              {{ content.header.ctaLabel }}
             </a>
           </div>
+          {%- endif %}
         </div>
       </div>
     </nav>

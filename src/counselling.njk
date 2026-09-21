@@ -4,9 +4,8 @@ pageTitle: "Counselling"
 ---
 {% include "site-header.njk" %}
 {%- set sections = counsellingPage -%}
-{#- No enquiry form and no hero buttons on this page. The header keeps its own
-    "Request a Consultation" button, which appears on every page. -#}
-{%- set showContact = false -%}
+{#- Everything except the enquiry form, which lives in one place on the site. -#}
+{%- set sectionsShown = ["hero", "about", "services", "workplace", "approach", "process"] -%}
 {%- set showHeroButtons = false -%}
 {%- set contactHref = "/#contact" -%}
 {% include "page-sections.njk" %}

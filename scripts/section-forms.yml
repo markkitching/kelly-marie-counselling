@@ -1,0 +1,408 @@
+# The editor forms for the seven sections a page can be built from.
+#
+# Kept here rather than in .pages.yml because more than one page uses them and not every
+# page uses all of them: scripts/gen-pages-yml.py stamps out a copy per page that shows
+# a section, re-pointing name, label and path. Edit a field once here and every page's
+# form gets it.
+#
+# This file is not read by the site or by Pages CMS — only by the generator.
+sections:
+  - name: hero
+    label: Top section (hero)
+    type: file
+    path: src/content/hero.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above title
+        type: string
+      - name: headingLead
+        label: Main heading — first line
+        type: string
+      - name: headingEmphasis
+        label: Main heading — italic second line
+        type: string
+      - name: paragraph1
+        label: Intro paragraph 1
+        type: text
+      - name: paragraph2
+        label: Intro paragraph 2
+        type: text
+      - name: primaryButton
+        label: Main button text
+        type: string
+      - name: secondaryButton
+        label: Secondary button text
+        type: string
+      - name: image
+        label: Hero photo
+        type: image
+  - name: about
+    label: About Kelly
+    type: file
+    path: src/content/about.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: headingLead
+        label: Heading — first part
+        type: string
+      - name: headingEmphasis
+        label: Heading — italic part
+        type: string
+      - name: paragraph1
+        label: Paragraph 1
+        type: text
+      - name: paragraph2
+        label: Paragraph 2
+        type: text
+      - name: paragraph3
+        label: Paragraph 3
+        type: text
+      - name: image
+        label: About photo
+        type: image
+      - name: badges
+        label: Credential badges
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: label
+            label: Text
+            type: string
+  - name: services
+    label: Services section
+    type: file
+    path: src/content/services.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: cards
+        label: Service cards
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Footer line (duration / format)
+            type: string
+  - name: workplace
+    label: Workplace Wellness section
+    type: file
+    path: src/content/workplace.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading above title (optional)
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: body
+        label: Body text (press Enter for new lines)
+        type: text
+      - name: image
+        label: Image (optional — leave empty for full-width text)
+        type: image
+      - name: imageSide
+        label: Which side should the image go?
+        type: select
+        options:
+          values:
+            - left
+            - right
+      - name: cards
+        label: Cards (optional — leave empty for text only)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Footer line (optional)
+            type: string
+  - name: approach
+    label: Therapeutic approach
+    type: file
+    path: src/content/approach.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: items
+        label: Approach cards
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: icon
+            label: Icon
+            type: select
+            options:
+              values:
+                - award
+                - map-pin
+                - clock
+                - shield
+                - heart
+                - star
+                - check
+                - check-circle
+                - user
+                - users
+                - brain
+                - layers
+                - leaf
+                - feather
+                - sun
+                - moon
+                - briefcase
+                - monitor
+                - book
+                - clipboard
+                - calendar
+                - mail
+                - phone
+                - message-circle
+                - globe
+                - home
+                - activity
+                - compass
+                - coffee
+                - headphones
+                - tag
+                - target
+                - thumbs-up
+                - trending-up
+                - zap
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+      - name: quote
+        label: Closing quote
+        type: text
+      - name: quoteAuthor
+        label: Quote author
+        type: string
+  - name: process
+    label: The process (3 steps)
+    type: file
+    path: src/content/process.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: steps
+        label: Steps
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: title
+            label: Step title
+            type: string
+          - name: description
+            label: Step description
+            type: text
+  - name: contact
+    label: Contact section
+    type: file
+    path: src/content/contact.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Small heading
+        type: string
+      - name: heading
+        label: Section heading
+        type: string
+      - name: intro
+        label: Intro text
+        type: text
+      - name: email
+        label: Email address
+        type: string
+      - name: locationLine1
+        label: Location — line 1
+        type: string
+      - name: locationLine2
+        label: Location — line 2
+        type: string
+      - name: availability
+        label: Availability message
+        type: text
+      - name: confidentialityTitle
+        label: Confidentiality box — title
+        type: string
+      - name: confidentialityText
+        label: Confidentiality box — text
+        type: text

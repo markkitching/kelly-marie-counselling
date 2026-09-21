@@ -3,6 +3,9 @@ pageTitle: ""
 ---
 {% include "site-header.njk" %}
 {%- set sections = content -%}
+{#- The homepage is its top section and nothing else; the rest of the site lives on its
+    own pages. -#}
+{%- set sectionsShown = ["hero"] -%}
 {% include "page-sections.njk" %}
 
 
