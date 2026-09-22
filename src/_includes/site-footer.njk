@@ -35,6 +35,15 @@
               <i data-lucide="mail" class="w-3.5 h-3.5 text-sage"></i>
               <a href="mailto:{{ content.contact.email }}" class="hover:text-sage transition-colors">{{ content.contact.email }}</a>
             </li>
+            {%- for link in content.footer.socialLinks %}
+            {%- set icon = socialIcons[link.platform] %}
+            {%- if icon and link.href %}
+            <li class="flex items-center gap-2 text-white/50 text-sm">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-sage flex-shrink-0" aria-hidden="true"><path d="{{ icon.path }}"/></svg>
+              <a href="{{ link.href }}" target="_blank" rel="noopener" class="hover:text-sage transition-colors">{{ icon.label }}</a>
+            </li>
+            {%- endif %}
+            {%- endfor %}
           </ul>
         </div>
 

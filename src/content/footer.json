@@ -1,3 +1,9 @@
 {
-  "tagline": "Supporting businesses to make their workplace wellbeing services effective, accessible and valued."
+  "tagline": "Supporting businesses to make their workplace wellbeing services effective, accessible and valued.",
+  "socialLinks": [
+    {
+      "platform": "linkedin",
+      "href": "https://www.linkedin.com/in/kelly-marie-mbacp-78a0791b0/"
+    }
+  ]
 }

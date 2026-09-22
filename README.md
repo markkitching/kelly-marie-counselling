@@ -34,7 +34,7 @@ photos are editable. If something doesn't look right, you can always change it b
 
 ## TODO
 
-- [ ] **Social links** — add Instagram / Facebook / LinkedIn to the footer once profiles exist
+- [x] **Social links** — LinkedIn live in the footer; Instagram and Facebook ready to add in the CMS ✓
 - [ ] **Phone number** — removed for now; ask the developer to re-add when a number is available
 - [x] **BACP membership number** — set in the editor (No. 00922563) ✓
 - [x] **Custom domain** — `kellymariewellbeing.com` live on Cloudflare Pages, old domain redirecting ✓
@@ -473,6 +473,22 @@ python3 scripts/check-pages-yml.py   # prove a save can't lose anything
 
 The generator owns the whole file, which is what lets one icon list reach every form
 including the header's. Running it twice produces an identical file.
+
+### Social links in the footer
+
+**Footer → Social links** takes a platform and an address. Leave the address empty and
+that one doesn't appear. LinkedIn is set; Instagram and Facebook are wired up and waiting
+for addresses.
+
+The marks are inlined in `src/_data/socialIcons.js` rather than named like every other
+icon on the site, because **lucide removed its brand icons** — that is what once put a
+blank square on the page when `youtube` was still on an icon dropdown. Instagram and
+Facebook come from the `simple-icons` package; LinkedIn is not in it, having asked for
+its mark to be removed, so that glyph is written out in the file.
+
+> **Adding a platform** means two edits: an entry in `src/_data/socialIcons.js` and an
+> option on the Footer form's *Social links* field in `scripts/base-forms.yml`. A link
+> whose platform has no entry is skipped rather than rendered without an icon.
 
 ### What the footer and the contact page carry
 

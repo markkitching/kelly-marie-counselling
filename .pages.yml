@@ -198,6 +198,27 @@ content:
       - name: tagline
         label: Tagline
         type: text
+      - name: socialLinks
+        label: Social links
+        description: Shown in the footer. Leave the address empty to hide one.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{platform}'
+        fields:
+          - name: platform
+            label: Platform
+            type: select
+            options:
+              values:
+                - linkedin
+                - instagram
+                - facebook
+          - name: href
+            label: Address
+            description: The full https:// address of the profile.
+            type: string
   - name: hero
     label: Top section (hero)
     type: file
