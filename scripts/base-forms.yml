@@ -156,6 +156,3 @@ content:
       - name: tagline
         label: Tagline
         type: text
-      - name: bacpNumber
-        label: BACP membership number
-        type: string

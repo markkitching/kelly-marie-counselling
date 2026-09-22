@@ -198,9 +198,6 @@ content:
       - name: tagline
         label: Tagline
         type: text
-      - name: bacpNumber
-        label: BACP membership number
-        type: string
   - name: hero
     label: Top section (hero)
     type: file
@@ -294,12 +291,6 @@ content:
         type: text
       - name: email
         label: Email address
-        type: string
-      - name: locationLine1
-        label: Location — line 1
-        type: string
-      - name: locationLine2
-        label: Location — line 2
         type: string
       - name: availability
         label: Availability message

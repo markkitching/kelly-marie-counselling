@@ -12,17 +12,9 @@
             </span>
             <span class="font-serif text-white text-lg">{{ content.header.logoLine1 }} {{ content.header.logoLine2 }}</span>
           </div>
-          <p class="text-white/50 text-sm leading-relaxed mb-4">
+          <p class="text-white/50 text-sm leading-relaxed">
             {{ content.footer.tagline | lines }}
           </p>
-          <!-- BACP badge -->
-          <div class="inline-flex items-center gap-2 bg-white/10 rounded px-3 py-2">
-            <i data-lucide="award" class="w-4 h-4 text-sage"></i>
-            <div class="text-xs leading-tight">
-              <div class="text-white font-medium">BACP Registered Member</div>
-              <div class="text-white/50">{{ content.footer.bacpNumber }}</div>
-            </div>
-          </div>
         </div>
 
         <!-- Quick links -->
@@ -42,10 +34,6 @@
             <li class="flex items-center gap-2 text-white/50 text-sm">
               <i data-lucide="mail" class="w-3.5 h-3.5 text-sage"></i>
               <a href="mailto:{{ content.contact.email }}" class="hover:text-sage transition-colors">{{ content.contact.email }}</a>
-            </li>
-            <li class="flex items-center gap-2 text-white/50 text-sm">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage"></i>
-              <span>{{ content.contact.locationLine1 }}</span>
             </li>
           </ul>
         </div>

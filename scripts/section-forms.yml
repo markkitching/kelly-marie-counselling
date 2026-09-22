@@ -397,12 +397,6 @@ sections:
       - name: email
         label: Email address
         type: string
-      - name: locationLine1
-        label: Location — line 1
-        type: string
-      - name: locationLine2
-        label: Location — line 2
-        type: string
       - name: availability
         label: Availability message
         type: text

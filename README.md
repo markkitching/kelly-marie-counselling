@@ -472,6 +472,22 @@ python3 scripts/check-pages-yml.py   # prove a save can't lose anything
 The generator owns the whole file, which is what lets one icon list reach every form
 including the header's. Running it twice produces an identical file.
 
+### What the footer and the contact page carry
+
+The footer is the brand line, the tagline, the menu links and the email address. The
+BACP membership tile and the location line were removed, and `footer.bacpNumber` went
+with the tile — it was rendered nowhere else, and a form field that edits nothing is
+worse than no field at all.
+
+The contact page lists **Email** and **Availability**. The location block was removed
+and `locationLine1` / `locationLine2` went with it, for the same reason.
+
+> Both are in git if they are ever wanted back. The pattern to follow: when the last
+> thing rendering a field goes, take the field out of `scripts/*-forms.yml` and the
+> stored value out of `src/content/`, then re-run the generator. `check-pages-yml.py`
+> fails if a stored key is left without a form, because Pages CMS would silently delete
+> it on the next save.
+
 ### Line breaks typed in the editor show on the page
 
 Any multi-line field — intros, paragraphs, descriptions, bios, FAQ answers, quotes —
