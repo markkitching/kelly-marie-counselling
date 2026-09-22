@@ -69,8 +69,7 @@
     }
   ],
   "ctaHeading": "Request a Training Outline",
-  "ctaText": "Tell me who you would like me to work with, roughly how long you have, and what has prompted it. I will come back with a proposed outline and a quote — with no obligation.",
+  "ctaText": "Tell us a bit about your organisation, who the training is for and how much time is available to deliver the training.\nWe will get back to you with a proposed outline and a quote, with no obligation.",
   "ctaButtonLabel": "Contact Us",
-  "ctaButtonIcon": "mail",
-  "ctaBackLabel": "Back to home"
+  "ctaButtonIcon": "mail"
 }
