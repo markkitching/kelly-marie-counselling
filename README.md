@@ -331,14 +331,16 @@ added to a section's form reaches every page that shows it.
 > `section-forms.yml`, not those lines. The generator refuses to run if the marker has
 > gone, rather than guessing where to start.
 
-**Two forms outlive the sections they came from**, because something still renders them:
+**One form outlives the section it came from:** *Contact page*, because `/contact/`
+renders it and the footer takes the email address from it on every page.
 
-| Form | Still needed by |
-|---|---|
-| *Contact page* | `/contact/`, and the footer's email address and location on every page |
-| *Enquiry form — service options* | the "Service of interest" dropdown, which lists the card titles |
+The enquiry form's **Service of interest** dropdown is a list on that same form —
+*Service of interest — dropdown options*. Drag to reorder, delete them all and the
+dropdown disappears. It used to read the card titles out of the Services section, which
+meant the contact page depended on a section it doesn't render and nobody could tell
+where those options came from.
 
-`src/content/{about,approach,process,workplace}.json` have been deleted: the homepage
+`src/content/{about,approach,process,services,workplace}.json` have been deleted: the homepage
 stopped rendering those sections and the Counselling page keeps its own copies, so
 nothing read them. Deleting them changed no rendered byte. Git has them if the homepage
 sections ever come back.

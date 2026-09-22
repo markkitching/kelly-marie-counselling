@@ -301,79 +301,19 @@ content:
       - name: confidentialityText
         label: Confidentiality box — text
         type: text
-
-  - name: services
-    label: Enquiry form — service options
-    type: file
-    path: src/content/services.json
-    format: json
-    fields:
-      - name: eyebrow
-        label: Small heading
-        type: string
-      - name: heading
-        label: Section heading
-        type: string
-      - name: intro
-        label: Intro text
-        type: text
-      - name: cards
-        label: Service cards
+      - name: serviceOptions
+        label: Service of interest — dropdown options
+        description: The choices offered in the enquiry form. Drag to reorder; delete them all to remove the dropdown.
         type: object
         list:
           collapsible:
             collapsed: true
-            summary: '{title}'
+            summary: '{label}'
         fields:
-          - name: icon
-            label: Icon
-            type: select
-            options:
-              values:
-                - award
-                - map-pin
-                - clock
-                - shield
-                - heart
-                - star
-                - check
-                - check-circle
-                - user
-                - users
-                - brain
-                - layers
-                - leaf
-                - feather
-                - sun
-                - moon
-                - briefcase
-                - monitor
-                - book
-                - clipboard
-                - calendar
-                - mail
-                - phone
-                - message-circle
-                - globe
-                - home
-                - activity
-                - compass
-                - coffee
-                - headphones
-                - tag
-                - target
-                - thumbs-up
-                - trending-up
-                - zap
-          - name: title
-            label: Title
+          - name: label
+            label: Option
             type: string
-          - name: description
-            label: Description
-            type: text
-          - name: meta
-            label: Footer line (duration / format)
-            type: string
+
   - name: page-wellbeing
     label: 'Page: Wellbeing'
     description: >-

@@ -172,11 +172,9 @@ SECTIONS_SHOWN = {
     "index": ["hero"],
     "counselling": ["hero", "about", "services", "workplace", "approach", "process"],
 }
-# Sections the homepage no longer shows, but which something still renders:
-#   contact  — its own page now, and the footer's email address and location
-#   services — its card titles fill the enquiry form's "Service of interest" dropdown
-# Without forms they would be live text nobody could edit.
-STANDALONE_FORMS = ["contact", "services"]
+# The contact section is no longer on any page's section list, but it has a page of its
+# own, so it still needs a form.
+STANDALONE_FORMS = ["contact"]
 
 # Individual fields a page doesn't render. The Counselling page's hero has no buttons,
 # so offering somewhere to type their labels would be offering to edit nothing.

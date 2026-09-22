@@ -406,3 +406,15 @@ sections:
       - name: confidentialityText
         label: Confidentiality box — text
         type: text
+      - name: serviceOptions
+        label: Service of interest — dropdown options
+        description: The choices offered in the enquiry form. Drag to reorder; delete them all to remove the dropdown.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
+        fields:
+          - name: label
+            label: Option
+            type: string

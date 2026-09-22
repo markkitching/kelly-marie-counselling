@@ -392,10 +392,9 @@
             <select id="service" name="service"
               class="w-full border border-gray-200 rounded px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-sage/40 focus:border-sage transition-colors">
               <option value="">Select a service (optional)</option>
-              {% for card in sections.services.cards %}
-              <option>{{ card.title }}</option>
+              {% for option in sections.contact.serviceOptions %}
+              <option>{{ option.label }}</option>
               {% endfor %}
-              <option>Not sure yet</option>
             </select>
           </div>
 

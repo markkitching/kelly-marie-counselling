@@ -5,5 +5,19 @@
   "email": "Contactus@kellymariewellbeing.com",
   "availability": "No availability at present, but please do still get in touch as availability changes often.",
   "confidentialityTitle": "Confidential & Discreet",
-  "confidentialityText": "All enquiries are handled with complete discretion. You are not obliged to share anything before you are ready - a name and a brief message is sufficient. Thank you!"
+  "confidentialityText": "All enquiries are handled with complete discretion. You are not obliged to share anything before you are ready - a name and a brief message is sufficient. Thank you!",
+  "serviceOptions": [
+    {
+      "label": "Workplace Wellbeing"
+    },
+    {
+      "label": "Group Sessions"
+    },
+    {
+      "label": "Remote Sessions"
+    },
+    {
+      "label": "Not sure yet"
+    }
+  ]
 }
