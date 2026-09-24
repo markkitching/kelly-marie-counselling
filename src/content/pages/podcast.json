@@ -91,5 +91,15 @@
   "ctaText": "Is there something you'd like us to cover? Or an expert you'd like to see us chat to?\nLet us know! ",
   "ctaButtonLabel": "Send a Suggestion",
   "ctaButtonIcon": "mail",
-  "ctaButtonHref": "mailto:suggestions@kellymariewellbeing.com?subject=Podcast%20topic%20suggestion"
+  "ctaButtonHref": "mailto:suggestions@kellymariewellbeing.com?subject=Podcast%20topic%20suggestion",
+  "removedEpisodes": [
+    {
+      "title": "My boundaries have been crossed!",
+      "description": "Psychotherapist Kelly gives advice on how to respond to a boundary being crossed",
+      "meta": "23 Sep 2026",
+      "youtube": "ocnNtCFmyC4",
+      "visible": "Hidden",
+      "restore": false
+    }
+  ]
 }
