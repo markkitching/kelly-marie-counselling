@@ -318,8 +318,16 @@ What each combination produces:
 | Episode has | Card shows |
 |---|---|
 | A YouTube link | The video still, which becomes the player when clicked, plus both listen links |
-| Spotify only | An "Audio episode" panel and a *Listen on Spotify* link |
+| Spotify only | The show's artwork, which opens the episode on Spotify, and a *Listen on Spotify* link |
 | Neither | A "Not published yet" placeholder — so a planned episode can be listed before it exists |
+
+The artwork comes from **Artwork for audio-only episodes** on the Podcast form. It is
+square and the slot is 16:9, so it is cropped from the centre, which is where the title
+sits. Clear the field and those episodes fall back to a plain "Audio episode" panel.
+
+> **Give an uploaded image a file extension.** `PodcastImage` was uploaded without one,
+> and a file served without a recognised type is not reliably drawn by a browser. It is
+> `PodcastImage.jpg` now.
 
 Every card keeps a media area of the same size, so cards sitting side by side line up
 whichever combination they use.

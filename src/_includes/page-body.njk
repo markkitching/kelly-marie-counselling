@@ -170,11 +170,19 @@
           </span>
         </button>
         {% elif episode.spotify %}
-        {#- Audio only — no video to show, but the row still needs a media area. -#}
+        {#- Audio only. The show's artwork stands in for the video still, and opens the
+            episode on Spotify the way the still plays the video. -#}
+          {%- if pageContent.audioArtwork %}
+        <a href="{{ episode.spotify }}" target="_blank" rel="noopener" class="episode-art"
+          aria-label="Listen to &ldquo;{{ episode.title }}&rdquo; on Spotify">
+          <img src="{{ pageContent.audioArtwork }}" alt="" loading="lazy" />
+        </a>
+          {%- else %}
         <div class="episode-media episode-audio">
           <i data-lucide="headphones" class="w-7 h-7"></i>
           <span>Audio episode</span>
         </div>
+          {%- endif %}
         {% else %}
         {#- Published nowhere yet, so the media area says so rather than sitting empty. -#}
         <div class="episode-media episode-pending">

@@ -807,6 +807,9 @@ content:
       - name: episodesTitle
         label: Episodes — section heading (optional)
         type: string
+      - name: audioArtwork
+        label: Artwork for audio-only episodes
+        type: image
       - name: episodes
         label: Episodes
         description: Drag to reorder — newest first is usual. An episode with no title is not shown.

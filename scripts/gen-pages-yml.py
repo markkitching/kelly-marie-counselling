@@ -102,6 +102,8 @@ def build(slug, title):
 
     if "episodes" in blocks:
         body += f("episodesTitle", "Episodes — section heading (optional)", "string")
+        body += f("audioArtwork", "Artwork for audio-only episodes", "image",
+                  )
         body += listblock("episodes", "Episodes",
             "Drag to reorder — newest first is usual. An episode with no title is not shown.",
             sub("number", "Episode number (optional)", "string")

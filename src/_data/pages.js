@@ -98,6 +98,8 @@ module.exports = () => {
       linksTitle: clean(raw.linksTitle),
       links: rows(raw.links, "label", ["label", "icon", "href"]),
       episodesTitle: clean(raw.episodesTitle),
+      // Shown in place of a video for episodes that are audio only.
+      audioArtwork: clean(raw.audioArtwork),
       // Every episode on the list is on the page, up to EPISODE_LIMIT. Taking one off
       // means deleting it, which moves it to the page's archive.
       episodes: rows(raw.episodes, "title",
