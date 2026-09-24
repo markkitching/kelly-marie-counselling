@@ -41,7 +41,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
 - [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
-- [x] **Six new menu items + holding pages** — Wellbeing, Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓
+- [x] **New menu items + holding pages** — Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓ *(Wellbeing was removed)*
 - [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
@@ -106,7 +106,7 @@ Stored in `src/content/menu.json` as:
 {
   "items": [
     { "item": "about", "visible": true },
-    { "item": "wellbeing", "visible": false }
+    { "item": "podcast", "visible": false }
   ]
 }
 ```
@@ -123,7 +123,7 @@ Stored in `src/content/menu.json` as:
 
 ### ✅ 2. Page content — editable
 
-Each of the six pages has its own editor entry (**Page: Wellbeing**, **Page: Podcast**
+Each standalone page has its own editor entry (**Page: Podcast**, **Page: Merchandise**
 and so on). A page is assembled from **optional blocks** — fill in the ones that suit
 the page and leave the rest empty. Blocks render in the fixed order below, and their
 backgrounds alternate light/dark automatically, so the page keeps its rhythm whichever
@@ -133,14 +133,14 @@ combination is in use.
 |---|---|---|
 | **Heading band** | Small heading, Page title, Intro paragraph | every page |
 | **Main text** | Main text, Photo (optional, sits alongside) | every page |
-| **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
-| **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
+| **Cards** | Section heading + rows of *icon, title, description, meta* | Counselling, Training |
+| **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
 | **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link* | Podcast |
 | **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
-| **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
-| **FAQs** | Section heading + rows of *question, answer*, as an accordion | Wellbeing, Counselling, Training, Meet the Team |
+| **Quote** | Quote + attribution, on the dark band | Counselling, Training |
+| **FAQs** | Section heading + rows of *question, answer*, as an accordion | Counselling, Training, Meet the Team |
 | **Closing CTA** | `ctaHeading`, `ctaText`, `ctaButtonLabel`, `ctaButtonIcon`, `ctaButtonHref`, `ctaBackLabel` — all empty removes the section | optional |
 
 **Rows collapse to one line.** Every repeatable list — episodes, cards, FAQs, people,
@@ -657,12 +657,16 @@ traffic. A common middle course is a title carrying both — *"Kelly Marie Wellb
 Counselling & Psychotherapy in Leeds"* — which keeps the search term while matching the
 brand. Both fields are editable under **Page settings**.
 
-### 4. Open design question
+### Removing a page
 
-"Services" (an existing homepage section) overlaps conceptually with *Wellbeing*,
-*Counselling* and *Training & Coaching*, which now sit beside it in the same menu.
-Worth resolving the information architecture when the new pages are specced, so
-visitors aren't offered two competing routes to similar content.
+Take its entry out of `src/_data/newPages.json`, delete its file in
+`src/content/pages/`, drop its row from `src/content/menu.json` and its entry from
+`BLOCKS` in `scripts/gen-pages-yml.py`, then re-run the generator. That one registry
+feeds the menu, page generation and the 404 page's suggestions, so everything else
+follows.
+
+Its address then answers with the 404 page rather than a redirect, which is worth
+knowing if the page had been shared or indexed. *Wellbeing* was removed this way.
 
 ---
 

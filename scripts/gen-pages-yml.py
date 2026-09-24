@@ -14,7 +14,6 @@ PAGES = json.loads((ROOT / "src/_data/newPages.json").read_text())
 SECTION_PAGES = {"counselling"}
 
 BLOCKS = {
-    "wellbeing":         ["cards", "checklist", "quote", "faqs"],
     "training-coaching": ["cards", "checklist", "quote", "faqs"],
     "podcast":           ["links", "episodes"],
     "merchandise":       ["products"],
