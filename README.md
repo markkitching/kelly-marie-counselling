@@ -136,7 +136,7 @@ combination is in use.
 | **Cards** | Section heading + rows of *icon, title, description, meta* | Wellbeing, Counselling, Training |
 | **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Wellbeing, Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
-| **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link, show/hide* | Podcast |
+| **Episodes** | Section heading + rows of *number, title, description, meta, YouTube link, Spotify link* | Podcast |
 | **Products** | Section heading + rows of *name, price, description, photo, meta, link* | Merchandise |
 | **People** | Section heading + rows of *name, role, credentials, bio, photo* | Meet the Team |
 | **Quote** | Quote + attribution, on the dark band | Wellbeing, Counselling, Training |
@@ -258,7 +258,6 @@ Each episode row has:
 | Title | Required — a row with no title isn't rendered |
 | Description | Optional |
 | Duration / date | Optional free text |
-| On the page | *Shown* or *Hidden* — hiding takes it off the page without deleting it |
 | YouTube link | Paste anything YouTube's Share button gives you |
 | Spotify link | Paste anything Spotify's Share button gives you |
 
@@ -290,26 +289,23 @@ at the top of the Episodes list again.
 > archive.
 
 **Choosing which episodes appear, and in what order.** Drag the rows to reorder them —
-that order is what the page uses, so newest-first is just a matter of dragging. Set an
-episode to *Hidden* to take it off the page while keeping it in the list.
+that order is what the page uses, so newest-first is just a matter of dragging. Every
+episode on the list is on the page: there is no separate show/hide, because an episode
+is either on the list or in the archive and a third state only made it harder to tell
+what the site was showing.
 
-Each row collapses to one line reading **`Shown · Episode title`**, so the whole list can
-be read and reordered without opening anything. That is why *On the page* is a two-value
-dropdown rather than a tick box: `summary` renders text, so a tick box's state could not
-appear in the line. Pages CMS has no way to put an interactive control in a collapsed
-row, so a toggle you can click without opening the row isn't available.
+Each row collapses to one line showing its title, so the whole list can be read and
+reordered without opening anything.
 
 **The page shows the first 10 ticked episodes** (`EPISODE_LIMIT` in `src/_data/pages.js`).
 Beyond that, a line appears under the grid linking out to the full back catalogue, so a
 long-running show doesn't turn the page into an endless scroll. Every episode can stay
 in the CMS regardless — the limit only affects what's rendered.
 
-> **Only an explicit "hidden" hides a row.** `isHidden()` in `src/_data/pages.js` accepts
-> the `Hidden` value, the `false` that rows written before the dropdown existed still
-> carry, and any casing or stray spacing around either. Everything else shows, including
-> a row with no value and one the CMS left the key out of. Erring the other way would
-> silently publish an episode someone had hidden. `clean()` passes booleans through
-> untouched for the same reason — were `false` flattened to `""` it would read as shown.
+> **The page still shows only the first 10.** Beyond that a line appears under the grid
+> linking to the full back catalogue. With the show/hide control gone, that cap is the
+> one remaining way an episode can be on the list without being on the page — worth
+> remembering if a newly synced episode seems not to appear.
 
 **The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
 watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so

@@ -814,7 +814,7 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: '{visible} · {title}'
+            summary: '{title}'
         fields:
           - name: number
             label: Episode number (optional)
@@ -836,14 +836,6 @@ content:
             label: Spotify link
             description: Paste anything Spotify's Share button gives you.
             type: string
-          - name: visible
-            label: On the page
-            description: Hidden takes it off the page without deleting it. The page shows the first 10 marked Shown.
-            type: select
-            options:
-              values:
-                - Shown
-                - Hidden
       - name: removedEpisodes
         label: Removed episodes
         description: Episodes deleted from the list above. Kept so they are never pulled back in. Set Restore to Yes and the next sync puts one back.
@@ -871,13 +863,6 @@ content:
           - name: spotify
             label: Spotify link
             type: string
-          - name: visible
-            label: On the page
-            type: select
-            options:
-              values:
-                - Shown
-                - Hidden
           - name: restore
             label: Put this episode back
             description: Tick and save. It returns to the Episodes list about a minute later.

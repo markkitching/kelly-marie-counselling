@@ -111,10 +111,8 @@ def build(slug, title):
             + sub("youtube", "YouTube link", "string",
                   description="Paste anything YouTube's Share button gives you. Adds a video the visitor can play here.")
             + sub("spotify", "Spotify link", "string",
-                  description="Paste anything Spotify's Share button gives you.")
-            + sub("visible", "On the page", "select", values=["Shown", "Hidden"],
-                  description="Hidden takes it off the page without deleting it. The page shows the first 10 marked Shown."),
-            summary="{visible} · {title}")
+                  description="Paste anything Spotify's Share button gives you."),
+            summary="{title}")
         body += listblock("removedEpisodes", "Removed episodes",
             "Episodes deleted from the list above. Kept so they are never pulled back in. Set Restore to Yes and the next sync puts one back.",
             sub("number", "Episode number", "string")
@@ -123,7 +121,6 @@ def build(slug, title):
             + sub("meta", "Duration or date", "string")
             + sub("youtube", "YouTube link", "string")
             + sub("spotify", "Spotify link", "string")
-            + sub("visible", "On the page", "select", values=["Shown", "Hidden"])
             + sub("restore", "Put this episode back", "boolean",
                   description="Tick and save. It returns to the Episodes list about a minute later."),
             summary="{title}")

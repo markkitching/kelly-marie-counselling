@@ -125,7 +125,6 @@ function newEpisode(fresh, field) {
     meta: fresh.meta,
     youtube: field === "youtube" ? fresh.value : "",
     spotify: field === "spotify" ? fresh.value : "",
-    visible: "Shown",
   };
 }
 

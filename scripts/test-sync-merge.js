@@ -24,7 +24,7 @@ const mergeSpotify = (existing, incoming) => merge(existing, incoming, "spotify"
 const local = (id, extra = {}) => ({
   number: "", title: `Local ${id}`, description: "", meta: "",
   youtube: "", spotify: id ? `https://open.spotify.com/episode/${id}` : "",
-  visible: "Shown", ...extra,
+  ...extra,
 });
 
 let passed = 0;
@@ -45,16 +45,6 @@ test("the editor's order is never rearranged", () => {
   const existing = [local("CCC"), local("AAA"), local("BBB")];          // deliberately shuffled
   const { episodes } = mergeSpotify(existing, [spotify("AAA", "A"), spotify("BBB", "B"), spotify("CCC", "C")]);
   assert.deepStrictEqual(episodes.map(e => e.spotify.slice(-3)), ["CCC", "AAA", "BBB"]);
-});
-
-test("a hidden episode stays hidden", () => {
-  const { episodes } = mergeSpotify([local("AAA", { visible: "Hidden" })], [spotify("AAA", "Fresh title")]);
-  assert.strictEqual(episodes[0].visible, "Hidden");
-});
-
-test("an episode hidden under the old true/false keeps its setting", () => {
-  const { episodes } = mergeSpotify([local("AAA", { visible: false })], [spotify("AAA", "Fresh title")]);
-  assert.strictEqual(episodes[0].visible, false, "the sync must not rewrite it to Shown");
 });
 
 test("a rewritten title is not overwritten", () => {
@@ -172,11 +162,10 @@ test("a video id is written where the page expects it", () => {
   const { episodes } = merge([], parseYouTubeFeed(FEED), "youtube");
   assert.strictEqual(episodes[0].youtube, "dQw4w9WgXcQ");
   assert.strictEqual(episodes[0].spotify, "");
-  assert.strictEqual(episodes[0].visible, "Shown");
 });
 
 test("an episode whose YouTube link was pasted by hand is not duplicated", () => {
-  const existing = [{ number: "", title: "Mine", description: "", meta: "", visible: "Shown",
+  const existing = [{ number: "", title: "Mine", description: "", meta: "",
                       youtube: "https://youtu.be/dQw4w9WgXcQ", spotify: "" }];
   const { episodes, added } = merge(existing, parseYouTubeFeed(FEED), "youtube");
   assert.strictEqual(added, 1);                       // only the other one
@@ -193,7 +182,7 @@ test("re-syncing the feed is a no-op", () => {
 
 test("a spotify-keyed sync ignores youtube-only episodes, and vice versa", () => {
   const youtubeOnly = [{ number: "", title: "YT", description: "", meta: "",
-                         youtube: "dQw4w9WgXcQ", spotify: "", visible: "Shown" }];
+                         youtube: "dQw4w9WgXcQ", spotify: "" }];
   const { added } = mergeSpotify(youtubeOnly, [spotify("AAA", "A")]);
   assert.strictEqual(added, 1);
   assert.strictEqual(mergeSpotify(youtubeOnly, [spotify("AAA", "A")]).episodes.length, 2);
@@ -237,7 +226,7 @@ test("a handle becomes the right channel URL", () => {
 console.log("\ndeleting and restoring\n");
 
 const ep = (id, extra = {}) => ({ number: "", title: "Ep " + id, description: "", meta: "",
-                                  youtube: id, spotify: "", visible: "Shown", ...extra });
+                                  youtube: id, spotify: "", ...extra });
 const ytId = (v) => youtubeId(v);
 
 test("an episode deleted in the CMS is moved to the archive", () => {
