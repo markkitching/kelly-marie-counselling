@@ -17,13 +17,6 @@
   "episodesTitle": "Episodes",
   "episodes": [
     {
-      "title": "My boundaries have been crossed!",
-      "description": "Psychotherapist Kelly gives advice on how to respond to a boundary being crossed",
-      "meta": "23 Sep 2026",
-      "youtube": "ocnNtCFmyC4",
-      "visible": "Hidden"
-    },
-    {
       "title": "Not Everything Is About You",
       "description": "So why do we let our anxiety convince us that it is?",
       "meta": "18 Sep 2026",
@@ -94,7 +87,6 @@
       "visible": "Shown"
     }
   ],
-  "removedEpisodes": [],
   "ctaHeading": "Suggestion Box",
   "ctaText": "Is there something you'd like us to cover? Or an expert you'd like to see us chat to?\nLet us know! ",
   "ctaButtonLabel": "Send a Suggestion",
