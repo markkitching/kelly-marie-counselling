@@ -77,6 +77,14 @@ def build(slug, title):
     body += f("intro", "Intro paragraph (shown slightly larger)", "text")
     body += f("body", "Main text (press Enter for new lines)", "text")
     body += f("image", "Photo (optional — sits beside the main text)", "image")
+    body += ("      - name: mainTextPosition\n"
+             "        label: Where the main text sits\n"
+             "        description: Near the top, or further down once the cards and checklist have been read.\n"
+             "        type: select\n"
+             "        options:\n"
+             "          values:\n"
+             "            - Near the top\n"
+             "            - After the checklist\n")
 
     if "cards" in blocks:
         body += f("cardsTitle", "Cards — section heading (optional)", "string")

@@ -88,6 +88,8 @@ module.exports = () => {
       intro: clean(raw.intro),
       body: clean(raw.body),
       image: clean(raw.image),
+      // Where the main text sits relative to the blocks below it.
+      mainTextPosition: clean(raw.mainTextPosition),
 
       // Optional blocks, rendered in a fixed order by page-body.njk. Each carries an
       // optional heading of its own; left blank, the block simply has no heading.

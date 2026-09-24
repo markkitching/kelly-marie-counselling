@@ -1,0 +1,31 @@
+{#
+  The page's main text, and its photo if it has one.
+
+  Rendered by page-body.njk at whichever point the page's "Main text position" asks for.
+  The caller sets `bg` and advances blockIndex, so the alternating backgrounds stay in
+  step wherever this lands.
+#}
+<!-- ══════════════════════════ MAIN TEXT (+ optional photo) ══════════════════════════ -->
+<section class="{{ bg }} py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="{% if pageContent.body and pageContent.image %}grid md:grid-cols-2 gap-12 items-start{% elif pageContent.image %}max-w-3xl mx-auto{% else %}max-w-3xl mx-auto{% endif %}">
+
+      {% if pageContent.body %}
+      <div class="text-gray-600 leading-relaxed space-y-4">
+        {{ pageContent.body | lines }}
+      </div>
+      {% endif %}
+
+      {% if pageContent.image %}
+      <div class="relative">
+        <div class="rounded-lg overflow-hidden">
+          <!-- Capped so a tall portrait photo can't tower over a short block of text. -->
+          <img src="{{ pageContent.image }}" alt="" class="w-full max-h-[520px] object-cover" />
+        </div>
+        <div class="absolute -bottom-5 -right-5 w-24 h-24 rounded bg-sage/10 -z-10"></div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>

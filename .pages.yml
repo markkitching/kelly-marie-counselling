@@ -360,6 +360,14 @@ content:
       - name: image
         label: Photo (optional — sits beside the main text)
         type: image
+      - name: mainTextPosition
+        label: Where the main text sits
+        description: Near the top, or further down once the cards and checklist have been read.
+        type: select
+        options:
+          values:
+            - Near the top
+            - After the checklist
       - name: cardsTitle
         label: Cards — section heading (optional)
         type: string
@@ -550,6 +558,14 @@ content:
       - name: image
         label: Photo (optional — sits beside the main text)
         type: image
+      - name: mainTextPosition
+        label: Where the main text sits
+        description: Near the top, or further down once the cards and checklist have been read.
+        type: select
+        options:
+          values:
+            - Near the top
+            - After the checklist
       - name: linksTitle
         label: Listen links — section heading (optional)
         type: string
@@ -765,6 +781,14 @@ content:
       - name: image
         label: Photo (optional — sits beside the main text)
         type: image
+      - name: mainTextPosition
+        label: Where the main text sits
+        description: Near the top, or further down once the cards and checklist have been read.
+        type: select
+        options:
+          values:
+            - Near the top
+            - After the checklist
       - name: productsTitle
         label: Products — section heading (optional)
         type: string
@@ -882,6 +906,14 @@ content:
       - name: image
         label: Photo (optional — sits beside the main text)
         type: image
+      - name: mainTextPosition
+        label: Where the main text sits
+        description: Near the top, or further down once the cards and checklist have been read.
+        type: select
+        options:
+          values:
+            - Near the top
+            - After the checklist
       - name: peopleTitle
         label: People — section heading (optional)
         type: string

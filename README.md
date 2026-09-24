@@ -132,7 +132,7 @@ combination is in use.
 | Block | Fields | Used by |
 |---|---|---|
 | **Heading band** | Small heading, Page title, Intro paragraph | every page |
-| **Main text** | Main text, Photo (optional, sits alongside) | every page |
+| **Main text** | Main text, Photo (optional, sits alongside), and **Where the main text sits** — near the top, or after the checklist | every page |
 | **Cards** | Section heading + rows of *icon, title, description, meta* | Counselling, Training |
 | **Checklist** | `checklistTitle` + `checklistItems` rows of *text*, shown two-up with ticks | Counselling, Training |
 | **Listen links** | Section heading + rows of *label, icon, link* | Podcast |
@@ -162,6 +162,11 @@ the *Show in menu* tick box that makes the list worth having. Collapsing would h
 > Keep the summary token pointing at a field that actually exists on the row — a token
 > that doesn't resolve renders as empty, giving you a list of blank lines to drag. The
 > check below catches that.
+
+**The main text can move.** *Where the main text sits* puts it near the top, straight
+under the heading, or further down once the cards and checklist have been read. Training
+& Coaching uses the second, so a reader meets what's on offer before the explanation.
+It is the one block whose position is editable; the rest keep their fixed order.
 
 Blocks look after themselves:
 
