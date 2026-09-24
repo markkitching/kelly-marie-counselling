@@ -262,10 +262,20 @@ Each episode row has:
 | YouTube link | Paste anything YouTube's Share button gives you |
 | Spotify link | Paste anything Spotify's Share button gives you |
 
-**Deleting an episode.** Delete the row as you would any other. The next sync moves it
-to **Removed episodes**, a collapsed list below, and it is never pulled in again even
-though the feed still lists it. To bring one back, set its **Restore** to *Yes*; the
-next sync puts it at the top of the episode list.
+**Deleting an episode.** Delete the row as you would any other **and press Save**. About
+a minute later it appears under **Removed episodes**, the collapsed list below, and it is
+never pulled in again even though the feed still offers it.
+
+To bring one back, tick **Put this episode back** and save. About a minute later it is
+at the top of the Episodes list again.
+
+> **The minute is the sync running.** Saving the page pushes a commit, which starts
+> `sync-podcast-episodes`, which does the moving between the two lists and commits the
+> result. Nothing moves in the browser as you click — refresh after a minute to see it.
+
+> **If a deleted episode comes straight back on refresh, the save didn't happen.**
+> Deleting a row only changes the page in your browser; Pages CMS writes nothing until
+> you press Save, so a refresh reloads the old list. Same for the tick box.
 
 > **Why a deletion needs recording at all.** A row deleted in the CMS is simply absent
 > from the file, which looks exactly like an episode that has never been pulled — so the

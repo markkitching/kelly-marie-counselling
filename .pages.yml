@@ -879,13 +879,9 @@ content:
                 - Shown
                 - Hidden
           - name: restore
-            label: Restore this episode
-            description: Yes puts it back on the list at the next sync.
-            type: select
-            options:
-              values:
-                - No
-                - Yes
+            label: Put this episode back
+            description: Tick and save. It returns to the Episodes list about a minute later.
+            type: boolean
       - name: ctaHeading
         label: Closing section — heading (optional)
         type: string

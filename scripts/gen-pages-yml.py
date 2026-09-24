@@ -124,8 +124,8 @@ def build(slug, title):
             + sub("youtube", "YouTube link", "string")
             + sub("spotify", "Spotify link", "string")
             + sub("visible", "On the page", "select", values=["Shown", "Hidden"])
-            + sub("restore", "Restore this episode", "select", values=["No", "Yes"],
-                  description="Yes puts it back on the list at the next sync."),
+            + sub("restore", "Put this episode back", "boolean",
+                  description="Tick and save. It returns to the Episodes list about a minute later."),
             summary="{title}")
 
     if "products" in blocks:

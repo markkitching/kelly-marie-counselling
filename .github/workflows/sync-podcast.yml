@@ -16,6 +16,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 6 * * *"   # 06:00 UTC daily
+  # Saving the podcast page in the CMS pushes a commit; this picks it straight up, so a
+  # deleted episode lands in the archive within a minute rather than at 06:00 tomorrow.
+  # The job's own commits use GITHUB_TOKEN, which by design does not re-trigger this.
+  push:
+    branches: [main]
+    paths:
+      - "src/content/pages/podcast.json"
 
 permissions:
   contents: write

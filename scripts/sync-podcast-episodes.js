@@ -302,9 +302,15 @@ const readLedger = () => {
   }
 };
 
-/** Rows the editor has ticked to bring back, and the list without them. */
+/** Rows the editor has ticked to bring back, and the list without them.
+ *
+ * The tick box arrives as a boolean, but rows saved before it was one still hold "Yes",
+ * so both are accepted. Anything else — including the field being absent, which is what
+ * the CMS writes for an unticked box — leaves the episode where it is.
+ */
 function takeRestored(removed) {
-  const wanted = (row) => /^yes$/i.test(String(row.restore || "").trim());
+  const wanted = (row) =>
+    row.restore === true || /^(yes|true)$/i.test(String(row.restore || "").trim());
   return {
     restored: removed.filter(wanted).map(({ restore, ...episode }) => episode),
     remaining: removed.filter((row) => !wanted(row)),
@@ -328,7 +334,7 @@ function newlyRemoved(ledger, episodes, removed, idOf, field) {
       const id = idOf(episode[field]);
       return id && !accounted.has(id);
     })
-    .map((episode) => ({ ...episode, restore: "No" }));
+    .map((episode) => ({ ...episode, restore: false }));
 }
 
 // ── Talking to Spotify ───────────────────────────────────────────────────────

@@ -246,13 +246,13 @@ test("an episode deleted in the CMS is moved to the archive", () => {
   const gone = newlyRemoved(ledger, live, [], ytId, "youtube");
   assert.strictEqual(gone.length, 1);
   assert.strictEqual(gone[0].youtube, "BBBBBBBBBBB");
-  assert.strictEqual(gone[0].restore, "No", "archived rows start with Restore set to No");
+  assert.strictEqual(gone[0].restore, false, "archived rows arrive unticked");
 });
 
 test("an archived episode is not archived a second time", () => {
   const ledger = [ep("AAAAAAAAAAA"), ep("BBBBBBBBBBB")];
   const live = [ep("AAAAAAAAAAA")];
-  const already = [{ ...ep("BBBBBBBBBBB"), restore: "No" }];
+  const already = [{ ...ep("BBBBBBBBBBB"), restore: false }];
   assert.deepStrictEqual(newlyRemoved(ledger, live, already, ytId, "youtube"), []);
 });
 
@@ -270,8 +270,8 @@ test("without the archive it would come straight back", () => {
 
 test("Restore = Yes takes a row out of the archive, and drops the flag", () => {
   const { restored, remaining } = takeRestored([
-    { ...ep("AAAAAAAAAAA"), restore: "Yes" },
-    { ...ep("BBBBBBBBBBB"), restore: "No" },
+    { ...ep("AAAAAAAAAAA"), restore: true },
+    { ...ep("BBBBBBBBBBB"), restore: false },
   ]);
   assert.strictEqual(restored.length, 1);
   assert.strictEqual(restored[0].youtube, "AAAAAAAAAAA");
@@ -279,11 +279,11 @@ test("Restore = Yes takes a row out of the archive, and drops the flag", () => {
   assert.strictEqual(remaining.length, 1);
 });
 
-test("Restore reads loosely, since it is typed by a person", () => {
-  for (const value of ["Yes", "yes", " YES "]) {
+test("the tick box is read, and so is the wording it replaced", () => {
+  for (const value of [true, "Yes", "yes", " YES ", "true"]) {
     assert.strictEqual(takeRestored([{ ...ep("AAAAAAAAAAA"), restore: value }]).restored.length, 1, value);
   }
-  for (const value of ["No", "", undefined, "maybe"]) {
+  for (const value of [false, "No", "", undefined, "maybe"]) {
     assert.strictEqual(takeRestored([{ ...ep("AAAAAAAAAAA"), restore: value }]).restored.length, 0, String(value));
   }
 });
