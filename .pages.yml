@@ -844,6 +844,48 @@ content:
               values:
                 - Shown
                 - Hidden
+      - name: removedEpisodes
+        label: Removed episodes
+        description: Episodes deleted from the list above. Kept so they are never pulled back in. Set Restore to Yes and the next sync puts one back.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: number
+            label: Episode number
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: meta
+            label: Duration or date
+            type: string
+          - name: youtube
+            label: YouTube link
+            type: string
+          - name: spotify
+            label: Spotify link
+            type: string
+          - name: visible
+            label: On the page
+            type: select
+            options:
+              values:
+                - Shown
+                - Hidden
+          - name: restore
+            label: Restore this episode
+            description: Yes puts it back on the list at the next sync.
+            type: select
+            options:
+              values:
+                - No
+                - Yes
       - name: ctaHeading
         label: Closing section — heading (optional)
         type: string

@@ -49,6 +49,11 @@ const MARKET = process.env.SPOTIFY_MARKET || "GB";
 const LIMIT = Math.min(Number(process.env.EPISODE_SYNC_LIMIT || 30), 50);
 const PAGE_FILE = path.join(__dirname, "..", "src", "content", "pages", "podcast.json");
 
+// The last known state of every episode on the page, written by this script and edited
+// by nobody. Without it a row deleted in the CMS is simply absent, indistinguishable
+// from one that has never been pulled — so the next sync would fetch it straight back.
+const LEDGER_FILE = path.join(__dirname, "podcast-ledger.json");
+
 // Long enough to be useful, short enough that a card stays a card. Spotify descriptions
 // often carry sponsor copy and links; the editor can rewrite and the sync won't undo it.
 const DESCRIPTION_LIMIT = 240;
@@ -124,11 +129,15 @@ function newEpisode(fresh, field) {
   };
 }
 
-function merge(existing, incoming, field = "spotify") {
+function merge(existing, incoming, field = "spotify", alsoKnown = []) {
   const idOf = FIELDS[field];
   if (!idOf) throw new Error(`unknown episode field: ${field}`);
 
-  const seen = new Set(existing.map((episode) => idOf(episode[field])).filter(Boolean));
+  // Removed episodes count as known: they have been pulled once and thrown back.
+  const seen = new Set([
+    ...existing.map((episode) => idOf(episode[field])),
+    ...alsoKnown,
+  ].filter(Boolean));
 
   const kept = existing.map((episode) => {
     const id = idOf(episode[field]);
@@ -281,6 +290,47 @@ async function fetchYouTubeApi() {
   return episodes.slice(0, LIMIT);
 }
 
+// ── Deleting and restoring ───────────────────────────────────────────────────
+
+const idsOf = (rows, idOf, field) => rows.map((r) => idOf(r[field])).filter(Boolean);
+
+const readLedger = () => {
+  try {
+    return JSON.parse(fs.readFileSync(LEDGER_FILE, "utf8")).episodes || [];
+  } catch {
+    return [];                       // first run, or someone removed the file
+  }
+};
+
+/** Rows the editor has ticked to bring back, and the list without them. */
+function takeRestored(removed) {
+  const wanted = (row) => /^yes$/i.test(String(row.restore || "").trim());
+  return {
+    restored: removed.filter(wanted).map(({ restore, ...episode }) => episode),
+    remaining: removed.filter((row) => !wanted(row)),
+  };
+}
+
+/**
+ * Episodes the ledger remembers that the page no longer lists.
+ *
+ * That means someone deleted the row in the CMS. The ledger's copy is the only record
+ * left of it, so it goes to the archive rather than being forgotten — otherwise the
+ * next sync treats it as new and pulls it back.
+ */
+function newlyRemoved(ledger, episodes, removed, idOf, field) {
+  const accounted = new Set([
+    ...idsOf(episodes, idOf, field),
+    ...idsOf(removed, idOf, field),
+  ]);
+  return ledger
+    .filter((episode) => {
+      const id = idOf(episode[field]);
+      return id && !accounted.has(id);
+    })
+    .map((episode) => ({ ...episode, restore: "No" }));
+}
+
 // ── Talking to Spotify ───────────────────────────────────────────────────────
 
 async function getToken(id, secret) {
@@ -355,22 +405,57 @@ async function main() {
   }
 
   const page = JSON.parse(fs.readFileSync(PAGE_FILE, "utf8"));
+  const idOf = FIELDS[source.field];
   const before = page.episodes || [];
-  const { episodes, added } = merge(before, incoming, source.field);
-  page.episodes = episodes;
 
-  console.log(`${before.length} in the file, ${added} new, ${episodes.length} after merge`);
+  let episodes = before;
+  let removed = page.removedEpisodes || [];
+  const ledger = readLedger();
+
+  // 1. Anything the editor asked to bring back goes to the top of the list.
+  const { restored, remaining } = takeRestored(removed);
+  removed = remaining;
+  episodes = [...restored, ...episodes];
+
+  // 2. Anything the ledger remembers but the page no longer lists was deleted in the
+  //    CMS. Archive it, so it can be brought back and is never pulled again.
+  const archived = newlyRemoved(ledger, episodes, removed, idOf, source.field);
+  removed = [...archived, ...removed];
+
+  // 3. Merge in what came back from upstream, skipping everything already known.
+  const { episodes: merged, added } = merge(
+    episodes, incoming, source.field, idsOf(removed, idOf, source.field)
+  );
+
+  page.episodes = merged;
+  page.removedEpisodes = removed;
+
+  console.log(
+    `${before.length} on the page, ${added} new, ${restored.length} restored, ` +
+    `${archived.length} newly removed, ${removed.length} in the archive`
+  );
 
   if (dryRun) {
     console.log("--dry-run: nothing written");
     return;
   }
   fs.writeFileSync(PAGE_FILE, JSON.stringify(page, null, 2) + "\n");
-  console.log(`wrote ${path.relative(process.cwd(), PAGE_FILE)}`);
+
+  // 4. The ledger records what the page holds now, so the next run can tell a deletion
+  //    from an episode it has never seen.
+  fs.writeFileSync(
+    LEDGER_FILE,
+    JSON.stringify({
+      note: "Written by scripts/sync-podcast-episodes.js. Not edited by hand or by the CMS.",
+      episodes: merged,
+    }, null, 2) + "\n"
+  );
+  console.log(`wrote ${path.relative(process.cwd(), PAGE_FILE)} and the ledger`);
 }
 
 // Exported so the merge rules can be tested without touching the network.
 module.exports = { merge, shape, shapeYouTube, parseYouTubeFeed, unescapeXml,
+                   takeRestored, newlyRemoved, readLedger,
                    extractChannelId, channelUrlFor,
                    spotifyId, youtubeId, shorten, formatDate, formatDuration };
 

@@ -115,6 +115,18 @@ def build(slug, title):
             + sub("visible", "On the page", "select", values=["Shown", "Hidden"],
                   description="Hidden takes it off the page without deleting it. The page shows the first 10 marked Shown."),
             summary="{visible} · {title}")
+        body += listblock("removedEpisodes", "Removed episodes",
+            "Episodes deleted from the list above. Kept so they are never pulled back in. Set Restore to Yes and the next sync puts one back.",
+            sub("number", "Episode number", "string")
+            + sub("title", "Title", "string")
+            + sub("description", "Description", "text")
+            + sub("meta", "Duration or date", "string")
+            + sub("youtube", "YouTube link", "string")
+            + sub("spotify", "Spotify link", "string")
+            + sub("visible", "On the page", "select", values=["Shown", "Hidden"])
+            + sub("restore", "Restore this episode", "select", values=["No", "Yes"],
+                  description="Yes puts it back on the list at the next sync."),
+            summary="{title}")
 
     if "products" in blocks:
         body += f("productsTitle", "Products — section heading (optional)", "string")

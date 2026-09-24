@@ -1,20 +1,5 @@
 {
-  "eyebrow": "Podcast",
-  "heading": "The Kelly Marie Podcast",
-  "intro": "Making conversations about mental health open, informative and accessible whenever you need. Listen or watch now on Spotify & Youtube.",
-  "links": [
-    {
-      "label": "Listen on Spotify",
-      "icon": "music",
-      "href": "https://open.spotify.com/show/033TZ1QVIUJCQZ6TJ2XBYH?si=5a9b8525519c4508"
-    },
-    {
-      "label": "Watch on YouTube",
-      "icon": "video",
-      "href": "https://www.youtube.com/@TheKellyMariePodcast"
-    }
-  ],
-  "episodesTitle": "Episodes",
+  "note": "Written by scripts/sync-podcast-episodes.js. Not edited by hand or by the CMS.",
   "episodes": [
     {
       "title": "My boundaries have been crossed!",
@@ -93,11 +78,5 @@
       "spotify": "https://open.spotify.com/episode/5TAu3NlS7GYer0YTX8J1XP?si=BswkF-J2R-SwIoiEmj6Gbw",
       "visible": "Shown"
     }
-  ],
-  "removedEpisodes": [],
-  "ctaHeading": "Suggestion Box",
-  "ctaText": "Is there something you'd like us to cover? Or an expert you'd like to see us chat to?\nLet us know! ",
-  "ctaButtonLabel": "Send a Suggestion",
-  "ctaButtonIcon": "mail",
-  "ctaButtonHref": "mailto:suggestions@kellymariewellbeing.com?subject=Podcast%20topic%20suggestion"
+  ]
 }

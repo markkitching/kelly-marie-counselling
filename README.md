@@ -262,6 +262,23 @@ Each episode row has:
 | YouTube link | Paste anything YouTube's Share button gives you |
 | Spotify link | Paste anything Spotify's Share button gives you |
 
+**Deleting an episode.** Delete the row as you would any other. The next sync moves it
+to **Removed episodes**, a collapsed list below, and it is never pulled in again even
+though the feed still lists it. To bring one back, set its **Restore** to *Yes*; the
+next sync puts it at the top of the episode list.
+
+> **Why a deletion needs recording at all.** A row deleted in the CMS is simply absent
+> from the file, which looks exactly like an episode that has never been pulled — so the
+> next sync would fetch it straight back. `scripts/podcast-ledger.json` holds the last
+> known state of the list, which is what lets the sync tell those two apart. It is
+> written by the sync, is not in the CMS, and is not served with the site. Don't edit it
+> by hand.
+
+> **Deleting from *Removed episodes* forgets the episode entirely**, so the next sync is
+> free to pull it in again as if it were new. That is the way to undo a deletion you
+> never meant to make permanent — but if you simply don't want it, leave it in the
+> archive.
+
 **Choosing which episodes appear, and in what order.** Drag the rows to reorder them —
 that order is what the page uses, so newest-first is just a matter of dragging. Set an
 episode to *Hidden* to take it off the page while keeping it in the list.

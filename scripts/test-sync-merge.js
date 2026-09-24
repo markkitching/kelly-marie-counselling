@@ -7,7 +7,8 @@
  */
 const assert = require("assert");
 const { merge, shape, shorten, formatDate, formatDuration, parseYouTubeFeed, unescapeXml, youtubeId,
-        extractChannelId, channelUrlFor } = require("./sync-podcast-episodes.js");
+        extractChannelId, channelUrlFor,
+        takeRestored, newlyRemoved } = require("./sync-podcast-episodes.js");
 
 const spotify = (id, name, extra = {}) => shape({
   id,
@@ -231,6 +232,64 @@ test("a handle becomes the right channel URL", () => {
   assert.strictEqual(channelUrlFor("@TheKellyMariePodcast"), "https://www.youtube.com/@TheKellyMariePodcast");
   assert.strictEqual(channelUrlFor("TheKellyMariePodcast"), "https://www.youtube.com/@TheKellyMariePodcast");
   assert.strictEqual(channelUrlFor("https://www.youtube.com/channel/" + ID), "https://www.youtube.com/channel/" + ID);
+});
+
+console.log("\ndeleting and restoring\n");
+
+const ep = (id, extra = {}) => ({ number: "", title: "Ep " + id, description: "", meta: "",
+                                  youtube: id, spotify: "", visible: "Shown", ...extra });
+const ytId = (v) => youtubeId(v);
+
+test("an episode deleted in the CMS is moved to the archive", () => {
+  const ledger = [ep("AAAAAAAAAAA"), ep("BBBBBBBBBBB")];
+  const live = [ep("AAAAAAAAAAA")];                       // B was binned
+  const gone = newlyRemoved(ledger, live, [], ytId, "youtube");
+  assert.strictEqual(gone.length, 1);
+  assert.strictEqual(gone[0].youtube, "BBBBBBBBBBB");
+  assert.strictEqual(gone[0].restore, "No", "archived rows start with Restore set to No");
+});
+
+test("an archived episode is not archived a second time", () => {
+  const ledger = [ep("AAAAAAAAAAA"), ep("BBBBBBBBBBB")];
+  const live = [ep("AAAAAAAAAAA")];
+  const already = [{ ...ep("BBBBBBBBBBB"), restore: "No" }];
+  assert.deepStrictEqual(newlyRemoved(ledger, live, already, ytId, "youtube"), []);
+});
+
+test("an archived episode is never pulled back by the sync", () => {
+  const incoming = [{ id: "BBBBBBBBBBB", title: "B", description: "", meta: "", value: "BBBBBBBBBBB" }];
+  const { added } = merge([ep("AAAAAAAAAAA")], incoming, "youtube", ["BBBBBBBBBBB"]);
+  assert.strictEqual(added, 0, "the feed still lists it, but it stays deleted");
+});
+
+test("without the archive it would come straight back", () => {
+  const incoming = [{ id: "BBBBBBBBBBB", title: "B", description: "", meta: "", value: "BBBBBBBBBBB" }];
+  const { added } = merge([ep("AAAAAAAAAAA")], incoming, "youtube", []);
+  assert.strictEqual(added, 1, "which is the bug the archive exists to prevent");
+});
+
+test("Restore = Yes takes a row out of the archive, and drops the flag", () => {
+  const { restored, remaining } = takeRestored([
+    { ...ep("AAAAAAAAAAA"), restore: "Yes" },
+    { ...ep("BBBBBBBBBBB"), restore: "No" },
+  ]);
+  assert.strictEqual(restored.length, 1);
+  assert.strictEqual(restored[0].youtube, "AAAAAAAAAAA");
+  assert.ok(!("restore" in restored[0]), "the flag must not follow it back onto the page");
+  assert.strictEqual(remaining.length, 1);
+});
+
+test("Restore reads loosely, since it is typed by a person", () => {
+  for (const value of ["Yes", "yes", " YES "]) {
+    assert.strictEqual(takeRestored([{ ...ep("AAAAAAAAAAA"), restore: value }]).restored.length, 1, value);
+  }
+  for (const value of ["No", "", undefined, "maybe"]) {
+    assert.strictEqual(takeRestored([{ ...ep("AAAAAAAAAAA"), restore: value }]).restored.length, 0, String(value));
+  }
+});
+
+test("an empty ledger archives nothing", () => {
+  assert.deepStrictEqual(newlyRemoved([], [ep("AAAAAAAAAAA")], [], ytId, "youtube"), []);
 });
 
 console.log(`\n${passed} checks passed${process.exitCode ? " — WITH FAILURES" : ""}`);
