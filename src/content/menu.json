@@ -14,15 +14,15 @@
     },
     {
       "item": "counselling",
-      "visible": false
+      "visible": true
     },
     {
       "item": "training-coaching",
-      "visible": false
+      "visible": true
     },
     {
       "item": "podcast",
-      "visible": false
+      "visible": true
     },
     {
       "item": "merchandise",
@@ -30,11 +30,11 @@
     },
     {
       "item": "meet-the-team",
-      "visible": false
+      "visible": true
     },
     {
       "item": "contact",
-      "visible": false
+      "visible": true
     }
   ]
 }
