@@ -35,18 +35,15 @@ photos are editable. If something doesn't look right, you can always change it b
 ## TODO
 
 - [x] **Social links** — LinkedIn live in the footer; Instagram and Facebook ready to add in the CMS ✓
-- [ ] **Phone number** — removed for now; ask the developer to re-add when a number is available
 - [x] **BACP membership number** — set in the editor (No. 00922563) ✓
 - [x] **Custom domain** — `kellymariewellbeing.com` live on Cloudflare Pages, old domain redirecting ✓
 - [x] **Visual CMS** — Pages CMS editing enabled ✓
-- [ ] **Custom sections** — allow editor to add/reorder new sections (low priority)
 - [x] **Colour themes** — editor can switch palettes or set custom colours ✓
 - [x] **New menu items + holding pages** — Counselling, Training & Coaching, Podcast, Merchandise, Meet the Team ✓ *(Wellbeing was removed)*
 - [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
 - [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
-- [ ] **Rewrite the Counselling page** — it ships as a copy of the homepage; duplicate text competes with it in search
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
 - [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
 - [x] **Run the podcast sync once** — done; the sync now runs daily and has been passing ✓
