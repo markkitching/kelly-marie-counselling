@@ -574,74 +574,11 @@ It parses the YAML, compares each form against its JSON file (including the sub-
 of every list block), then simulates a save — writing each file back with only the keys
 the form knows — and confirms the built site is byte-for-byte unchanged.
 
-### Podcast episodes — how adding one will work
-
-Pages CMS can't browse YouTube or Spotify, so an episode is added by **pasting a link**.
-Each episode row has:
-
-| Field | Notes |
-|---|---|
-| Episode number | Optional, shown as a small label |
-| Title | Required — a row with no title isn't rendered |
-| Description | Optional |
-| Duration / date | Optional free text |
-| YouTube link | Paste anything YouTube's Share button gives you |
-| Spotify link | Paste anything Spotify's Share button gives you |
-
-**The YouTube field is deliberately forgiving.** `pages.js` pulls the video id out of a
-watch URL, a `youtu.be` short link, an `/embed/` or `/shorts/` URL, or a bare id — so
-whatever gets pasted, it works. Spotify accepts `open.spotify.com` links, `spotify.link`
-short links and `spotify:episode:…` URIs; anything that isn't a Spotify address is
-ignored rather than rendered as a link that goes somewhere unexpected.
-
-What each combination produces:
-
-| Episode has | Card shows |
-|---|---|
-| A YouTube link | The video still, which becomes the player when clicked, plus both listen links |
-| Spotify only | An "Audio episode" panel and a *Listen on Spotify* link |
-| Neither | A "Not published yet" placeholder — so a planned episode can be listed before it exists |
-
-Every card keeps a media area of the same size, so cards sitting side by side line up
-whichever combination they use.
-
-> **Nothing is requested from YouTube until someone presses play.** The card shows a
-> still image, and only on click does the player load — from `youtube-nocookie.com`.
-> For a counselling site, where a visitor reading the page shouldn't be handed to
-> Google's tracking, that's worth the small amount of extra code.
-
-### ⚠️ 2a. `.pages.yml` must be updated before this content goes live
-
-The new block fields **are not yet in the CMS schema**. Until they are:
-
-- the editor can't see or change any of the new content, and
-- **saving one of these pages in Pages CMS would strip every field the form doesn't
-  know about**, wiping the block content.
-
-So `.pages.yml` needs its six `Page:` entries extended with the fields in the table
-above before this reaches `main`. Field types needed are all ones already proven in
-this repo — `string`, `text`, `image`, and `object` with `list: true`.
-
-### 3. Also worth adding at the same time
+### Optional extras for later
 
 - **Per-page SEO** — `metaTitle` / `metaDescription` fields. Titles are currently derived
-  automatically as *"{Page name} | Kelly Marie Counselling"*, and there's no per-page description.
-- **Footer links** — the footer's Quick Links show only the homepage-section links
-  (About / Services / My Approach / Contact), matching what it showed before. Decide
-  whether the six pages belong there too.
-
-### Brand names don't currently match
-
-The header and footer read **Kelly Marie Wellbeing**, but the browser tab title and the
-search-engine description in *Page settings* still read **Kelly Marie Counselling**.
-Those two fields are what Google prints in its results, so the site currently presents
-one name to visitors and another to search.
-
-That is worth a deliberate decision rather than a quick fix: "counselling" is the word
-people actually search for, so replacing it in the title and description may cost real
-traffic. A common middle course is a title carrying both — *"Kelly Marie Wellbeing |
-Counselling & Psychotherapy in Leeds"* — which keeps the search term while matching the
-brand. Both fields are editable under **Page settings**.
+  automatically as *"{Page name} | Kelly Marie Wellbeing"* (from the logo lines in
+  **Header / logo**), and there's no per-page description.
 
 ### Removing a page
 
