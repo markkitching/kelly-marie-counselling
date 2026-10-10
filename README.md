@@ -43,7 +43,6 @@ photos are editable. If something doesn't look right, you can always change it b
 - [x] **Menu order + show/hide editable in the CMS** — names and destinations stay locked ✓
 - [x] **Six new pages' content editable** — simple fields per page; placeholder shows until filled ✓
 - [x] **Spec the six new pages** — draft content written for all six, awaiting review ✓
-- [ ] **Sign off the draft page content** — see *Draft content: what needs checking* below
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
 - [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
 - [x] **Run the podcast sync once** — done; the sync now runs daily and has been passing ✓
@@ -622,21 +621,6 @@ The new block fields **are not yet in the CMS schema**. Until they are:
 So `.pages.yml` needs its six `Page:` entries extended with the fields in the table
 above before this reaches `main`. Field types needed are all ones already proven in
 this repo — `string`, `text`, `image`, and `object` with `list: true`.
-
-### Draft content: what needs checking
-
-The draft copy was written to show the design working. These points are placeholders
-or assumptions and need Kelly's sign-off before publishing:
-
-| Page | Needs confirming |
-|---|---|
-| Counselling | Currently a word-for-word copy of the homepage — needs rewriting to be about counselling, both for readers and for search |
-| Podcast | Named *The Kelly Marie Podcast*. The show's Spotify and YouTube addresses are still needed, and the four listed episodes are placeholder topics to be replaced with real ones. |
-| Merchandise | The four products are illustrative. No prices are quoted — each shows "Coming soon" instead. |
-| Meet the Team | The second card is an unnamed "Associate Practitioner — joining soon" placeholder. Delete it if the practice isn't recruiting. Kelly's card has no portrait: the photo currently in *About* is a landscape, not a headshot. |
-| Counselling | The fees FAQ says fees are confirmed at consultation rather than quoting a figure. |
-| Training & Coaching | The sectors named in the FAQ ("media and manufacturing") come from the existing Workplace Therapy copy. |
-| All pages | No photos are set. Each page's Main text block can take one. |
 
 ### 3. Also worth adding at the same time
 
