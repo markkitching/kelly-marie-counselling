@@ -49,7 +49,7 @@ photos are editable. If something doesn't look right, you can always change it b
 - [ ] **Rewrite the Counselling page** — it ships as a copy of the homepage; duplicate text competes with it in search
 - [x] **Page blocks added to `.pages.yml`** — forms tailored per page, round-trip verified ✓
 - [x] **Podcast episodes pull automatically from YouTube** — daily, with order and edits preserved ✓
-- [ ] **Run the podcast sync once** — Actions → Sync podcast episodes → Run workflow
+- [x] **Run the podcast sync once** — done; the sync now runs daily and has been passing ✓
 
 ---
 
