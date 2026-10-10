@@ -1,8 +1,8 @@
 {
-  "name": "kelly-marie-counselling",
+  "name": "kelly-marie-wellbeing",
   "version": "1.0.0",
   "private": true,
-  "description": "Website for Kelly Marie Counselling \u2014 built with Eleventy, edited via Pages CMS.",
+  "description": "Website for Kelly Marie Wellbeing \u2014 built with Eleventy, edited via Pages CMS.",
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve",

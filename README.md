@@ -1,6 +1,6 @@
-# Kelly Marie Counselling — Website
+# Kelly Marie Wellbeing — Website
 
-A single-page counselling website for Kelly Marie Counselling (Leeds), built with
+The website for Kelly Marie Wellbeing (Leeds), built with
 [Eleventy](https://www.11ty.dev/) + Tailwind CSS, hosted on Cloudflare Pages, and
 editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) — no code required.
 
@@ -12,7 +12,7 @@ editable through a friendly visual editor ([Pages CMS](https://pagescms.org)) �
 ## ✏️ How to edit the website (for Kelly / family — no code)
 
 1. Go to **https://app.pagescms.org** and sign in with your GitHub account.
-2. Choose the **kelly-marie-counselling** project.
+2. Choose the **kelly-marie-wellbeing** project.
 3. In the sidebar you'll see one entry per part of the site — *Page settings, Header / logo,
    Colours / theme, Main menu, Top section (hero), About Kelly, Services, Workplace Wellness,
    Therapeutic approach, The process, Contact, Footer,* plus one **Page:** entry per standalone
